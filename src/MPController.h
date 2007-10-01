@@ -7,7 +7,7 @@
 
 #include "Growl/GrowlApplicationBridge.h"
 #import <Cocoa/Cocoa.h>
-#import "ContextsDataSource.h"
+#import "ContextTree.h"
 #import "EvidenceSource.h"
 
 
@@ -32,13 +32,14 @@
 	NSConditionLock *updatingLock;
 	BOOL timeToDie;
 
-	IBOutlet ContextsDataSource *contextsDataSource;
+	ContextTree *contextTree;
 	IBOutlet EvidenceSourceSetController *evidenceSources;
 
 	IBOutlet NSArrayController *rulesController;
 	IBOutlet NSArrayController *actionsController;
 
 	IBOutlet NSWindow *prefsWindow;
+	IBOutlet NSOutlineView *contextOutlineView;	// in Context pane
 }
 
 @end

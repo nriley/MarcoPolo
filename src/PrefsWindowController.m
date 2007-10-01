@@ -14,9 +14,7 @@
 @end
 @interface WhenLocalizeTransformer : NSValueTransformer {}
 @end
-@interface ContextNameTransformer : NSValueTransformer {
-	ContextsDataSource *contextsDataSource;
-}
+@interface ContextNameTransformer : NSValueTransformer { }
 @end
 
 
@@ -109,17 +107,9 @@
 
 + (BOOL)allowsReverseTransformation { return NO; }
 
-- (id)init:(ContextsDataSource *)dataSource
-{
-	if (!(self = [super init]))
-		return nil;
-	contextsDataSource = dataSource;
-	return self;
-}
-
 - (id)transformedValue:(id)theValue
 {
-	return [contextsDataSource pathFromRootTo:theValue];
+	return [[ContextTree sharedInstance] pathFromRootTo:theValue];
 }
 
 @end
@@ -128,6 +118,7 @@
 
 @interface PrefsWindowController (Private)
 
+- (void)triggerOutlineViewReloadData:(NSNotification *)notification;
 - (void)updateLogBuffer:(NSTimer *)timer;
 
 @end
@@ -147,6 +138,8 @@
 					forName:@"LocalizeTransformer"];
 	[NSValueTransformer setValueTransformer:[[[WhenLocalizeTransformer alloc] init] autorelease]
 					forName:@"WhenLocalizeTransformer"];
+	[NSValueTransformer setValueTransformer:[[[ContextNameTransformer alloc] init] autorelease]
+					forName:@"ContextNameTransformer"];
 }
 
 - (id)init
@@ -172,10 +165,6 @@
 
 - (void)awakeFromNib
 {
-	// Evil!
-	[NSValueTransformer setValueTransformer:[[[ContextNameTransformer alloc] init:contextsDataSource] autorelease]
-					forName:@"ContextNameTransformer"];
-
 	prefsGroups = [[NSArray arrayWithObjects:
 		[NSMutableDictionary dictionaryWithObjectsAndKeys:
 			@"General", @"name",
@@ -236,13 +225,15 @@
 	currentPrefsGroup = nil;
 	[self switchToView:@"General"];
 
-	// Contexts
-	[defaultContextButton setContextsDataSource:contextsDataSource];
-	[editActionContextButton setContextsDataSource:contextsDataSource];
-
 	// Make sure it gets loaded okay
 	[defaultContextButton setValue:[[NSUserDefaults standardUserDefaults] valueForKey:@"DefaultContext"]
 				forKey:@"selectedObject"];
+
+	[[ContextTree sharedInstance] registerForDragAndDrop:contextOutlineView];
+	[[NSNotificationCenter defaultCenter] addObserver:self
+						 selector:@selector(triggerOutlineViewReloadData:)
+						     name:@"ContextsChangedNotification"
+						   object:[ContextTree sharedInstance]];
 
 	// Load up correct localisations
 	[whenActionController addObject:
@@ -455,6 +446,122 @@
 	return [self toolbarAllowedItemIdentifiers:toolbar];
 }
 
+#pragma mark Context creation via sheet
+
+- (IBAction)newContextPromptingForName:(id)sender
+{
+	[newContextSheetName setStringValue:NSLocalizedString(@"New context", @"Default value for new context names")];
+	[newContextSheetName selectText:nil];
+
+	[NSApp beginSheet:newContextSheet
+	   modalForWindow:prefsWindow
+	    modalDelegate:self
+	   didEndSelector:@selector(newContextSheetDidEnd:returnCode:contextInfo:)
+	      contextInfo:nil];
+}
+
+// Triggered by OK button
+- (IBAction)newContextSheetAccepted:(id)sender
+{
+	[NSApp endSheet:newContextSheet returnCode:NSOKButton];
+	[newContextSheet orderOut:nil];
+}
+
+// Triggered by cancel button
+- (IBAction)newContextSheetRejected:(id)sender
+{
+	[NSApp endSheet:newContextSheet returnCode:NSCancelButton];
+	[newContextSheet orderOut:nil];
+}
+
+- (void)newContextSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo
+{
+	if (returnCode != NSOKButton)
+		return;
+
+	Context *parent = nil;
+	if ([contextOutlineView selectedRow] >= 0)
+		parent = (Context *) [contextOutlineView itemAtRow:[contextOutlineView selectedRow]];
+
+	Context *ctxt = [[ContextTree sharedInstance] newContextWithName:[newContextSheetName stringValue]
+							      parentUUID:(parent ? [parent uuid] : nil)];
+
+	[contextOutlineView reloadData];
+
+	// If this was a new non-root context, make sure its parent is expanded so we can select it
+	if (parent)
+		[contextOutlineView expandItem:parent];
+
+	// Select the new context
+	[contextOutlineView selectRow:[contextOutlineView rowForItem:ctxt] byExtendingSelection:NO];
+	[self setValue:ctxt forKey:@"contextSelection"];
+}
+
+- (void)removeContextAfterAlert:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo
+{
+	Context *ctxt = (Context *) contextInfo;
+
+	if (returnCode != NSAlertFirstButtonReturn)
+		return;		// cancelled
+
+	[[ContextTree sharedInstance] removeContextRecursively:[ctxt uuid]];
+
+	[contextOutlineView reloadData];
+	[self setValue:nil forKey:@"contextSelection"];
+}
+
+- (IBAction)removeContext:(id)sender
+{
+	int row = [contextOutlineView selectedRow];
+	if (row < 0)
+		return;
+
+	Context *ctxt = (Context *) [contextOutlineView itemAtRow:row];
+
+	if ([[[ContextTree sharedInstance] orderedTraversalRootedAt:[ctxt uuid]] count] > 1) {
+		// Warn about destroying child contexts
+		NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+		[alert setAlertStyle:NSWarningAlertStyle];
+		[alert setMessageText:NSLocalizedString(@"Removing this context will also remove its child contexts!", "")];
+		[alert setInformativeText:NSLocalizedString(@"This action is not undoable!", @"")];
+		[alert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
+		[alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
+
+		[alert beginSheetModalForWindow:prefsWindow
+				  modalDelegate:self
+				 didEndSelector:@selector(removeContextAfterAlert:returnCode:contextInfo:)
+				    contextInfo:ctxt];
+		return;
+	}
+
+	[self removeContextAfterAlert:nil returnCode:NSAlertFirstButtonReturn contextInfo:ctxt];
+}
+
+- (id)contextSelectionIndexPaths
+{
+	if (!contextSelection)
+		return [NSArray array];
+
+	return [NSArray arrayWithObject:[contextSelection indexPath]];
+}
+
+- (void)setContextSelectionIndexPaths:(id)arg
+{
+	NSArray *arr = (NSArray *) arg;
+
+	if (!arr || ([arr count] < 1)) {
+		[self setValue:nil forKey:@"contextSelection"];
+		return;
+	}
+
+	[self setValue:[[ContextTree sharedInstance] contextByIndexPath:[arr lastObject]] forKey:@"contextSelection"];
+}
+
+- (void)triggerOutlineViewReloadData:(NSNotification *)notification
+{
+	[contextOutlineView reloadData];
+}
+
 #pragma mark Rule creation/editing
 
 - (void)addRule:(id)sender
@@ -476,7 +583,7 @@
 	name = [src name];
 
 
-	[src setContextMenu:[contextsDataSource hierarchicalMenu]];
+	[src setContextMenu:[[ContextTree sharedInstance] hierarchicalMenu]];
 
 	[NSApp activateIgnoringOtherApps:YES];
 	NSDictionary *proto = [NSDictionary dictionaryWithObject:type forKey:@"type"];
@@ -514,7 +621,7 @@
 	if (!src)
 		return;
 
-	[src setContextMenu:[contextsDataSource hierarchicalMenu]];
+	[src setContextMenu:[[ContextTree sharedInstance] hierarchicalMenu]];
 
 	[NSApp activateIgnoringOtherApps:YES];
 	[src runPanelAsSheetOfWindow:prefsWindow
@@ -547,7 +654,7 @@
 	[newActionWindow setTitle:[NSString stringWithFormat:
 		NSLocalizedString(@"New %@ Action", @"Window title"), newActionTypeString]];
 
-	[newActionContext setMenu:[contextsDataSource hierarchicalMenu]];
+	[newActionContext setMenu:[[ContextTree sharedInstance] hierarchicalMenu]];
 
 	if ([klass conformsToProtocol:@protocol(ActionWithLimitedOptions)]) {
 		NSArrayController *loC = newActionLimitedOptionsController;

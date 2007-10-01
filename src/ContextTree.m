@@ -1,11 +1,11 @@
 //
-//  ContextsDataSource.m
+//  ContextTree.m
 //  MarcoPolo
 //
 //  Created by David Symonds on 3/07/07.
 //
 
-#import "ContextsDataSource.h"
+#import "ContextTree.h"
 
 
 @implementation Context
@@ -106,22 +106,41 @@
 	confidence = [newConfidence copy];
 }
 
+- (NSIndexPath *)indexPath
+{
+	return indexPath;
+}
+
 @end
 
 #pragma mark -
 #pragma mark -
 
-@implementation ContextsDataSource
+@interface ContextTree (Private)
 
-+ (void)initialize
+- (void)removeContextRecursively:(NSString *)uuid atTop:(BOOL)atTop;
+- (NSArray *)childrenOfContext:(NSString *)uuid;
+
+@end
+
+#pragma mark -
+
+@implementation ContextTree
+
+static ContextTree *sharedContextTree;
+
++ (ContextTree *)sharedInstance
 {
-	[self exposeBinding:@"selection"];	// outlineView selection binding proxy
+	if (!sharedContextTree)
+		[[ContextTree alloc] init];	// Singleton!
+	return sharedContextTree;
 }
 
 - (id)init
 {
 	if (!(self = [super init]))
 		return nil;
+	sharedContextTree = self;
 
 	contexts = [[NSMutableDictionary alloc] init];
 	[self loadContexts];
@@ -132,27 +151,47 @@
 						     name:NSApplicationWillTerminateNotification
 						   object:nil];
 
+	return [sharedContextTree retain];
+}
+
+//- (void)dealloc
+//{
+//	[contexts release];
+//
+//	[super dealloc];
+//}
+
++ (id)allocWithZone:(NSZone *)zone
+{
+	if (!sharedContextTree) {
+		sharedContextTree = [super allocWithZone:zone];
+		return sharedContextTree;
+	}
+	return nil;
+}
+
+- (id)copyWithZone:(NSZone *)zone
+{
 	return self;
 }
 
-- (void)dealloc
+- (id)retain
 {
-	[contexts release];
-
-	[super dealloc];
+	return self;
 }
 
-static NSString *MovedRowsType = @"MOVED_ROWS_TYPE";
-
-- (void)awakeFromNib
+- (unsigned)retainCount
 {
-	// register for drag and drop
-	[outlineView registerForDraggedTypes:[NSArray arrayWithObject:MovedRowsType]];
+	return UINT_MAX;  // object that cannot be released
+}
 
-	[[NSNotificationCenter defaultCenter] addObserver:self
-						 selector:@selector(triggerOutlineViewReloadData:)
-						     name:@"ContextsChangedNotification"
-						   object:self];
+- (void)release
+{
+}
+
+- (id)autorelease
+{
+	return self;
 }
 
 // Private
@@ -199,10 +238,30 @@ static NSString *MovedRowsType = @"MOVED_ROWS_TYPE";
 			[self recomputeDepthOf:ctxt];
 	}
 
-	// XXX: any other data to recompute?
+	// Recompute index paths
+	NSArray *roots = [self childrenOfContext:nil];
+	en = [[self orderedTraversal] objectEnumerator];
+	while ((ctxt = [en nextObject])) {
+		NSIndexPath *path;
+		if ([ctxt isRoot])
+			path = [NSIndexPath indexPathWithIndex:[roots indexOfObject:ctxt]];
+		else {
+			Context *parent = [self contextByUUID:[ctxt parentUUID]];
+			unsigned int index = [[self childrenOfContext:[parent uuid]] indexOfObject:ctxt];
+			path = [[parent valueForKey:@"indexPath"] indexPathByAddingIndex:index];
+		}
+		[ctxt setValue:path forKey:@"indexPath"];
+	}
 }
 
 #pragma mark -
+
+static NSString *MovedRowsType = @"MOVED_ROWS_TYPE";
+
+- (void)registerForDragAndDrop:(NSOutlineView *)olv
+{
+	[olv registerForDraggedTypes:[NSArray arrayWithObject:MovedRowsType]];
+}
 
 - (void)loadContexts
 {
@@ -242,19 +301,18 @@ static NSString *MovedRowsType = @"MOVED_ROWS_TYPE";
 	[[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-#pragma mark -
-#pragma mark Context creation via sheet
-
-- (Context *)newContextWithName:(NSString *)name fromUI:(BOOL)fromUI
+- (Context *)newContextWithName:(NSString *)name parentUUID:(NSString *)parentUUID
 {
 	Context *ctxt = [[[Context alloc] init] autorelease];
 	[ctxt setName:name];
+	if (parentUUID)
+		[ctxt setParentUUID:parentUUID];
 
 	// Look for parent
-	if (fromUI && ([outlineView selectedRow] >= 0))
-		[ctxt setParentUUID:[(Context *) [outlineView itemAtRow:[outlineView selectedRow]] uuid]];
-	else
-		[ctxt setParentUUID:@""];
+//	if (fromUI && ([outlineView selectedRow] >= 0))
+//		[ctxt setParentUUID:[(Context *) [outlineView itemAtRow:[outlineView selectedRow]] uuid]];
+//	else
+//		[ctxt setParentUUID:@""];
 
 
 	[contexts setValue:ctxt forKey:[ctxt uuid]];
@@ -262,50 +320,35 @@ static NSString *MovedRowsType = @"MOVED_ROWS_TYPE";
 	[self recomputeTransientData];
 	[self postContextsChangedNotification];
 
-	if (fromUI) {
-		if (![ctxt isRoot])
-			[outlineView expandItem:[contexts objectForKey:[ctxt parentUUID]]];
-		[outlineView selectRow:[outlineView rowForItem:ctxt] byExtendingSelection:NO];
-		[self outlineViewSelectionDidChange:nil];
-	} else
-		[outlineView reloadData];
+//	if (fromUI) {
+//		if (![ctxt isRoot])
+//			[outlineView expandItem:[contexts objectForKey:[ctxt parentUUID]]];
+//		[outlineView selectRow:[outlineView rowForItem:ctxt] byExtendingSelection:NO];
+//		[self outlineViewSelectionDidChange:nil];
+//	} else
+//		[outlineView reloadData];
 
 	return ctxt;
 }
 
-- (IBAction)newContextPromptingForName:(id)sender
+- (void)removeContextRecursively:(NSString *)uuid atTop:(BOOL)atTop
 {
-	[newContextSheetName setStringValue:NSLocalizedString(@"New context", @"Default value for new context names")];
-	[newContextSheetName selectText:nil];
+	NSEnumerator *en = [[self childrenOfContext:uuid] objectEnumerator];
+	Context *ctxt;
+	while ((ctxt = [en nextObject]))
+		[self removeContextRecursively:[ctxt uuid] atTop:NO];
 
-	[NSApp beginSheet:newContextSheet
-	   modalForWindow:prefsWindow
-	    modalDelegate:self
-	   didEndSelector:@selector(newContextSheetDidEnd:returnCode:contextInfo:)
-	      contextInfo:nil];
+	[contexts removeObjectForKey:uuid];
+
+	if (atTop) {
+		[self recomputeTransientData];
+		[self postContextsChangedNotification];
+	}
 }
 
-// Triggered by OK button
-- (IBAction)newContextSheetAccepted:(id)sender
+- (void)removeContextRecursively:(NSString *)uuid
 {
-	[NSApp endSheet:newContextSheet returnCode:NSOKButton];
-	[newContextSheet orderOut:nil];
-}
-
-// Triggered by cancel button
-- (IBAction)newContextSheetRejected:(id)sender
-{
-	[NSApp endSheet:newContextSheet returnCode:NSCancelButton];
-	[newContextSheet orderOut:nil];
-}
-
-// Private
-- (void)newContextSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo
-{
-	if (returnCode != NSOKButton)
-		return;
-
-	[self newContextWithName:[newContextSheetName stringValue] fromUI:YES];
+	[self removeContextRecursively:uuid atTop:YES];
 }
 
 #pragma mark -
@@ -329,66 +372,20 @@ static NSString *MovedRowsType = @"MOVED_ROWS_TYPE";
 	return arr;
 }
 
-// Private: Make sure you call [outlineView reloadData] after this!
-- (void)removeContextRecursively:(NSString *)uuid
-{
-	NSEnumerator *en = [[self childrenOfContext:uuid] objectEnumerator];
-	Context *ctxt;
-	while ((ctxt = [en nextObject]))
-		[self removeContextRecursively:[ctxt uuid]];
-
-	[contexts removeObjectForKey:uuid];
-}
-
-// Private
-- (void)removeContextAfterAlert:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo
-{
-	Context *ctxt = (Context *) contextInfo;
-
-	if (returnCode != NSAlertFirstButtonReturn)
-		return;		// cancelled
-
-	[self removeContextRecursively:[ctxt uuid]];
-
-	[self recomputeTransientData];
-	[self postContextsChangedNotification];
-	[self outlineViewSelectionDidChange:nil];
-}
-
-- (IBAction)removeContext:(id)sender
-{
-	int row = [outlineView selectedRow];
-	if (row < 0)
-		return;
-
-	Context *ctxt = (Context *) [outlineView itemAtRow:row];
-
-	if ([[self childrenOfContext:[ctxt uuid]] count] > 0) {
-		// Warn about destroying child contexts
-		NSAlert *alert = [[[NSAlert alloc] init] autorelease];
-		[alert setAlertStyle:NSWarningAlertStyle];
-		[alert setMessageText:NSLocalizedString(@"Removing this context will also remove its child contexts!", "")];
-		[alert setInformativeText:NSLocalizedString(@"This action is not undoable!", @"")];
-		[alert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
-		[alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
-
-		[alert beginSheetModalForWindow:prefsWindow
-				  modalDelegate:self
-				 didEndSelector:@selector(removeContextAfterAlert:returnCode:contextInfo:)
-				    contextInfo:ctxt];
-		return;
-	}
-
-	[self removeContextRecursively:[ctxt uuid]];
-
-	[self recomputeTransientData];
-	[self postContextsChangedNotification];
-	[self outlineViewSelectionDidChange:nil];
-}
-
 - (Context *)contextByUUID:(NSString *)uuid
 {
 	return [contexts objectForKey:uuid];
+}
+
+- (Context *)contextByIndexPath:(NSIndexPath *)indexPath
+{
+	// TODO: this could be a lot more efficient
+	NSEnumerator *en = [contexts objectEnumerator];
+	Context *ctxt;
+	while ((ctxt = [en nextObject]))
+		if ([[ctxt indexPath] compare:indexPath] == NSOrderedSame)
+			return ctxt;
+	return nil;
 }
 
 - (NSArray *)arrayOfUUIDs
@@ -412,6 +409,7 @@ static NSString *MovedRowsType = @"MOVED_ROWS_TYPE";
 	return [self orderedTraversalRootedAt:nil];
 }
 
+// Includes the rooted context
 - (NSArray *)orderedTraversalRootedAt:(NSString *)uuid
 {
 	NSMutableArray *array = [NSMutableArray arrayWithCapacity:[contexts count]];
@@ -542,7 +540,7 @@ static NSString *MovedRowsType = @"MOVED_ROWS_TYPE";
 - (BOOL)outlineView:(NSOutlineView *)olv acceptDrop:(id <NSDraggingInfo>)info item:(id)item childIndex:(int)index
 {
 	// Only support internal drags (i.e. moves)
-	if ([info draggingSource] != outlineView)
+	if ([info draggingSource] != olv)
 		return NO;
 
 	NSString *new_parent_uuid = @"";
@@ -555,7 +553,6 @@ static NSString *MovedRowsType = @"MOVED_ROWS_TYPE";
 
 	[self recomputeTransientData];
 	[self postContextsChangedNotification];
-	[self outlineViewSelectionDidChange:nil];
 
 	return YES;
 }
@@ -563,7 +560,7 @@ static NSString *MovedRowsType = @"MOVED_ROWS_TYPE";
 - (NSDragOperation)outlineView:(NSOutlineView *)olv validateDrop:(id <NSDraggingInfo>)info proposedItem:(id)item proposedChildIndex:(int)index
 {
 	// Only support internal drags (i.e. moves)
-	if ([info draggingSource] != outlineView)
+	if ([info draggingSource] != olv)
 		return NSDragOperationNone;
 
 	return NSDragOperationMove;
@@ -585,19 +582,14 @@ static NSString *MovedRowsType = @"MOVED_ROWS_TYPE";
 
 #pragma mark NSOutlineView delegate methods
 
-- (void)triggerOutlineViewReloadData:(NSNotification *)notification
-{
-	[outlineView reloadData];
-}
-
-- (void)outlineViewSelectionDidChange:(NSNotification *)notification
-{
-	Context *ctxt = nil;
-	int row = [outlineView selectedRow];
-	if (row >= 0)
-		ctxt = [outlineView itemAtRow:[outlineView selectedRow]];
-
-	[self setValue:ctxt forKey:@"selection"];
-}
+//- (void)outlineViewSelectionDidChange:(NSNotification *)notification
+//{
+//	Context *ctxt = nil;
+//	int row = [outlineView selectedRow];
+//	if (row >= 0)
+//		ctxt = [outlineView itemAtRow:[outlineView selectedRow]];
+//
+//	[self setValue:ctxt forKey:@"selection"];
+//}
 
 @end

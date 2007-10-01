@@ -8,7 +8,7 @@
 #include "Growl/GrowlApplicationBridge.h"
 
 #import "Action.h"
-#import "ContextsDataSource.h"
+#import "ContextTree.h"
 #import "DSLogger.h"
 #import "EvidenceSource.h"
 #import "MPController.h"
@@ -123,6 +123,8 @@
 
 	forcedContextIsSticky = NO;
 
+	contextTree = [ContextTree sharedInstance];
+
 	return self;
 }
 
@@ -145,7 +147,7 @@
 	NSMutableDictionary *lookup = [NSMutableDictionary dictionary];	// map location name -> (Context *)
 	int cnt = 0;
 	while ((dict = [en nextObject])) {
-		Context *ctxt = [contextsDataSource newContextWithName:[dict valueForKey:@"option"] fromUI:NO];
+		Context *ctxt = [contextTree newContextWithName:[dict valueForKey:@"option"] parentUUID:nil];
 		[lookup setObject:ctxt forKey:[ctxt name]];
 		++cnt;
 	}
@@ -155,7 +157,7 @@
 	// Set "Automatic", or the first created context, as the default context
 	Context *ctxt;
 	if (!(ctxt = [lookup objectForKey:@"Automatic"]))
-		ctxt = [contextsDataSource contextByUUID:[[contextsDataSource arrayOfUUIDs] objectAtIndex:0]];
+		ctxt = [contextTree contextByUUID:[[contextTree arrayOfUUIDs] objectAtIndex:0]];
 	[[NSUserDefaults standardUserDefaults] setValue:[ctxt uuid] forKey:@"DefaultContext"];
 
 	// See if there are old rules and actions to import
@@ -281,7 +283,7 @@ finished_import:
 	[[NSNotificationCenter defaultCenter] addObserver:self
 						 selector:@selector(contextsChanged:)
 						     name:@"ContextsChangedNotification"
-						   object:contextsDataSource];
+						   object:contextTree];
 	[self contextsChanged:nil];
 
 	[[NSNotificationCenter defaultCenter] addObserver:self
@@ -305,10 +307,10 @@ finished_import:
 	// Persistent contexts
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"EnablePersistentContext"]) {
 		NSString *uuid = [[NSUserDefaults standardUserDefaults] stringForKey:@"PersistentContext"];
-		Context *ctxt = [contextsDataSource contextByUUID:uuid];
+		Context *ctxt = [contextTree contextByUUID:uuid];
 		if (ctxt) {
 			[self setValue:uuid forKey:@"currentContextUUID"];
-			NSString *ctxt_path = [contextsDataSource pathFromRootTo:uuid];
+			NSString *ctxt_path = [contextTree pathFromRootTo:uuid];
 			[self setValue:ctxt_path forKey:@"currentContextName"];
 			if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ShowGuess"])
 				[self setStatusTitle:ctxt_path];
@@ -319,7 +321,7 @@ finished_import:
 			NSMenuItem *item;
 			while ((item = [en nextObject])) {
 				NSString *rep = [item representedObject];
-				if (!rep || ![contextsDataSource contextByUUID:rep])
+				if (!rep || ![contextTree contextByUUID:rep])
 					continue;
 				BOOL ticked = ([rep isEqualToString:uuid]);
 				[item setState:(ticked ? NSOnState : NSOffState)];
@@ -408,7 +410,7 @@ finished_import:
 {
 	// Fill in 'Force context' submenu
 	NSMenu *submenu = [[[NSMenu alloc] init] autorelease];
-	NSEnumerator *en = [[contextsDataSource orderedTraversal] objectEnumerator];
+	NSEnumerator *en = [[[ContextTree sharedInstance] orderedTraversal] objectEnumerator];
 	Context *ctxt;
 	while ((ctxt = [en nextObject])) {
 		NSMenuItem *item = [[[NSMenuItem alloc] init] autorelease];
@@ -442,7 +444,7 @@ finished_import:
 	[forceContextMenuItem setSubmenu:submenu];
 
 	// Update current context details
-	ctxt = [contextsDataSource contextByUUID:currentContextUUID];
+	ctxt = [[ContextTree sharedInstance] contextByUUID:currentContextUUID];
 	if (ctxt) {
 		[self setValue:[ctxt name] forKey:@"currentContextName"];
 	} else {
@@ -452,7 +454,7 @@ finished_import:
 		[self setValue:@"?" forKey:@"guessConfidence"];
 	}
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ShowGuess"])
-		[self setStatusTitle:[contextsDataSource pathFromRootTo:currentContextUUID]];
+		[self setStatusTitle:[[ContextTree sharedInstance] pathFromRootTo:currentContextUUID]];
 
 	// update other stuff?
 }
@@ -665,7 +667,7 @@ finished_import:
 
 - (void)performTransitionFrom:(NSString *)fromUUID to:(NSString *)toUUID
 {
-	NSArray *walks = [contextsDataSource walkFrom:fromUUID to:toUUID];
+	NSArray *walks = [[ContextTree sharedInstance] walkFrom:fromUUID to:toUUID];
 	NSArray *leaving_walk = [walks objectAtIndex:0];
 	NSArray *entering_walk = [walks objectAtIndex:1];
 	NSEnumerator *en;
@@ -682,8 +684,8 @@ finished_import:
 
 	// Update current context
 	[self setValue:toUUID forKey:@"currentContextUUID"];
-	ctxt = [contextsDataSource contextByUUID:toUUID];
-	NSString *ctxt_path = [contextsDataSource pathFromRootTo:toUUID];
+	ctxt = [[ContextTree sharedInstance] contextByUUID:toUUID];
+	NSString *ctxt_path = [[ContextTree sharedInstance] pathFromRootTo:toUUID];
 	[self doGrowl:NSLocalizedString(@"Changing Context", @"Growl message title")
 	  withMessage:[NSString stringWithFormat:NSLocalizedString(@"Changing to context '%@' %@.",
 								   @"First parameter is the context name, second parameter is the confidence value, or 'as default context'"),
@@ -698,7 +700,7 @@ finished_import:
 	NSMenuItem *item;
 	while ((item = [en nextObject])) {
 		NSString *rep = [item representedObject];
-		if (!rep || ![contextsDataSource contextByUUID:rep])
+		if (!rep || ![[ContextTree sharedInstance] contextByUUID:rep])
 			continue;
 		BOOL ticked = ([rep isEqualToString:toUUID]);
 		[item setState:(ticked ? NSOnState : NSOffState)];
@@ -720,7 +722,7 @@ finished_import:
 
 - (void)forceSwitch:(id)sender
 {
-	Context *ctxt = [contextsDataSource contextByUUID:[sender representedObject]];
+	Context *ctxt = [[ContextTree sharedInstance] contextByUUID:[sender representedObject]];
 	DSLog(@"going to %@", [ctxt name]);
 	[self setValue:NSLocalizedString(@"(forced)", @"Used when force-switching to a context")
 		forKey:@"guessConfidence"];
@@ -751,7 +753,7 @@ finished_import:
 
 - (void)doUpdateForReal
 {
-	NSArray *contexts = [contextsDataSource arrayOfUUIDs];
+	NSArray *contexts = [[ContextTree sharedInstance] arrayOfUUIDs];
 
 	// Maps a guessed context to an "unconfidence" value, which is
 	// equal to (1 - confidence). We step through all the rules that are "hits",
@@ -765,7 +767,7 @@ finished_import:
 		// Rules apply to the stated context, as well as any subcontexts. We very slightly decay the amount
 		// credited (proportional to the depth below the stated context), so that we don't guess a more
 		// detailed context than is warranted.
-		NSArray *ctxts = [contextsDataSource orderedTraversalRootedAt:[rule valueForKey:@"context"]];
+		NSArray *ctxts = [[ContextTree sharedInstance] orderedTraversalRootedAt:[rule valueForKey:@"context"]];
 		if ([ctxts count] == 0)
 			continue;	// Oops, something got busted along the way
 		NSEnumerator *en = [ctxts objectEnumerator];
@@ -808,7 +810,7 @@ finished_import:
 	// Set all context confidences
 	en = [contexts objectEnumerator];
 	while ((uuid = [en nextObject])) {
-		Context *ctxt = [contextsDataSource contextByUUID:uuid];
+		Context *ctxt = [[ContextTree sharedInstance] contextByUUID:uuid];
 		NSString *newConfString = @"";
 		NSNumber *unconf = [guesses objectForKey:uuid];
 		if (unconf) {
@@ -817,7 +819,7 @@ finished_import:
 		}
 		[ctxt setValue:newConfString forKey:@"confidence"];
 	}
-	[contextsDataSource triggerOutlineViewReloadData:nil];
+	[contextOutlineView reloadData];
 
 	//---------------------------------------------------------------
 	NSString *perc = [nf stringFromNumber:[NSDecimalNumber numberWithDouble:guessConf]];
@@ -827,7 +829,7 @@ finished_import:
 	BOOL do_title = [[NSUserDefaults standardUserDefaults] boolForKey:@"ShowGuess"];
 	if (!do_title)
 		[self setStatusTitle:nil];
-	NSString *guessString = [[contextsDataSource contextByUUID:guess] name];
+	NSString *guessString = [[[ContextTree sharedInstance] contextByUUID:guess] name];
 
 	BOOL no_guess = NO;
 	if (!guess) {
@@ -850,7 +852,7 @@ finished_import:
 			return;
 		guess = [[NSUserDefaults standardUserDefaults] stringForKey:@"DefaultContext"];
 		Context *ctxt;
-		if (!(ctxt = [contextsDataSource contextByUUID:guess]))
+		if (!(ctxt = [[ContextTree sharedInstance] contextByUUID:guess]))
 			return;
 		guessConfidenceString = NSLocalizedString(@"as default context",
 							  @"Appended to a context-change notification");

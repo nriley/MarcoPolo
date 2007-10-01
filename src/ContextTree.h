@@ -1,5 +1,5 @@
 //
-//  ContextsDataSource.h
+//  ContextTree.h
 //  MarcoPolo
 //
 //  Created by David Symonds on 3/07/07.
@@ -16,6 +16,7 @@
 	// Transient
 	NSNumber *depth;
 	NSString *confidence;
+	NSIndexPath *indexPath;
 }
 
 - (id)init;
@@ -30,39 +31,34 @@
 - (void)setParentUUID:(NSString *)parentUUID;
 - (NSString *)name;
 - (void)setName:(NSString *)newName;
+- (NSString *)confidence;
+- (void)setConfidence:(NSString *)newConfidence;
+
+- (NSIndexPath *)indexPath;
 
 @end
 
 
-@interface ContextsDataSource : NSObject {
+@interface ContextTree : NSObject {
 	NSMutableDictionary *contexts;
-
-	// shouldn't _really_ be here
-	IBOutlet NSOutlineView *outlineView;
-	Context *selection;
-
-	IBOutlet NSWindow *prefsWindow;
-	IBOutlet NSPanel *newContextSheet;
-	IBOutlet NSTextField *newContextSheetName;
 }
+
++ (ContextTree *)sharedInstance;
+
+- (void)registerForDragAndDrop:(NSOutlineView *)olv;
 
 - (void)loadContexts;
 - (void)saveContexts:(id)arg;
-- (Context *)newContextWithName:(NSString *)name fromUI:(BOOL)fromUI;
-
-- (IBAction)newContextPromptingForName:(id)sender;
-- (IBAction)newContextSheetAccepted:(id)sender;
-- (IBAction)newContextSheetRejected:(id)sender;
-- (IBAction)removeContext:(id)sender;
+- (Context *)newContextWithName:(NSString *)name parentUUID:(NSString *)parentUUID;
+- (void)removeContextRecursively:(NSString *)uuid;
 
 - (Context *)contextByUUID:(NSString *)uuid;
+- (Context *)contextByIndexPath:(NSIndexPath *)indexPath;
 - (NSArray *)arrayOfUUIDs;
 - (NSArray *)orderedTraversal;
 - (NSArray *)orderedTraversalRootedAt:(NSString *)uuid;
 - (NSArray *)walkFrom:(NSString *)src_uuid to:(NSString *)dst_uuid;
 - (NSString *)pathFromRootTo:(NSString *)uuid;
 - (NSMenu *)hierarchicalMenu;
-
-- (void)triggerOutlineViewReloadData:(NSNotification *)notification;
 
 @end

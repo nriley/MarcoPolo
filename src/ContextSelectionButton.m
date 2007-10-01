@@ -6,18 +6,14 @@
 //
 
 #import "ContextSelectionButton.h"
+#import "ContextTree.h"
 
 
 @implementation ContextSelectionButton
 
-- (id)init
+- (void)awakeFromNib
 {
-	if (!(self = [super init]))
-		return nil;
-
-	contextsDataSource = nil;
-
-	return self;
+	[self reloadData];
 }
 
 - (void)setSelectedObject:(id)arg
@@ -48,22 +44,20 @@
 								name:nil
 							      object:[self menu]];
 	}
-	[self setMenu:[contextsDataSource hierarchicalMenu]];
+	[self setMenu:[[ContextTree sharedInstance] hierarchicalMenu]];
 	[[NSNotificationCenter defaultCenter] addObserver:self
 						 selector:@selector(selectionChanged:)
 						     name:NSMenuDidSendActionNotification
 						   object:[self menu]];
 }
 
-- (void)setContextsDataSource:(ContextsDataSource *)dataSource
+- (void)reloadData
 {
-	contextsDataSource = dataSource;
-
 	// Watch for notifications of context changes
 	[[NSNotificationCenter defaultCenter] addObserver:self
 						 selector:@selector(contextsChanged:)
 						     name:@"ContextsChangedNotification"
-						   object:contextsDataSource];
+						   object:[ContextTree sharedInstance]];
 	[self contextsChanged:nil];
 }
 

@@ -52,7 +52,7 @@
 		8D75A6200BE6F68B0069DF3F /* ToggleBluetoothAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D75A61E0BE6F68B0069DF3F /* ToggleBluetoothAction.m */; };
 		8D80BB980B8B033400104A87 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D80BB950B8B033400104A87 /* Growl.framework */; };
 		8D80BBA30B8B036C00104A87 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8D80BB950B8B033400104A87 /* Growl.framework */; };
-		8D8155D00C3A304E00228463 /* ContextsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8155CE0C3A304E00228463 /* ContextsDataSource.m */; };
+		8D8155D00C3A304E00228463 /* ContextTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8155CE0C3A304E00228463 /* ContextTree.m */; };
 		8D82F06D0AA811CE009ADA44 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D82F05B0AA811CE009ADA44 /* SystemConfiguration.framework */; };
 		8D82F0A30AA81411009ADA44 /* PrefsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D82F0A20AA81411009ADA44 /* PrefsWindowController.m */; };
 		8D88FE2A0C534737007A14D6 /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D88FE290C534737007A14D6 /* pause.png */; };
@@ -204,8 +204,8 @@
 		8D75A61D0BE6F68B0069DF3F /* ToggleBluetoothAction.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ToggleBluetoothAction.h; path = src/ToggleBluetoothAction.h; sourceTree = "<group>"; };
 		8D75A61E0BE6F68B0069DF3F /* ToggleBluetoothAction.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = ToggleBluetoothAction.m; path = src/ToggleBluetoothAction.m; sourceTree = "<group>"; };
 		8D80BB950B8B033400104A87 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
-		8D8155CD0C3A304E00228463 /* ContextsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContextsDataSource.h; path = src/ContextsDataSource.h; sourceTree = "<group>"; };
-		8D8155CE0C3A304E00228463 /* ContextsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContextsDataSource.m; path = src/ContextsDataSource.m; sourceTree = "<group>"; };
+		8D8155CD0C3A304E00228463 /* ContextTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContextTree.h; path = src/ContextTree.h; sourceTree = "<group>"; };
+		8D8155CE0C3A304E00228463 /* ContextTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContextTree.m; path = src/ContextTree.m; sourceTree = "<group>"; };
 		8D82F05B0AA811CE009ADA44 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = /System/Library/Frameworks/SystemConfiguration.framework; sourceTree = "<absolute>"; };
 		8D82F0A10AA81411009ADA44 /* PrefsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PrefsWindowController.h; path = src/PrefsWindowController.h; sourceTree = "<group>"; };
 		8D82F0A20AA81411009ADA44 /* PrefsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = PrefsWindowController.m; path = src/PrefsWindowController.m; sourceTree = "<group>"; };
@@ -313,8 +313,8 @@
 				8D90E51E0B71C4C9007D39FD /* MPController.m */,
 				8D82F0A10AA81411009ADA44 /* PrefsWindowController.h */,
 				8D82F0A20AA81411009ADA44 /* PrefsWindowController.m */,
-				8D8155CD0C3A304E00228463 /* ContextsDataSource.h */,
-				8D8155CE0C3A304E00228463 /* ContextsDataSource.m */,
+				8D8155CD0C3A304E00228463 /* ContextTree.h */,
+				8D8155CE0C3A304E00228463 /* ContextTree.m */,
 				8DBB44950C530F7600064010 /* DSLogger.h */,
 				8DBB44960C530F7600064010 /* DSLogger.m */,
 				8D8C9E320BBB89320074D5B3 /* DB.h */,
@@ -683,7 +683,7 @@
 				8D71CB790C17C01700E56526 /* ScreenSaverPasswordAction.m in Sources */,
 				8D3453C40C18E5C1006011D0 /* IChatAction.m in Sources */,
 				8DCBE96C0C1A7ECE008260EF /* MountAction.m in Sources */,
-				8D8155D00C3A304E00228463 /* ContextsDataSource.m in Sources */,
+				8D8155D00C3A304E00228463 /* ContextTree.m in Sources */,
 				8D6762170C3B8D8D000B63EC /* NetworkLocationAction.m in Sources */,
 				8D447DF90C3E65D000DAB17A /* ContextSelectionButton.m in Sources */,
 				8D27ECB00C4456A300AE1929 /* AudioOutputEvidenceSource.m in Sources */,

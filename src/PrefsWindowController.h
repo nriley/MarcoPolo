@@ -1,7 +1,7 @@
 /* PrefsWindowController */
 
 #import <Cocoa/Cocoa.h>
-#import "ContextsDataSource.h"
+#import "ContextTree.h"
 #import "ContextSelectionButton.h"
 #import "MPController.h"
 
@@ -17,7 +17,6 @@
 
 	IBOutlet MPController *mpController;
 	IBOutlet EvidenceSourceSetController *evidenceSources;
-	IBOutlet ContextsDataSource *contextsDataSource;
 	IBOutlet NSArrayController *rulesController, *actionsController;
 	IBOutlet NSArrayController *whenActionController;
 
@@ -38,6 +37,14 @@
 	IBOutlet NSTextView *logBufferView;
 	NSNumber *logBufferPaused;
 	NSTimer *logBufferTimer;
+
+	// Context pane
+	IBOutlet NSOutlineView *contextOutlineView;
+	Context *contextSelection;
+
+	// Context UI bits
+	IBOutlet NSPanel *newContextSheet;
+	IBOutlet NSTextField *newContextSheetName;
 }
 
 - (IBAction)runPreferences:(id)sender;
@@ -53,6 +60,13 @@
 - (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar;
 - (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar;
 - (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)toolbar;
+
+- (IBAction)newContextPromptingForName:(id)sender;
+- (IBAction)newContextSheetAccepted:(id)sender;
+- (IBAction)newContextSheetRejected:(id)sender;
+- (IBAction)removeContext:(id)sender;
+- (id)contextSelectionIndexPaths;
+- (void)setContextSelectionIndexPaths:(id)arg;
 
 - (void)addRule:(id)sender;
 - (IBAction)editRule:(id)sender;
