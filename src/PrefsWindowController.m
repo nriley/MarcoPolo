@@ -229,11 +229,13 @@
 	[defaultContextButton setValue:[[NSUserDefaults standardUserDefaults] valueForKey:@"DefaultContext"]
 				forKey:@"selectedObject"];
 
-	[[ContextTree sharedInstance] registerForDragAndDrop:contextOutlineView];
+	ContextTree *tree = [ContextTree sharedInstance];
+	[tree registerForDragAndDrop:contextOutlineView];
 	[[NSNotificationCenter defaultCenter] addObserver:self
 						 selector:@selector(triggerOutlineViewReloadData:)
 						     name:@"ContextsChangedNotification"
-						   object:[ContextTree sharedInstance]];
+						   object:tree];
+	[contextOutlineView setDataSource:tree];
 
 	// Load up correct localisations
 	[whenActionController addObject:

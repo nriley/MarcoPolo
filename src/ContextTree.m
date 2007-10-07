@@ -127,7 +127,7 @@
 
 @implementation ContextTree
 
-static ContextTree *sharedContextTree;
+static ContextTree *sharedContextTree = nil;
 
 + (ContextTree *)sharedInstance
 {

@@ -61,4 +61,10 @@
 - (NSString *)pathFromRootTo:(NSString *)uuid;
 - (NSMenu *)hierarchicalMenu;
 
+- (id)outlineView:(NSOutlineView *)olv child:(int)index ofItem:(id)item;
+- (BOOL)outlineView:(NSOutlineView *)olv isItemExpandable:(id)item;
+- (int)outlineView:(NSOutlineView *)olv numberOfChildrenOfItem:(id)item;
+- (id)outlineView:(NSOutlineView *)olv objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item;
+- (void)outlineView:(NSOutlineView *)olv setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn byItem:(id)item;
+
 @end
