@@ -8,6 +8,12 @@
             SUPERCLASS = NSObject; 
         }, 
         {CLASS = Context; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            CLASS = ContextFilteredController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {outlineView = NSOutlineView; }; 
+            SUPERCLASS = NSArrayController; 
+        }, 
         {CLASS = ContextSelectionButton; LANGUAGE = ObjC; SUPERCLASS = NSPopUpButton; }, 
         {CLASS = ContextTree; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
         {
@@ -71,6 +77,7 @@
                 editActionContextButton = ContextSelectionButton; 
                 evidenceSources = EvidenceSourceSetController; 
                 evidenceSourcesPrefsView = NSView; 
+                filteredRulesController = NSArrayController; 
                 generalPrefsView = NSView; 
                 logBufferView = NSTextView; 
                 mpController = MPController; 

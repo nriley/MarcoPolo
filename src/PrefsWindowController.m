@@ -604,7 +604,7 @@
 - (IBAction)editRule:(id)sender
 {
 	// Find relevant evidence source
-	id sel = [[rulesController selectedObjects] lastObject];
+	id sel = [[filteredRulesController selectedObjects] lastObject];
 	if (!sel)
 		return;
 	NSString *type = [sel valueForKey:@"type"];
@@ -635,10 +635,10 @@
 // Private: called by -[EvidenceSource runPanelAsSheetOfWindow:...]
 - (void)doEditRule:(NSDictionary *)dict
 {
-	unsigned int index = [rulesController selectionIndex];
-	[rulesController removeObjectAtArrangedObjectIndex:index];
-	[rulesController insertObject:dict atArrangedObjectIndex:index];
-	[rulesController setSelectionIndex:index];
+	unsigned int index = [filteredRulesController selectionIndex];
+	[filteredRulesController removeObjectAtArrangedObjectIndex:index];
+	[filteredRulesController insertObject:dict atArrangedObjectIndex:index];
+	[filteredRulesController setSelectionIndex:index];
 }
 
 #pragma mark Action creation

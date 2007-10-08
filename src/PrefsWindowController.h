@@ -17,7 +17,7 @@
 
 	IBOutlet MPController *mpController;
 	IBOutlet EvidenceSourceSetController *evidenceSources;
-	IBOutlet NSArrayController *rulesController, *actionsController;
+	IBOutlet NSArrayController *rulesController, *filteredRulesController, *actionsController;
 	IBOutlet NSArrayController *whenActionController;
 
 	// Selection controls for rules/actions
