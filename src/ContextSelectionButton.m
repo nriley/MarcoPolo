@@ -16,6 +16,7 @@
 	[self reloadData];
 }
 
+// Should be passed a UUID
 - (void)setSelectedObject:(id)arg
 {
 	if (!arg) {
@@ -38,8 +39,11 @@
 
 - (void)contextsChanged:(NSNotification *)notification
 {
+	NSString *previousSelection = nil;
+
 	// Update menu
 	if ([self menu]) {
+		previousSelection = [[self selectedItem] representedObject];
 		[[NSNotificationCenter defaultCenter] removeObserver:self
 								name:nil
 							      object:[self menu]];
@@ -49,6 +53,8 @@
 						 selector:@selector(selectionChanged:)
 						     name:NSMenuDidSendActionNotification
 						   object:[self menu]];
+	if (previousSelection)
+		[self setValue:previousSelection forKey:@"selectedObject"];
 }
 
 - (void)reloadData
