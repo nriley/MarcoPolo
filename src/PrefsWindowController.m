@@ -248,11 +248,6 @@
 				@"Departure", @"option",
 				NSLocalizedString(@"On departure", @"When an action is triggered"), @"description",
 				nil]];
-	[whenActionController addObject:
-			[NSMutableDictionary dictionaryWithObjectsAndKeys:
-				@"Both", @"option",
-				NSLocalizedString(@"Both", @"When an action is triggered"), @"description",
-				nil]];
 
 	[logBufferView setFont:[NSFont fontWithName:@"Monaco" size:9]];
 }

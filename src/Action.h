@@ -9,8 +9,10 @@
 
 
 @interface Action : NSObject {
-	NSString *type, *context, *when;
+	NSString *type;
 	NSNumber *delay, *enabled;
+	NSArray *when;
+	NSString *context;	// for Arrival/Departure
 }
 
 + (NSString *)typeForClass:(Class)klass;

@@ -52,10 +52,10 @@
 
 	// Some sensible defaults
 	type = [[Action typeForClass:[self class]] retain];
-	context = [@"" retain];
-	when = [@"Arrival" retain];
 	delay = [[NSNumber alloc] initWithDouble:0];
 	enabled = [[NSNumber alloc] initWithBool:YES];
+	when = [[NSArray arrayWithObject:@"Arrival"] retain];
+	context = [@"" retain];
 
 	return self;
 }
@@ -71,10 +71,10 @@
 		return nil;
 
 	type = [[Action typeForClass:[self class]] retain];
-	context = [[dict valueForKey:@"context"] copy];
-	when = [[dict valueForKey:@"when"] copy];
 	delay = [[dict valueForKey:@"delay"] copy];
 	enabled = [[dict valueForKey:@"enabled"] copy];
+	when = [[[dict valueForKey:@"when"] componentsSeparatedByString:@","] retain];
+	context = [[dict valueForKey:@"context"] copy];
 
 	return self;
 }
@@ -82,10 +82,10 @@
 - (void)dealloc
 {
 	[type release];
-	[context release];
-	[when release];
 	[delay release];
 	[enabled release];
+	[when release];
+	[context release];
 
 	[super dealloc];
 }
@@ -94,10 +94,10 @@
 {
 	return [NSMutableDictionary dictionaryWithObjectsAndKeys:
 		[[type copy] autorelease], @"type",
-		[[context copy] autorelease], @"context",
-		[[when copy] autorelease], @"when",
 		[[delay copy] autorelease], @"delay",
 		[[enabled copy] autorelease], @"enabled",
+		[when componentsJoinedByString:@","], @"when",
+		[[context copy] autorelease], @"context",
 		nil];
 }
 
