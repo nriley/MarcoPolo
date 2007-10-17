@@ -853,7 +853,8 @@ end_of_when_both_mapping:
 		}
 		[ctxt setValue:newConfString forKey:@"confidence"];
 	}
-	[contextOutlineView reloadData];
+	if (![contextOutlineView currentEditor])	// don't force data update if we're editing a context name
+		[contextOutlineView reloadData];
 
 	//---------------------------------------------------------------
 	NSString *perc = [nf stringFromNumber:[NSDecimalNumber numberWithDouble:guessConf]];
