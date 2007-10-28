@@ -136,22 +136,20 @@
 	[super dealloc];
 }
 
-- (void)importVersion1Settings
+- (void)createFreshStartSettings
 {
-	BOOL contextsCreated = NO, rulesImported = NO, actionsImported = NO;
-	BOOL ipActionsFound = NO;
+	BOOL contextsCreated = NO, actionsCreated = NO;
 
 	// Create contexts, populated from network locations
+	NSMutableDictionary *lookup = [NSMutableDictionary dictionary];	// map location name -> (Context *)
 	NSEnumerator *en = [[NetworkLocationAction limitedOptions] objectEnumerator];
 	NSDictionary *dict;
-	NSMutableDictionary *lookup = [NSMutableDictionary dictionary];	// map location name -> (Context *)
-	int cnt = 0;
 	while ((dict = [en nextObject])) {
 		Context *ctxt = [contextTree newContextWithName:[dict valueForKey:@"option"] parentUUID:nil];
 		[lookup setObject:ctxt forKey:[ctxt name]];
-		++cnt;
 	}
-	NSLog(@"Quickstart: Created %d contexts", cnt);
+	[contextTree saveContexts:nil];
+	NSLog(@"Quickstart: Created %d contexts", [lookup count]);
 	contextsCreated = YES;
 
 	// Set "Automatic", or the first created context, as the default context
@@ -160,104 +158,118 @@
 		ctxt = [contextTree contextByUUID:[[contextTree arrayOfUUIDs] objectAtIndex:0]];
 	[[NSUserDefaults standardUserDefaults] setValue:[ctxt uuid] forKey:@"DefaultContext"];
 
+	// Create NetworkLocation actions
+	NSMutableArray *newActions = [NSMutableArray array];
+	en = [lookup objectEnumerator];
+	while ((ctxt = [en nextObject])) {
+		Action *act = [[[NetworkLocationAction alloc] initWithOption:[ctxt name]] autorelease];
+		NSMutableDictionary *act_dict = [act dictionary];
+		NSString *when = [NSString stringWithFormat:@"Arrival@%@", [ctxt uuid]];
+		[act_dict setValue:[NSArray arrayWithObject:when] forKey:@"when"];
+		[act_dict setValue:NSLocalizedString(@"Set Network Location", @"") forKey:@"description"];
+		[newActions addObject:act_dict];
+	}
+	[[NSUserDefaults standardUserDefaults] setObject:newActions forKey:@"Actions"];
+	NSLog(@"Quickstart: Created %d new NetworkLocation actions", [newActions count]);
+	actionsCreated = YES;
+
+	// Show message
+	NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+	[alert setAlertStyle:NSInformationalAlertStyle];
+	[alert setMessageText:NSLocalizedString(@"Quick Start", @"")];
+
+	NSString *info = NSLocalizedString(@"Contexts have been made for you, named after your network locations.", @"");
+	info = [info stringByAppendingFormat:@"\n\n%@",
+			NSLocalizedString(@"NetworkLocation actions have been created for each network location.", @"")];
+
+	info = [info stringByAppendingFormat:@"\n\n%@",
+		NSLocalizedString(@"We strongly recommended that you review your preferences.", @"")];
+
+	[alert setInformativeText:info];
+
+	[alert addButtonWithTitle:NSLocalizedString(@"OK", @"Button title")];
+	[alert addButtonWithTitle:NSLocalizedString(@"Open Preferences", @"Button title")];
+	[NSApp activateIgnoringOtherApps:YES];
+	int rc = [alert runModal];
+	if (rc == NSAlertSecondButtonReturn) {
+		[NSApp activateIgnoringOtherApps:YES];
+		[prefsWindow makeKeyAndOrderFront:self];
+	}
+}
+
+- (void)importVersion2Settings
+{
+	BOOL contextsImported = NO, rulesImported = NO, actionsImported = NO;
+	unsigned int num_failed_actions = 0;
+
+	// Import old contexts as-is
+	NSArray *oldContexts = (NSArray *) CFPreferencesCopyAppValue(CFSTR("Contexts"), CFSTR("au.id.symonds.MarcoPolo2"));
+	if (!oldContexts) {
+		goto finished_import;
+	}
+	[oldContexts autorelease];
+	[[NSUserDefaults standardUserDefaults] setObject:oldContexts forKey:@"Contexts"];
+	NSLog(@"Quickstart: Imported %d contexts from MarcoPolo 2.x", [oldContexts count]);
+	contextsImported = YES;
+
+	// TODO: import all the other useful bits, including:
+	//	* DefaultContext
+	//	* Enable*EvidenceSource
+	//	* MinimumConfidenceRequired
+	//	* UpdateInterval
+
 	// See if there are old rules and actions to import
-	NSArray *oldRules = (NSArray *) CFPreferencesCopyAppValue(CFSTR("Rules"), CFSTR("au.id.symonds.MarcoPolo"));
-	NSArray *oldActions = (NSArray *) CFPreferencesCopyAppValue(CFSTR("Actions"), CFSTR("au.id.symonds.MarcoPolo"));
+	NSArray *oldRules = (NSArray *) CFPreferencesCopyAppValue(CFSTR("Rules"), CFSTR("au.id.symonds.MarcoPolo2"));
+	NSArray *oldActions = (NSArray *) CFPreferencesCopyAppValue(CFSTR("Actions"), CFSTR("au.id.symonds.MarcoPolo2"));
 	if (!oldRules || !oldActions)
 		goto finished_import;
 	[oldRules autorelease];
 	[oldActions autorelease];
 
-	// Replicate (some) rules
-	NSMutableArray *newRules = [NSMutableArray array];
-	en = [oldRules objectEnumerator];
-	while ((dict = [en nextObject])) {
-		if ([[dict valueForKey:@"type"] isEqualToString:@"IP"]) {
-#if 1
-			ipActionsFound = YES;
-#else
-			// Warn!
-			NSAlert *alert = [[[NSAlert alloc] init] autorelease];
-			[alert setAlertStyle:NSWarningAlertStyle];
-			[alert setMessageText:@"Couldn't import MarcoPolo 1.x IP rule"];
-			[alert setInformativeText:
-				[NSString stringWithFormat:@"A rule with description \"%@\" was not imported!",
-					[dict valueForKey:@"description"]]];
-			[alert runModal];
-#endif
-			continue;
-		}
-
-		NSMutableDictionary *rule = [NSMutableDictionary dictionaryWithDictionary:dict];
-		Context *ctxt = [lookup objectForKey:[rule valueForKey:@"location"]];
-		if (ctxt)
-			[rule setValue:[ctxt uuid] forKey:@"context"];
-		[rule removeObjectForKey:@"location"];
-		[newRules addObject:rule];
-	}
-	[[NSUserDefaults standardUserDefaults] setObject:newRules forKey:@"Rules"];
-	NSLog(@"Quickstart: Imported %d rules from MarcoPolo 1.x", [newRules count]);
+	// Import rules as-is
+	[[NSUserDefaults standardUserDefaults] setObject:oldRules forKey:@"Rules"];
+	NSLog(@"Quickstart: Imported %d rules from MarcoPolo 2.x", [oldRules count]);
 	rulesImported = YES;
 
-	// Replicate actions
+	// Import and update actions (arrayify)
 	NSMutableArray *newActions = [NSMutableArray array];
-	en = [oldActions objectEnumerator];
+	NSEnumerator *en = [oldActions objectEnumerator];
+	NSDictionary *dict;
 	while ((dict = [en nextObject])) {
 		NSMutableDictionary *action = [NSMutableDictionary dictionaryWithDictionary:dict];
-		Context *ctxt = [lookup objectForKey:[action valueForKey:@"location"]];
-		if (ctxt)
-			[action setValue:[ctxt uuid] forKey:@"context"];
-		[action removeObjectForKey:@"location"];
-		if ([[action valueForKey:@"parameter"] isEqual:@"on"])
-			[action setValue:[NSNumber numberWithBool:YES] forKey:@"parameter"];
-		else if ([[action valueForKey:@"parameter"] isEqual:@"off"])
-				[action setValue:[NSNumber numberWithBool:NO] forKey:@"parameter"];
-		[action setValue:[NSNumber numberWithBool:YES] forKey:@"enabled"];
+		NSString *uuid = [action valueForKey:@"context"];
+		NSString *when = [action valueForKey:@"when"];
+		if ([when isEqualToString:@"Arrival"] || [when isEqualToString:@"Departure"]) {
+			when = [NSString stringWithFormat:@"%@@%@", when, uuid];
+			[action setValue:[NSArray arrayWithObject:when] forKey:@"when"];
+		} else if ([when isEqualToString:@"Both"]) {
+			when = [NSString stringWithFormat:@"Arrival@%@", uuid];
+			NSString *when2 = [NSString stringWithFormat:@"Departure@%@", uuid];
+			[action setValue:[NSArray arrayWithObjects:when, when2, nil] forKey:@"when"];
+		} else {
+			NSLog(@"Quickstart: Bad '%@' action", [action valueForKey:@"type"]);
+			++num_failed_actions;
+			continue;
+		}
 		[newActions addObject:action];
 	}
 	[[NSUserDefaults standardUserDefaults] setObject:newActions forKey:@"Actions"];
-	NSLog(@"Quickstart: Imported %d actions from MarcoPolo 1.x", [newActions count]);
+	NSLog(@"Quickstart: Imported %d actions from MarcoPolo 2.x", [newActions count]);
 	actionsImported = YES;
-
-	// Create NetworkLocation actions
-	newActions = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:@"Actions"]];
-	en = [lookup objectEnumerator];
-	cnt = 0;
-	while ((ctxt = [en nextObject])) {
-		Action *act = [[[NetworkLocationAction alloc] initWithOption:[ctxt name]] autorelease];
-		NSMutableDictionary *act_dict = [act dictionary];
-		[act_dict setValue:[ctxt uuid] forKey:@"context"];
-		[act_dict setValue:NSLocalizedString(@"Set Network Location", @"") forKey:@"description"];
-		[newActions addObject:act_dict];
-		++cnt;
-	}
-	[[NSUserDefaults standardUserDefaults] setObject:newActions forKey:@"Actions"];
-	NSLog(@"Quickstart: Created %d new NetworkLocation actions", cnt);
 
 finished_import:
 	1;	// shut compiler up
 	NSAlert *alert = [[[NSAlert alloc] init] autorelease];
 	[alert setAlertStyle:NSInformationalAlertStyle];
-	if (!rulesImported && !actionsImported)
-		[alert setMessageText:NSLocalizedString(@"Quick Start", @"")];
-	else
-		[alert setMessageText:NSLocalizedString(@"Quick Start and MarcoPolo 1.x Import", @"")];
+	[alert setMessageText:NSLocalizedString(@"Quick Start and MarcoPolo 2.x Import", @"")];
 
-	NSString *info = NSLocalizedString(@"Contexts have been made for you, named after your network locations.", @"");
-	if (rulesImported) {
-		if (!ipActionsFound)
-			info = [info stringByAppendingFormat:@"\n\n%@",
-				NSLocalizedString(@"All your rules have been imported.", @"")];
-		else
-			info = [info stringByAppendingFormat:@"\n\n%@",
-				NSLocalizedString(@"All your rules (except IP rules) have been imported.", @"")];
-	}
+	NSMutableArray *infoItems = [NSMutableArray array];
+	if (rulesImported)
+		[infoItems addObject:NSLocalizedString(@"All your rules have been imported.", @"")];
 	if (actionsImported)
-		info = [info stringByAppendingFormat:@"\n\n%@",
-			NSLocalizedString(@"All your actions have been imported.", @"")];
-
-	info = [info stringByAppendingFormat:@"\n\n%@",
-		NSLocalizedString(@"We strongly recommended that you review your preferences.", @"")];
+		[infoItems addObject:NSLocalizedString(@"All your actions have been imported.", @"")];
+	[infoItems addObject:NSLocalizedString(@"We strongly recommended that you review your preferences.", @"")];
+	NSString *info = [infoItems componentsJoinedByString:@"\n\n"];
 
 	[alert setInformativeText:info];
 
@@ -275,11 +287,16 @@ finished_import:
 
 - (void)awakeFromNib
 {
-	// If there aren't any contexts defined, nor rules, nor actions, port from version 1.x
+	// If there aren't any contexts defined, nor rules, nor actions, try importing from version 2.x
 	if (([[[NSUserDefaults standardUserDefaults] arrayForKey:@"Contexts"] count] == 0) &&
 	    ([[[NSUserDefaults standardUserDefaults] arrayForKey:@"Rules"] count] == 0) &&
 	    ([[[NSUserDefaults standardUserDefaults] arrayForKey:@"Actions"] count] == 0)) {
-		[self importVersion1Settings];
+		NSArray *oldContexts = (NSArray *) CFPreferencesCopyAppValue(CFSTR("Contexts"), CFSTR("au.id.symonds.MarcoPolo2"));
+		if (oldContexts) {
+			[oldContexts autorelease];
+			[self importVersion2Settings];
+		} else
+			[self createFreshStartSettings];
 	}
 
 #ifdef DO_WHEN_BOTH_MAPPING
