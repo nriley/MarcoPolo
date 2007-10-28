@@ -283,8 +283,6 @@ finished_import:
 	}
 }
 
-#define DO_WHEN_BOTH_MAPPING	// map 'Both' -> 'Arrival,Departure': expire after 2008-02-12
-
 - (void)awakeFromNib
 {
 	// If there aren't any contexts defined, nor rules, nor actions, try importing from version 2.x
@@ -298,38 +296,6 @@ finished_import:
 		} else
 			[self createFreshStartSettings];
 	}
-
-#ifdef DO_WHEN_BOTH_MAPPING
-	// map 'Both' -> 'Arrival,Departure'
-	unsigned int when_both_changes = 0;
-	NSArray *oldActions = [[NSUserDefaults standardUserDefaults] arrayForKey:@"Actions"];
-	if (!oldActions)
-		goto end_of_when_both_mapping;
-	NSMutableArray *newActions = [NSMutableArray arrayWithCapacity:[oldActions count]];
-	NSEnumerator *action_en = [oldActions objectEnumerator];
-	NSDictionary *actionDict;
-	while ((actionDict = [action_en nextObject])) {
-		NSMutableString *when = [[[actionDict valueForKey:@"when"] mutableCopy] autorelease];
-		unsigned int cnt = [when replaceOccurrencesOfString:@"Both"
-							 withString:@"Arrival,Departure"
-							    options:0
-							      range:NSMakeRange(0, [when length])];
-		if (!cnt) {
-			[newActions addObject:actionDict];
-		} else {
-			NSMutableDictionary *actionDictNew = [NSMutableDictionary dictionaryWithDictionary:actionDict];
-			[actionDictNew setValue:when forKey:@"when"];
-			[newActions addObject:actionDictNew];
-			++when_both_changes;
-		}
-	}
-	if (when_both_changes) {
-		NSLog(@"Mapping %d instances of 'Both' to 'Arrival,Departure'...\n", when_both_changes);
-		[[NSUserDefaults standardUserDefaults] setObject:newActions forKey:@"Actions"];
-	}
-end_of_when_both_mapping:
-	1;	// shut up compiler
-#endif
 
 	[[NSNotificationCenter defaultCenter] addObserver:self
 						 selector:@selector(contextsChanged:)
