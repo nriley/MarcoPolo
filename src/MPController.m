@@ -527,6 +527,21 @@ finished_import:
 	return matching_rules;
 }
 
+- (NSArray *)getActionsThatTriggerWhen:(NSString *)when
+{
+	NSArray *actions = [actionsController arrangedObjects];
+	NSMutableArray *matching_actions = [NSMutableArray array];
+
+	NSEnumerator *en = [actions objectEnumerator];
+	NSDictionary *action;
+	while ((action = [en nextObject])) {
+		if ([[action valueForKey:@"when"] containsObject:when] && [[action valueForKey:@"enabled"] boolValue])
+			[matching_actions addObject:action];
+	}
+
+	return matching_actions;
+}
+
 // (Private) in a new thread, execute Action immediately, growling upon failure
 - (void)executeAction:(id)arg
 {
@@ -573,7 +588,7 @@ finished_import:
 }
 
 // (Private) This will group the growling together. The parameter should be an array of Action objects.
-- (void)executeActionSet:(NSMutableArray *)actions
+- (void)executeActionSet:(NSArray *)actions
 {
 	if ([actions count] == 0)
 		return;
@@ -581,7 +596,7 @@ finished_import:
 	static double batchThreshold = 0.25;		// maximum grouping interval size
 
 	// Sort by delay
-	[actions sortUsingSelector:@selector(compareDelay:)];
+	actions = [actions sortedArrayUsingSelector:@selector(compareDelay:)];
 
 	NSMutableArray *batch = [NSMutableArray array];
 	NSEnumerator *en = [actions objectEnumerator];
@@ -613,8 +628,7 @@ finished_import:
 
 - (void)triggerDepartureActions:(NSString *)fromUUID
 {
-	NSArray *actions = [actionsController arrangedObjects];
-	NSMutableArray *actionsToRun = [NSMutableArray array];
+	NSArray *actionsToRun = [self getActionsThatTriggerWhen:[NSString stringWithFormat:@"Departure@%@", fromUUID]];
 	int max_delay = 0;
 
 	// This is slightly trickier than triggerArrivalActions, since the "delay" value is
@@ -623,25 +637,14 @@ finished_import:
 	// We then go through those selected actions, and run a surrogate action for each with
 	// a delay equal to (max_delay - original_delay).
 
-	NSEnumerator *action_enum = [actions objectEnumerator];
+	NSEnumerator *action_enum = [actionsToRun objectEnumerator];
 	NSDictionary *action;
 	while ((action = [action_enum nextObject])) {
-		NSArray *when = [[action objectForKey:@"when"] componentsSeparatedByString:@","];
-		if (![when containsObject:@"Departure"])
-			continue;
-		if (![[action objectForKey:@"context"] isEqualToString:fromUUID])
-			continue;
-		if (![[action objectForKey:@"enabled"] boolValue])
-			continue;
-
 		NSNumber *aDelay;
 		if ((aDelay = [action valueForKey:@"delay"])) {
 			if ([aDelay doubleValue] > max_delay)
 				max_delay = [aDelay doubleValue];
 		}
-
-		[actionsToRun addObject:action];
-
 	}
 
 	action_enum = [actionsToRun objectEnumerator];
@@ -661,23 +664,9 @@ finished_import:
 
 - (void)triggerArrivalActions:(NSString *)toUUID
 {
-	NSArray *actions = [actionsController arrangedObjects];
+	NSArray *actionsToRun = [self getActionsThatTriggerWhen:[NSString stringWithFormat:@"Arrival@%@", toUUID]];
 
-	NSEnumerator *action_enum = [actions objectEnumerator];
-	NSDictionary *action;
-	NSMutableArray *set = [NSMutableArray array];
-	while (action = [action_enum nextObject]) {
-		NSArray *when = [[action objectForKey:@"when"] componentsSeparatedByString:@","];
-		if (![when containsObject:@"Arrival"])
-			continue;
-		if (![[action objectForKey:@"context"] isEqualToString:toUUID])
-			continue;
-		if (![[action objectForKey:@"enabled"] boolValue])
-			continue;
-		[set addObject:[Action actionFromDictionary:action]];
-	}
-
-	[self executeActionSet:set];
+	[self executeActionSet:actionsToRun];
 }
 
 #pragma mark Context switching
