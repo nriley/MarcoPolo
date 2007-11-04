@@ -667,7 +667,13 @@ finished_import:
 {
 	NSArray *actionsToRun = [self getActionsThatTriggerWhen:[NSString stringWithFormat:@"Arrival@%@", toUUID]];
 
-	[self executeActionSet:actionsToRun];
+	NSMutableArray *set = [NSMutableArray arrayWithCapacity:[actionsToRun count]];
+	NSEnumerator *action_enum = [actionsToRun objectEnumerator];
+	NSDictionary *actionDict;
+	while ((actionDict = [action_enum nextObject])) {
+		[set addObject:[Action actionFromDictionary:actionDict]];
+	}
+	[self executeActionSet:set];
 }
 
 #pragma mark Context switching
