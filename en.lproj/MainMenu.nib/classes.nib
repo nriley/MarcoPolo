@@ -37,6 +37,12 @@
         }, 
         {CLASS = LoopingEvidenceSource; LANGUAGE = ObjC; SUPERCLASS = EvidenceSource; }, 
         {
+            CLASS = MPApplication; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {mpController = MPController; }; 
+            SUPERCLASS = NSApplication; 
+        }, 
+        {
             CLASS = MPController; 
             LANGUAGE = ObjC; 
             OUTLETS = {

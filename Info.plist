@@ -30,10 +30,14 @@
 	<string>1</string>
 	<key>MPWebPageURL</key>
 	<string>http://www.symonds.id.au/marcopolo/</string>
+	<key>NSAppleScriptEnabled</key>
+	<true/>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
-	<string>NSApplication</string>
+	<string>MPApplication</string>
+	<key>OSAScriptingDefinition</key>
+	<string>MarcoPolo.sdef</string>
 	<key>SUFeedURL</key>
 	<string>http://www.symonds.id.au/marcopolo/appcast.xml</string>
 	<key>SUScheduledCheckInterval</key>
