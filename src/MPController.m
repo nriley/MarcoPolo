@@ -209,6 +209,7 @@
 	}
 	[oldContexts autorelease];
 	[[NSUserDefaults standardUserDefaults] setObject:oldContexts forKey:@"Contexts"];
+	[contextTree loadContexts];
 	NSLog(@"Quickstart: Imported %d contexts from MarcoPolo 2.x", [oldContexts count]);
 	contextsImported = YES;
 
