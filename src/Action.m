@@ -54,7 +54,7 @@
 	type = [[Action typeForClass:[self class]] retain];
 	delay = [[NSNumber alloc] initWithDouble:0];
 	enabled = [[NSNumber alloc] initWithBool:YES];
-	when = [[NSArray arrayWithObject:@"Arrival"] retain];
+	when = [[NSArray alloc] init];
 	context = [@"" retain];
 
 	return self;
@@ -73,7 +73,7 @@
 	type = [[Action typeForClass:[self class]] retain];
 	delay = [[dict valueForKey:@"delay"] copy];
 	enabled = [[dict valueForKey:@"enabled"] copy];
-	when = [[[dict valueForKey:@"when"] componentsSeparatedByString:@","] retain];
+	when = [[dict valueForKey:@"when"] retain];
 	context = [[dict valueForKey:@"context"] copy];
 
 	return self;
@@ -96,7 +96,7 @@
 		[[type copy] autorelease], @"type",
 		[[delay copy] autorelease], @"delay",
 		[[enabled copy] autorelease], @"enabled",
-		[when componentsJoinedByString:@","], @"when",
+		[[when copy] autorelease], @"when",
 		[[context copy] autorelease], @"context",
 		nil];
 }
