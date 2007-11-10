@@ -82,6 +82,9 @@
 	[appDefaults setValue:[NSNumber numberWithFloat:5.0] forKey:@"UpdateInterval"];
 	[appDefaults setValue:[NSNumber numberWithBool:NO] forKey:@"WiFiAlwaysScans"];
 
+	// Debugging
+	[appDefaults setValue:[NSNumber numberWithBool:NO] forKey:@"Debug OpenPrefsAtStartup"];
+
 	// Sparkle (TODO: make update time configurable?)
 	[appDefaults setValue:[NSNumber numberWithBool:YES] forKey:@"SUCheckAtStartup"];
 
@@ -296,6 +299,11 @@ finished_import:
 			[self importVersion2Settings];
 		} else
 			[self createFreshStartSettings];
+	}
+
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Debug OpenPrefsAtStartup"]) {
+		[NSApp activateIgnoringOtherApps:YES];
+		[prefsWindow makeKeyAndOrderFront:self];
 	}
 
 	[[NSNotificationCenter defaultCenter] addObserver:self

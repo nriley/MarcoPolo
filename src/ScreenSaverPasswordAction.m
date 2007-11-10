@@ -6,6 +6,7 @@
 //
 
 #import <CoreFoundation/CFPreferences.h>
+#import "Common.h"
 #import "ScreenSaverPasswordAction.h"
 
 
@@ -21,25 +22,36 @@
 
 - (BOOL)execute:(NSString **)errorString
 {
-	NSNumber *val = [NSNumber numberWithBool:turnOn];
-	CFPreferencesSetValue(CFSTR("askForPassword"), (CFPropertyListRef) val,
-			      CFSTR("com.apple.screensaver"),
-			      kCFPreferencesCurrentUser, kCFPreferencesCurrentHost);
-	BOOL success = CFPreferencesSynchronize(CFSTR("com.apple.screensaver"),
-				 kCFPreferencesCurrentUser, kCFPreferencesCurrentHost);
+	BOOL success;
 
-	// Notify login process
-	if (success) {
-		CFMessagePortRef port = CFMessagePortCreateRemote(NULL, CFSTR("com.apple.loginwindow.notify"));
-		success = (CFMessagePortSendRequest(port, 500, 0, 0, 0, 0, 0) == kCFMessagePortSuccess);
-		CFRelease(port);
+	if (!isLeopardOrLater()) {
+		NSNumber *val = [NSNumber numberWithBool:turnOn];
+		CFPreferencesSetValue(CFSTR("askForPassword"), (CFPropertyListRef) val,
+				      CFSTR("com.apple.screensaver"),
+				      kCFPreferencesCurrentUser, kCFPreferencesCurrentHost);
+		success = CFPreferencesSynchronize(CFSTR("com.apple.screensaver"),
+					 kCFPreferencesCurrentUser, kCFPreferencesCurrentHost);
+
+		// Notify login process
+		if (success) {
+			CFMessagePortRef port = CFMessagePortCreateRemote(NULL, CFSTR("com.apple.loginwindow.notify"));
+			success = (CFMessagePortSendRequest(port, 500, 0, 0, 0, 0, 0) == kCFMessagePortSuccess);
+			CFRelease(port);
+		}
+	} else {
+		NSString *script = [NSString stringWithFormat:
+			@"tell application \"System Events\"\n"
+			"  tell security preferences\n"
+			"    set require password to wake to %@\n"
+			"  end tell\n"
+			"end tell\n", (turnOn ? @"true" : @"false")];
+		success = [self executeAppleScript:script];
 	}
 
 	if (!success) {
 		*errorString = NSLocalizedString(@"Failed toggling screen saver password!", @"");
 		return NO;
 	}
-
 	return YES;
 }
 

@@ -13,6 +13,8 @@
 	NSNumber *delay, *enabled;
 	NSArray *when;
 	NSString *context;	// for Arrival/Departure
+
+	NSAppleEventDescriptor *appleScriptResult_;
 }
 
 + (NSString *)typeForClass:(Class)klass;
@@ -32,6 +34,10 @@
 - (BOOL)execute:(NSString **)errorString;
 + (NSString *)helpText;
 + (NSString *)creationHelpText;
+
+// Helpers
+- (BOOL)executeAppleScript:(NSString *)script;		// returns YES on success, NO on failure
+- (NSArray *)executeAppleScriptReturningListOfStrings:(NSString *)script;
 
 @end
 

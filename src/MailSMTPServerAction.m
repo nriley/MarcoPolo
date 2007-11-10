@@ -58,16 +58,17 @@
 		@"tell application \"Mail\"\n"
 		"  repeat with server in every smtp server\n"
 		"    if (server name of server is equal to \"%@\") then\n"
-		"      set smtp server of every account to server\n"
+		"      repeat with acc in every account\n"
+		"        if acc is enabled then\n"
+		"          set smtp server of acc to server\n"
+		"        end if\n"
+		"      end repeat\n"
 		"      exit repeat\n"
 		"    end if\n"
 		"  end repeat\n"
 		"end tell\n", hostname];
-	NSArray *args = [NSArray arrayWithObjects:@"-e", script, nil];
-	NSTask *task = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/osascript" arguments:args];
-	[task waitUntilExit];
 
-	if ([task terminationStatus] != 0) {
+	if (![self executeAppleScript:script]) {
 		*errorString = NSLocalizedString(@"Couldn't set SMTP server!", @"In MailSMTPServerAction");
 		return NO;
 	}
@@ -93,28 +94,14 @@
 		"  get server name of every smtp server\n"
 		"end tell\n";
 
-	NSTask *task = [[[NSTask alloc] init] autorelease];
-
-	[task setLaunchPath:@"/usr/bin/osascript"];
-	[task setArguments:[NSArray arrayWithObjects:@"-e", script, nil]];
-	[task setStandardOutput:[NSPipe pipe]];
-
-	[task launch];
-	NSData *data = [[[task standardOutput] fileHandleForReading] readDataToEndOfFile];
-	[task waitUntilExit];
-	if ([task terminationStatus] != 0)	// failure
+	NSArray *list = [[[self new] autorelease] executeAppleScriptReturningListOfStrings:script];
+	if (!list)		// failure
 		return [NSArray array];
-	// XXX: what's the proper string encoding here?
-	NSString *s_data = [[[NSString alloc] initWithData:data encoding:NSMacOSRomanStringEncoding] autorelease];
-	if ([s_data hasSuffix:@"\n"] || [s_data hasSuffix:@"\r"])
-		s_data = [s_data substringToIndex:[s_data length] - 1];
-	NSArray *lines = [s_data componentsSeparatedByString:@","];
 
-	NSMutableArray *opts = [NSMutableArray arrayWithCapacity:[lines count]];
-	NSEnumerator *en = [lines objectEnumerator];
-	NSString *bit;
-	while ((bit = [en nextObject])) {
-		NSString *hostname = [[bit componentsSeparatedByString:@" "] lastObject];
+	NSMutableArray *opts = [NSMutableArray arrayWithCapacity:[list count]];
+	NSEnumerator *en = [list objectEnumerator];
+	NSString *hostname;
+	while ((hostname = [en nextObject])) {
 		[opts addObject:[NSDictionary dictionaryWithObjectsAndKeys:
 			hostname, @"option", hostname, @"description", nil]];
 	}
