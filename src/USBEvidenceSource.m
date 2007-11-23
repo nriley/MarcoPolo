@@ -60,7 +60,7 @@ static void devRemoved(void *ref, io_iterator_t iterator)
 
 #pragma mark Utility methods
 
-// Returns a string (set to auto-release), or the vendor_id in hexadecimal.
+// Returns a string, or the vendor_id in hexadecimal.
 + (NSString *)usbVendorById:(UInt16)vendor_id
 {
 	NSDictionary *vendDb = [DB sharedUSBVendorDB];
@@ -84,6 +84,8 @@ static void devRemoved(void *ref, io_iterator_t iterator)
 
 	if (!device)		// extra safety
 		return NO;
+
+	// TODO: this code could do with more rigorous error checking.
 
 	rc = IOCreatePlugInInterfaceForService(*device, kIOUSBDeviceUserClientTypeID,
 					       kIOCFPlugInInterfaceID, &iface, &score);
@@ -133,6 +135,8 @@ cleanup:
 		{ 0x05AC, 0x8240 },		// (Apple) IR Receiver
 		{ 0x05AC, 0x8501 },		// (Apple) Built-in iSight
 	};
+	if (paranoid && !iterator)
+		NSLog(@"USB devAdded >> passed null io_iterator_t!");
 
 
 	io_service_t device;
@@ -154,6 +158,8 @@ cleanup:
 		// Get USB vendor ID and product ID
 		UInt16 vendor_id;
 		UInt16 product_id;
+		if (paranoid && !device)
+			NSLog(@"USB devAdded >> hit null io_service_t!");
 		if (![[self class] usbDetailsForDevice:&device outVendor:&vendor_id outProduct:&product_id]) {
 			NSLog(@"USB >> failed getting details.", cnt);
 			goto end_of_device_handling;
@@ -209,6 +215,8 @@ end_of_device_handling:
 	// Create matching dictionary for I/O Kit enumeration
 	CFMutableDictionaryRef matchDict = IOServiceMatching(kIOUSBDeviceClassName);
 	kr = IOServiceGetMatchingServices(kIOMasterPortDefault, matchDict, &iterator);
+	if (paranoid && (kr != KERN_SUCCESS))
+		NSLog(@"USB enumerateAll >> IOServiceGetMatchingServices returned %d", kr);
 
 	[lock lock];
 	[devices removeAllObjects];
@@ -221,6 +229,9 @@ end_of_device_handling:
 
 - (void)devRemoved:(io_iterator_t)iterator
 {
+	// When a USB device is removed, we usually don't get its details,
+	// nor can we query those details (since it's removed, duh!). Thus
+	// we do the simplest thing of doing a full rescan.
 	io_service_t device;
 	while ((device = IOIteratorNext(iterator)))
 		IOObjectRelease(device);
@@ -249,6 +260,10 @@ end_of_device_handling:
 {
 	if (running)
 		return;
+
+	paranoid = [[NSUserDefaults standardUserDefaults] boolForKey:@"Debug USBParanoia"];
+	if (paranoid)
+		NSLog(@"USB Paranoia enabled.");
 
 	notificationPort = IONotificationPortCreate(kIOMasterPortDefault);
 	runLoopSource = IONotificationPortGetRunLoopSource(notificationPort);

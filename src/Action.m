@@ -201,6 +201,7 @@
 #pragma mark -
 
 #import "DefaultPrinterAction.h"
+#import "DesktopBackgroundAction.h"
 #import "FirewallRuleAction.h"
 #import "IChatAction.h"
 #import "MailIMAPServerAction.h"
@@ -216,6 +217,7 @@
 #import "ShellScriptAction.h"
 #import "ToggleBluetoothAction.h"
 #import "ToggleWiFiAction.h"
+#import "UnmountAction.h"
 #import "VPNAction.h"
 
 @implementation ActionSetController
@@ -227,6 +229,7 @@
 
 	classes = [[NSArray alloc] initWithObjects:
 		[DefaultPrinterAction class],
+		[DesktopBackgroundAction class],
 		[FirewallRuleAction class],
 		[IChatAction class],
 		[MailIMAPServerAction class],
@@ -242,11 +245,13 @@
 		[ShellScriptAction class],
 		[ToggleBluetoothAction class],
 		[ToggleWiFiAction class],
+		[UnmountAction class],
 		[VPNAction class],
 			nil];
 	if (NO) {
 		// Purely for the benefit of 'genstrings'
 		NSLocalizedString(@"DefaultPrinter", @"Action type");
+		NSLocalizedString(@"DesktopBackground", @"Action type");
 		NSLocalizedString(@"FirewallRule", @"Action type");
 		NSLocalizedString(@"IChat", @"Action type");
 		NSLocalizedString(@"MailIMAPServer", @"Action type");
@@ -262,6 +267,7 @@
 		NSLocalizedString(@"ShellScript", @"Action type");
 		NSLocalizedString(@"ToggleBluetooth", @"Action type");
 		NSLocalizedString(@"ToggleWiFi", @"Action type");
+		NSLocalizedString(@"Unmount", @"Action type");
 		NSLocalizedString(@"VPN", @"Action type");
 	}
 
