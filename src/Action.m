@@ -56,7 +56,6 @@
 	delay = [[NSNumber alloc] initWithDouble:0];
 	enabled = [[NSNumber alloc] initWithBool:YES];
 	when = [[NSArray alloc] init];
-	context = [@"" retain];
 
 	return self;
 }
@@ -75,7 +74,6 @@
 	delay = [[dict valueForKey:@"delay"] copy];
 	enabled = [[dict valueForKey:@"enabled"] copy];
 	when = [[dict valueForKey:@"when"] retain];
-	context = [[dict valueForKey:@"context"] copy];
 
 	return self;
 }
@@ -86,7 +84,6 @@
 	[delay release];
 	[enabled release];
 	[when release];
-	[context release];
 
 	[super dealloc];
 }
@@ -98,7 +95,6 @@
 		[[delay copy] autorelease], @"delay",
 		[[enabled copy] autorelease], @"enabled",
 		[[when copy] autorelease], @"when",
-		[[context copy] autorelease], @"context",
 		nil];
 }
 

@@ -12,7 +12,6 @@
 	NSString *type;
 	NSNumber *delay, *enabled;
 	NSArray *when;
-	NSString *context;	// for Arrival/Departure
 
 	NSAppleEventDescriptor *appleScriptResult_;
 }
