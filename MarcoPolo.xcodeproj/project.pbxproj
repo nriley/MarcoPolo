@@ -15,7 +15,6 @@
 		8D185DC60BF428CF00A06B03 /* AdvancedPrefs.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 8D185DC50BF428CF00A06B03 /* AdvancedPrefs.tiff */; };
 		8D1A455B0BA00DE2004A6BC4 /* minus-8.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D1A45590BA00DE2004A6BC4 /* minus-8.png */; };
 		8D1A455C0BA00DE2004A6BC4 /* plus-8.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D1A455A0BA00DE2004A6BC4 /* plus-8.png */; };
-		8D1EDA170CE11C8C00202458 /* Common.h in Copy Help Files */ = {isa = PBXBuildFile; fileRef = 8D1EDA150CE11C8C00202458 /* Common.h */; };
 		8D1EDA180CE11C8C00202458 /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D1EDA160CE11C8C00202458 /* Common.m */; };
 		8D2072110B86AB0000D61A9E /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D20720E0B86AB0000D61A9E /* Sparkle.framework */; };
 		8D2073890B86AB8000D61A9E /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8D20720E0B86AB0000D61A9E /* Sparkle.framework */; };
@@ -24,7 +23,6 @@
 		8D232FB60BD9D507006A3963 /* RulesPrefs.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 8D232FB40BD9D507006A3963 /* RulesPrefs.tiff */; };
 		8D27ECB00C4456A300AE1929 /* AudioOutputEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D27ECAE0C4456A300AE1929 /* AudioOutputEvidenceSource.m */; };
 		8D2BAAAD0C56E26200A50777 /* NetworkLinkEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2BAAAB0C56E26100A50777 /* NetworkLinkEvidenceSource.m */; };
-		8D341D210CDB0896000B9A53 /* MPApplication.h in Copy Help Files */ = {isa = PBXBuildFile; fileRef = 8D341D1F0CDB0896000B9A53 /* MPApplication.h */; };
 		8D341D220CDB0896000B9A53 /* MPApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D341D200CDB0896000B9A53 /* MPApplication.m */; };
 		8D3453C40C18E5C1006011D0 /* IChatAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D3453C20C18E5C1006011D0 /* IChatAction.m */; };
 		8D38B66C0C49D50200290F47 /* SliderWithValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D38B66A0C49D50200290F47 /* SliderWithValue.m */; };
@@ -65,7 +63,6 @@
 		8D8C9CA60BBB74E70074D5B3 /* EvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8C9CA40BBB74E70074D5B3 /* EvidenceSource.m */; };
 		8D8C9CE70BBB7BE00074D5B3 /* BluetoothEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8C9CE50BBB7BE00074D5B3 /* BluetoothEvidenceSource.m */; };
 		8D8C9E350BBB89320074D5B3 /* DB.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8C9E330BBB89320074D5B3 /* DB.m */; };
-		8D8D2AFF0CB9C91500A3EFAE /* ContextFilteredController.h in Copy Help Files */ = {isa = PBXBuildFile; fileRef = 8D8D2AFD0CB9C91500A3EFAE /* ContextFilteredController.h */; };
 		8D8D2B000CB9C91500A3EFAE /* ContextFilteredController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8D2AFE0CB9C91500A3EFAE /* ContextFilteredController.m */; };
 		8D90E51F0B71C4C9007D39FD /* MPController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D90E51E0B71C4C9007D39FD /* MPController.m */; };
 		8D91F17D0C47148200D9FC0F /* USBEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D35A34D0BBBA0CB006ACBB0 /* USBEvidenceSource.m */; };
@@ -122,9 +119,6 @@
 			dstSubfolderSpec = 7;
 			files = (
 				8DEF428F0BAA05D300F87273 /* MarcoPolo Help in Copy Help Files */,
-				8D8D2AFF0CB9C91500A3EFAE /* ContextFilteredController.h in Copy Help Files */,
-				8D341D210CDB0896000B9A53 /* MPApplication.h in Copy Help Files */,
-				8D1EDA170CE11C8C00202458 /* Common.h in Copy Help Files */,
 			);
 			name = "Copy Help Files";
 			runOnlyForDeploymentPostprocessing = 0;
