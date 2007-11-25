@@ -687,6 +687,34 @@ finished_import:
 	[self executeActionSet:set];
 }
 
+- (void)triggerWakeActions
+{
+	NSArray *actionsToRun = [self getActionsThatTriggerWhen:@"Wake"];
+	DSLog(@"Running %d Wake action(s)", [actionsToRun count]);
+
+	NSMutableArray *set = [NSMutableArray arrayWithCapacity:[actionsToRun count]];
+	NSEnumerator *action_enum = [actionsToRun objectEnumerator];
+	NSDictionary *actionDict;
+	while ((actionDict = [action_enum nextObject])) {
+		[set addObject:[Action actionFromDictionary:actionDict]];
+	}
+	[self executeActionSet:set];
+}
+
+- (void)triggerSleepActions
+{
+	NSArray *actionsToRun = [self getActionsThatTriggerWhen:@"Sleep"];
+	DSLog(@"Running %d Sleep action(s)", [actionsToRun count]);
+
+	NSMutableArray *set = [NSMutableArray arrayWithCapacity:[actionsToRun count]];
+	NSEnumerator *action_enum = [actionsToRun objectEnumerator];
+	NSDictionary *actionDict;
+	while ((actionDict = [action_enum nextObject])) {
+		[set addObject:[Action actionFromDictionary:actionDict]];
+	}
+	[self executeActionSet:set];
+}
+
 #pragma mark Context switching
 
 - (void)performTransitionFrom:(NSString *)fromUUID to:(NSString *)toUUID
@@ -943,6 +971,8 @@ finished_import:
 
 - (void)goingToSleep:(id)arg
 {
+	[self triggerSleepActions];
+
 	DSLog(@"Stopping update thread for sleep.");
 	// Effectively stops timer
 	[updatingTimer setFireDate:[NSDate distantFuture]];
@@ -950,6 +980,8 @@ finished_import:
 
 - (void)wakeFromSleep:(id)arg
 {
+	[self triggerWakeActions];
+
 	DSLog(@"Starting update thread after sleep.");
 	[updatingTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:2.0]];
 }

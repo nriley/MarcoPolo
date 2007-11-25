@@ -814,14 +814,30 @@
 	}
 	NSMenuItem *arrivalSubmenuItem = [[[NSMenuItem alloc] init] autorelease];
 	NSMenuItem *departureSubmenuItem = [[[NSMenuItem alloc] init] autorelease];
-	[arrivalSubmenuItem setTitle:NSLocalizedString(@"Arrival", @"In add action trigger menu")];
+	[arrivalSubmenuItem setTitle:NSLocalizedString(@"Arrival", @"In 'add action trigger' menu")];
 	[arrivalSubmenuItem setSubmenu:arrivalSubmenu];
-	[departureSubmenuItem setTitle:NSLocalizedString(@"Departure", @"In add action trigger menu")];
+	[departureSubmenuItem setTitle:NSLocalizedString(@"Departure", @"In 'add action trigger' menu")];
 	[departureSubmenuItem setSubmenu:departureSubmenu];
 	[triggerMenu addItem:arrivalSubmenuItem];
 	[triggerMenu addItem:departureSubmenuItem];
 
-	// TODO: create menu items for other trigger types
+	if (NO) {
+		// Purely for the benefit of 'genstrings'
+		NSLocalizedString(@"Wake", @"In 'add action trigger' menu");
+		NSLocalizedString(@"Sleep", @"In 'add action trigger' menu");
+	}
+
+	// Create menu items for other trigger types
+	en = [[NSArray arrayWithObjects:@"Wake", @"Sleep", nil] objectEnumerator];
+	NSString *when;
+	while ((when = [en nextObject])) {
+		NSMenuItem *item = [[[NSMenuItem alloc] init] autorelease];
+		[item setTitle:NSLocalizedString(when, @"In 'add action trigger' menu")];
+		[item setRepresentedObject:when];
+		[item setTarget:self];
+		[item setAction:@selector(addActionTrigger:)];
+		[triggerMenu addItem:item];
+	}
 
 	[newActionTriggerButton setMenu:triggerMenu];
 }
