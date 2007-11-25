@@ -12,7 +12,7 @@
 @end
 @interface LocalizeTransformer : NSValueTransformer {}
 @end
-@interface WhenLocalizeTransformer : NSValueTransformer {}
+@interface TriggerTransformer : NSValueTransformer {}
 @end
 @interface ContextNameTransformer : NSValueTransformer { }
 @end
@@ -79,8 +79,7 @@
 
 @end
 
-// XXX: Yar... shouldn't really need this!
-@implementation WhenLocalizeTransformer
+@implementation TriggerTransformer
 
 + (Class)transformedValueClass { return [NSString class]; }
 
@@ -88,15 +87,20 @@
 
 - (id)transformedValue:(id)theValue
 {
-	NSString *inc = [(NSString *) theValue lowercaseString];
-	NSString *eng_str;
-	// HACK: this should be sorted out nicer
-	if ([inc isEqualToString:@"both"])
-		eng_str = (NSString *) theValue;
-	else
-		eng_str = [NSString stringWithFormat:@"On %@", inc];
+	NSString *str = (NSString *) theValue;
 
-	return NSLocalizedString(eng_str, @"");
+	if ([str hasPrefix:@"Arrival@"]) {
+		NSString *uuid = [[str componentsSeparatedByString:@"@"] lastObject];
+		Context *ctxt = [[ContextTree sharedInstance] contextByUUID:uuid];
+		return [NSString stringWithFormat:NSLocalizedString(@"Arrival at %@", @"Context trigger"),
+			[ctxt name]];
+	} else if ([str hasPrefix:@"Departure@"]) {
+		NSString *uuid = [[str componentsSeparatedByString:@"@"] lastObject];
+		Context *ctxt = [[ContextTree sharedInstance] contextByUUID:uuid];
+		return [NSString stringWithFormat:NSLocalizedString(@"Departure from %@", @"Context trigger"),
+			[ctxt name]];
+	} else
+		return NSLocalizedString(str, @"Context trigger");
 }
 
 @end
@@ -136,8 +140,8 @@
 					forName:@"DelayValueTransformer"];
 	[NSValueTransformer setValueTransformer:[[[LocalizeTransformer alloc] init] autorelease]
 					forName:@"LocalizeTransformer"];
-	[NSValueTransformer setValueTransformer:[[[WhenLocalizeTransformer alloc] init] autorelease]
-					forName:@"WhenLocalizeTransformer"];
+	[NSValueTransformer setValueTransformer:[[[TriggerTransformer alloc] init] autorelease]
+					forName:@"TriggerTransformer"];
 	[NSValueTransformer setValueTransformer:[[[ContextNameTransformer alloc] init] autorelease]
 					forName:@"ContextNameTransformer"];
 }
