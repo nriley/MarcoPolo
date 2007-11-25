@@ -123,6 +123,7 @@
 @interface PrefsWindowController (Private)
 
 - (void)triggerOutlineViewReloadData:(NSNotification *)notification;
+- (void)contextsChanged:(NSNotification *)notification;
 - (void)updateLogBuffer:(NSTimer *)timer;
 
 @end
@@ -240,6 +241,13 @@
 						     name:@"ContextsChangedNotification"
 						   object:tree];
 	[contextOutlineView setDataSource:tree];
+
+	// Register for context change notifications
+	[[NSNotificationCenter defaultCenter] addObserver:self
+						 selector:@selector(contextsChanged:)
+						     name:@"ContextsChangedNotification"
+						   object:[ContextTree sharedInstance]];
+	[self contextsChanged:nil];
 
 	// Load up correct localisations
 	[whenActionController addObject:
@@ -640,7 +648,7 @@
 	[filteredRulesController setSelectionIndex:index];
 }
 
-#pragma mark Action creation
+#pragma mark Action creation/editing
 
 - (void)addAction:(id)sender
 {
@@ -749,6 +757,60 @@
 	[actionsController setSelectedObjects:[NSArray arrayWithObject:dict]];
 
 	[newActionWindow performClose:self];
+}
+
+// This method will be called from a menu item in the 'Add action trigger' menu.
+// The represented object for the menu item is the trigger string ("Arrival@<uuid>", etc.).
+- (void)addActionTrigger:(id)sender
+{
+	NSMenuItem *item = (NSMenuItem *) sender;
+
+	// TODO
+	NSLog(@"%s hit: %@", __PRETTY_FUNCTION__, [sender representedObject]);
+}
+
+- (void)rebuildAddActionTriggerMenu
+{
+	NSMenu *triggerMenu = [[[NSMenu alloc] init] autorelease];
+
+	// First, create nested menus for arrival and departure triggers
+	NSMenu *arrivalSubmenu = [[[NSMenu alloc] init] autorelease],
+		*departureSubmenu = [[[NSMenu alloc] init] autorelease];
+	NSEnumerator *en = [[[ContextTree sharedInstance] orderedTraversal] objectEnumerator];
+	Context *ctxt;
+	while ((ctxt = [en nextObject])) {
+		NSString *arrivalWhen = [NSString stringWithFormat:@"Arrival@%@", [ctxt uuid]];
+		NSString *departureWhen = [NSString stringWithFormat:@"Departure@%@", [ctxt uuid]];
+
+		NSMenuItem *item = [[[NSMenuItem alloc] init] autorelease];
+		[item setTitle:[ctxt name]];
+		[item setIndentationLevel:[[ctxt valueForKey:@"depth"] intValue]];
+		[item setRepresentedObject:arrivalWhen];
+		[item setTarget:self];
+		[item setAction:@selector(addActionTrigger:)];
+		[arrivalSubmenu addItem:item];
+
+		item = [[item copy] autorelease];
+		[item setRepresentedObject:departureWhen];
+		[departureSubmenu addItem:item];
+	}
+	NSMenuItem *arrivalSubmenuItem = [[[NSMenuItem alloc] init] autorelease];
+	NSMenuItem *departureSubmenuItem = [[[NSMenuItem alloc] init] autorelease];
+	[arrivalSubmenuItem setTitle:NSLocalizedString(@"Arrival", @"In add action trigger menu")];
+	[arrivalSubmenuItem setSubmenu:arrivalSubmenu];
+	[departureSubmenuItem setTitle:NSLocalizedString(@"Departure", @"In add action trigger menu")];
+	[departureSubmenuItem setSubmenu:departureSubmenu];
+	[triggerMenu addItem:arrivalSubmenuItem];
+	[triggerMenu addItem:departureSubmenuItem];
+
+	// TODO: create menu items for other trigger types
+
+	[newActionTriggerButton setMenu:triggerMenu];
+}
+
+- (void)contextsChanged:(NSNotification *)notification
+{
+	[self rebuildAddActionTriggerMenu];
 }
 
 #pragma mark Miscellaneous
