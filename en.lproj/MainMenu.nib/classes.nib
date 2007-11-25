@@ -67,6 +67,7 @@
                 newContextSheetAccepted = id; 
                 newContextSheetRejected = id; 
                 removeContext = id; 
+                removeTrigger = id; 
                 runAbout = id; 
                 runPreferences = id; 
                 runWebPage = id; 
@@ -96,6 +97,7 @@
                 prefsWindow = NSWindow; 
                 rulesController = NSArrayController; 
                 rulesPrefsView = NSView; 
+                triggersController = NSArrayController; 
                 whenActionController = NSArrayController; 
             }; 
             SUPERCLASS = NSWindowController; 

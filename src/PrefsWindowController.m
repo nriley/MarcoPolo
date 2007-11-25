@@ -88,6 +88,8 @@
 - (id)transformedValue:(id)theValue
 {
 	NSString *str = (NSString *) theValue;
+	if (!str)
+		return nil;
 
 	if ([str hasPrefix:@"Arrival@"]) {
 		NSString *uuid = [[str componentsSeparatedByString:@"@"] lastObject];
@@ -759,14 +761,31 @@
 	[newActionWindow performClose:self];
 }
 
+- (IBAction)removeTrigger:(id)sender
+{
+	unsigned int index = [triggersController selectionIndex];
+	if (index == NSNotFound)
+		return;
+
+	// This is a bit ugly because we're updating a collection that's bound to another collection.
+	// Instead of changing the later-collection, we recalculate the overall collection and change the
+	// relevant key on the earlier-collection. Ick.
+	NSMutableArray *array = [[[triggersController arrangedObjects] mutableCopy] autorelease];
+	[array removeObjectAtIndex:index];
+	[[actionsController selection] setValue:array forKey:@"triggers"];
+}
+
 // This method will be called from a menu item in the 'Add action trigger' menu.
 // The represented object for the menu item is the trigger string ("Arrival@<uuid>", etc.).
 - (void)addActionTrigger:(id)sender
 {
 	NSMenuItem *item = (NSMenuItem *) sender;
+	NSString *newTrigger = [item representedObject];
 
-	// TODO
-	NSLog(@"%s hit: %@", __PRETTY_FUNCTION__, [sender representedObject]);
+	// (see comment in removeTrigger:)
+	NSMutableArray *array = [[[triggersController arrangedObjects] mutableCopy] autorelease];
+	[array addObject:newTrigger];
+	[[actionsController selection] setValue:array forKey:@"triggers"];
 }
 
 - (void)rebuildAddActionTriggerMenu

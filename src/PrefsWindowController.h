@@ -36,6 +36,7 @@
 
 	// Action trigger hooks
 	IBOutlet PopButton *newActionTriggerButton;
+	IBOutlet NSArrayController *triggersController;
 
 	IBOutlet NSTextView *logBufferView;
 	NSNumber *logBufferPaused;
@@ -76,5 +77,7 @@
 
 - (void)addAction:(id)sender;
 - (IBAction)doAddAction:(id)sender;
+
+- (IBAction)removeTrigger:(id)sender;
 
 @end
