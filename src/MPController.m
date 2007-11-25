@@ -169,7 +169,7 @@
 		Action *act = [[[NetworkLocationAction alloc] initWithOption:[ctxt name]] autorelease];
 		NSMutableDictionary *act_dict = [act dictionary];
 		NSString *when = [NSString stringWithFormat:@"Arrival@%@", [ctxt uuid]];
-		[act_dict setValue:[NSArray arrayWithObject:when] forKey:@"when"];
+		[act_dict setValue:[NSArray arrayWithObject:when] forKey:@"triggers"];
 		[act_dict setValue:NSLocalizedString(@"Set Network Location", @"") forKey:@"description"];
 		[newActions addObject:act_dict];
 	}
@@ -246,16 +246,17 @@
 		NSString *when = [action valueForKey:@"when"];
 		if ([when isEqualToString:@"Arrival"] || [when isEqualToString:@"Departure"]) {
 			when = [NSString stringWithFormat:@"%@@%@", when, uuid];
-			[action setValue:[NSArray arrayWithObject:when] forKey:@"when"];
+			[action setValue:[NSArray arrayWithObject:when] forKey:@"triggers"];
 		} else if ([when isEqualToString:@"Both"]) {
 			when = [NSString stringWithFormat:@"Arrival@%@", uuid];
 			NSString *when2 = [NSString stringWithFormat:@"Departure@%@", uuid];
-			[action setValue:[NSArray arrayWithObjects:when, when2, nil] forKey:@"when"];
+			[action setValue:[NSArray arrayWithObjects:when, when2, nil] forKey:@"triggers"];
 		} else {
 			NSLog(@"Quickstart: Bad '%@' action", [action valueForKey:@"type"]);
 			++num_failed_actions;
 			continue;
 		}
+		[action removeObjectForKey:@"when"];
 		[newActions addObject:action];
 	}
 	[[NSUserDefaults standardUserDefaults] setObject:newActions forKey:@"Actions"];
@@ -545,7 +546,7 @@ finished_import:
 	NSEnumerator *en = [actions objectEnumerator];
 	NSDictionary *action;
 	while ((action = [en nextObject])) {
-		if ([[action valueForKey:@"when"] containsObject:when] && [[action valueForKey:@"enabled"] boolValue])
+		if ([[action valueForKey:@"triggers"] containsObject:when] && [[action valueForKey:@"enabled"] boolValue])
 			[matching_actions addObject:action];
 	}
 

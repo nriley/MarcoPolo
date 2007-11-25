@@ -11,7 +11,7 @@
 @interface Action : NSObject {
 	NSString *type;
 	NSNumber *delay, *enabled;
-	NSArray *when;
+	NSArray *triggers;
 
 	NSAppleEventDescriptor *appleScriptResult_;
 }
