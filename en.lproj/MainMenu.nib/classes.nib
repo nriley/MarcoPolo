@@ -80,7 +80,6 @@
                 contextOutlineView = NSOutlineView; 
                 contextsPrefsView = NSView; 
                 defaultContextButton = ContextSelectionButton; 
-                editActionContextButton = ContextSelectionButton; 
                 evidenceSources = EvidenceSourceSetController; 
                 evidenceSourcesPrefsView = NSView; 
                 filteredRulesController = NSArrayController; 
@@ -89,6 +88,7 @@
                 mpController = MPController; 
                 newActionContext = NSPopUpButton; 
                 newActionLimitedOptionsController = NSArrayController; 
+                newActionTriggerButton = PopButton; 
                 newActionWindow = NSWindow; 
                 newActionWindowParameterView = NSView; 
                 newContextSheet = NSPanel; 

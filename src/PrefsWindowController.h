@@ -4,6 +4,7 @@
 #import "ContextTree.h"
 #import "ContextSelectionButton.h"
 #import "MPController.h"
+#import "PopButton.h"
 
 @interface PrefsWindowController : NSWindowController
 {
@@ -20,9 +21,8 @@
 	IBOutlet NSArrayController *rulesController, *filteredRulesController, *actionsController;
 	IBOutlet NSArrayController *whenActionController;
 
-	// Selection controls for rules/actions
+	// Selection controls for rules
 	IBOutlet ContextSelectionButton *defaultContextButton;
-	IBOutlet ContextSelectionButton *editActionContextButton;
 
 	// New action creation hooks
 	IBOutlet NSWindow *newActionWindow;
@@ -33,6 +33,9 @@
 	IBOutlet NSArrayController *newActionLimitedOptionsController;
 	IBOutlet NSPopUpButton *newActionContext;
 	NSString *newActionWindowWhen;
+
+	// Action trigger hooks
+	IBOutlet PopButton *newActionTriggerButton;
 
 	IBOutlet NSTextView *logBufferView;
 	NSNumber *logBufferPaused;
