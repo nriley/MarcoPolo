@@ -256,6 +256,7 @@
 			++num_failed_actions;
 			continue;
 		}
+		[action removeObjectForKey:@"context"];
 		[action removeObjectForKey:@"when"];
 		[newActions addObject:action];
 	}
