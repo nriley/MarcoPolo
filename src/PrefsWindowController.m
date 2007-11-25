@@ -91,16 +91,15 @@
 	if (!str)
 		return nil;
 
+	ContextTree *tree = [ContextTree sharedInstance];
 	if ([str hasPrefix:@"Arrival@"]) {
 		NSString *uuid = [[str componentsSeparatedByString:@"@"] lastObject];
-		Context *ctxt = [[ContextTree sharedInstance] contextByUUID:uuid];
 		return [NSString stringWithFormat:NSLocalizedString(@"Arrival at %@", @"Context trigger"),
-			[ctxt name]];
+			[tree pathFromRootTo:uuid]];
 	} else if ([str hasPrefix:@"Departure@"]) {
 		NSString *uuid = [[str componentsSeparatedByString:@"@"] lastObject];
-		Context *ctxt = [[ContextTree sharedInstance] contextByUUID:uuid];
 		return [NSString stringWithFormat:NSLocalizedString(@"Departure from %@", @"Context trigger"),
-			[ctxt name]];
+			[tree pathFromRootTo:uuid]];
 	} else
 		return NSLocalizedString(str, @"Context trigger");
 }
