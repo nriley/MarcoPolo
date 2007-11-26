@@ -188,7 +188,7 @@
 			@"EvidenceSources", @"name",
 			NSLocalizedString(@"Evidence Sources", "Preferences section"), @"display_name",
 			@"EvidenceSourcesPrefs", @"icon",
-			[NSNumber numberWithBool:NO], @"resizeable",
+			[NSNumber numberWithBool:YES], @"resizeable",
 			evidenceSourcesPrefsView, @"view", nil],
 		[NSMutableDictionary dictionaryWithObjectsAndKeys:
 			@"Rules", @"name",
