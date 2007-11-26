@@ -825,10 +825,11 @@
 		// Purely for the benefit of 'genstrings'
 		NSLocalizedString(@"Wake", @"In 'add action trigger' menu");
 		NSLocalizedString(@"Sleep", @"In 'add action trigger' menu");
+		NSLocalizedString(@"Startup", @"In 'add action trigger' menu");
 	}
 
 	// Create menu items for other trigger types
-	en = [[NSArray arrayWithObjects:@"Wake", @"Sleep", nil] objectEnumerator];
+	en = [[NSArray arrayWithObjects:@"Wake", @"Sleep", @"Startup", nil] objectEnumerator];
 	NSString *when;
 	while ((when = [en nextObject])) {
 		NSMenuItem *item = [[[NSMenuItem alloc] init] autorelease];

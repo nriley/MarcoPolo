@@ -27,6 +27,12 @@
 
 - (void)doUpdate:(NSTimer *)theTimer;
 
+- (void)triggerDepartureActions:(NSString *)fromUUID;
+- (void)triggerArrivalActions:(NSString *)toUUID;
+- (void)triggerWakeActions;
+- (void)triggerSleepActions;
+- (void)triggerStartupActions;
+
 - (void)updateThread:(id)arg;
 - (void)goingToSleep:(id)arg;
 - (void)wakeFromSleep:(id)arg;
@@ -358,6 +364,8 @@ finished_import:
 		}
 	}
 
+	[self triggerStartupActions];
+
 	[NSThread detachNewThreadSelector:@selector(updateThread:)
 				 toTarget:self
 			       withObject:nil];
@@ -674,9 +682,9 @@ finished_import:
 	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:max_delay]];
 }
 
-- (void)triggerArrivalActions:(NSString *)toUUID
+- (int)triggerActionsWithTrigger:(NSString *)trigger
 {
-	NSArray *actionsToRun = [self getActionsThatTriggerWhen:[NSString stringWithFormat:@"Arrival@%@", toUUID]];
+	NSArray *actionsToRun = [self getActionsThatTriggerWhen:trigger];
 
 	NSMutableArray *set = [NSMutableArray arrayWithCapacity:[actionsToRun count]];
 	NSEnumerator *action_enum = [actionsToRun objectEnumerator];
@@ -685,34 +693,31 @@ finished_import:
 		[set addObject:[Action actionFromDictionary:actionDict]];
 	}
 	[self executeActionSet:set];
+
+	return [actionsToRun count];
+}
+
+- (void)triggerArrivalActions:(NSString *)toUUID
+{
+	[self triggerActionsWithTrigger:[NSString stringWithFormat:@"Arrival@%@", toUUID]];
 }
 
 - (void)triggerWakeActions
 {
-	NSArray *actionsToRun = [self getActionsThatTriggerWhen:@"Wake"];
-	DSLog(@"Running %d Wake action(s)", [actionsToRun count]);
-
-	NSMutableArray *set = [NSMutableArray arrayWithCapacity:[actionsToRun count]];
-	NSEnumerator *action_enum = [actionsToRun objectEnumerator];
-	NSDictionary *actionDict;
-	while ((actionDict = [action_enum nextObject])) {
-		[set addObject:[Action actionFromDictionary:actionDict]];
-	}
-	[self executeActionSet:set];
+	int cnt = [self triggerActionsWithTrigger:@"Wake"];
+	DSLog(@"Triggered %d Wake action(s)", cnt);
 }
 
 - (void)triggerSleepActions
 {
-	NSArray *actionsToRun = [self getActionsThatTriggerWhen:@"Sleep"];
-	DSLog(@"Running %d Sleep action(s)", [actionsToRun count]);
+	int cnt = [self triggerActionsWithTrigger:@"Sleep"];
+	DSLog(@"Triggered %d Sleep action(s)", cnt);
+}
 
-	NSMutableArray *set = [NSMutableArray arrayWithCapacity:[actionsToRun count]];
-	NSEnumerator *action_enum = [actionsToRun objectEnumerator];
-	NSDictionary *actionDict;
-	while ((actionDict = [action_enum nextObject])) {
-		[set addObject:[Action actionFromDictionary:actionDict]];
-	}
-	[self executeActionSet:set];
+- (void)triggerStartupActions
+{
+	int cnt = [self triggerActionsWithTrigger:@"Startup"];
+	DSLog(@"Triggered %d Startup action(s)", cnt);
 }
 
 #pragma mark Context switching
