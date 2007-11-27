@@ -87,6 +87,7 @@
 	[appDefaults setValue:[NSNumber numberWithBool:NO] forKey:@"ShowAdvancedPreferences"];
 	[appDefaults setValue:[NSNumber numberWithFloat:5.0] forKey:@"UpdateInterval"];
 	[appDefaults setValue:[NSNumber numberWithBool:NO] forKey:@"WiFiAlwaysScans"];
+	[appDefaults setValue:[NSNumber numberWithFloat:4.0] forKey:@"DelayAfterWake"];
 
 	// Debugging
 	[appDefaults setValue:[NSNumber numberWithBool:NO] forKey:@"Debug OpenPrefsAtStartup"];
@@ -987,8 +988,9 @@ finished_import:
 {
 	[self triggerWakeActions];
 
-	DSLog(@"Starting update thread after sleep.");
-	[updatingTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:2.0]];
+	float delay = [[[NSUserDefaults standardUserDefaults] valueForKey:@"DelayAfterWake"] floatValue];
+	DSLog(@"Starting update thread after sleep; delaying %.1fs", delay);
+	[updatingTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:delay]];
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
