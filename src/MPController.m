@@ -623,6 +623,18 @@ finished_import:
 	[pool release];
 }
 
+int compareDelay(id actionDict1, id actionDict2, void *context)
+{
+	float delay1 = [[actionDict1 valueForKey:@"delay"] floatValue];
+	float delay2 = [[actionDict2 valueForKey:@"delay"] floatValue];
+	if (delay1 < delay2)
+		return NSOrderedAscending;
+	else if (delay1 > delay2)
+		return NSOrderedDescending;
+	else
+		return NSOrderedSame;
+}
+
 // (Private) This will group the growling together. The parameter should be an array of action dictionaries.
 - (void)executeActionSet:(NSArray *)actions
 {
@@ -631,8 +643,7 @@ finished_import:
 
 	static double batchThreshold = 0.25;		// maximum grouping interval size
 
-	// TODO: Sort by delay
-	//actions = [actions sortedArrayUsingSelector:@selector(compareDelay:)];
+	actions = [actions sortedArrayUsingFunction:compareDelay context:nil];
 
 	NSMutableArray *batch = [NSMutableArray array];
 	NSEnumerator *en = [actions objectEnumerator];
