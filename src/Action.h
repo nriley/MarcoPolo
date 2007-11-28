@@ -16,9 +16,6 @@
 	NSAppleEventDescriptor *appleScriptResult_;
 }
 
-//+ (NSString *)typeForClass:(Class)klass;
-//+ (Class)classForType:(NSString *)type;
-
 - (id)initWithNibNamed:(NSString *)name;
 - (void)dealloc;
 
@@ -26,13 +23,6 @@
 		 callbackObject:(NSObject *)callbackObject selector:(SEL)selector;
 - (IBAction)closeSheetWithOK:(id)sender;
 - (IBAction)closeSheetWithCancel:(id)sender;
-
-//+ (Action *)actionFromDictionary:(NSDictionary *)dict;
-//- (id)init;
-//- (id)initWithDictionary:(NSDictionary *)dict;
-//- (void)dealloc;
-//- (NSMutableDictionary *)dictionary;
-//+ (NSString *)helpTextForActionOfType:(NSString *)type;
 
 // Need to be extended by descendant classes
 // (need to add handling of 'parameter', and optionally 'description' keys)
@@ -47,14 +37,6 @@
 - (NSString *)descriptionOf:(NSDictionary *)actionDict;
 - (BOOL)execute:(NSDictionary *)actionDict error:(NSString **)errorString;
 
-
-//- (NSComparisonResult)compareDelay:(Action *)other;
-//
-//// To be implemented by descendant classes:
-//- (NSString *)description;	// (use present-tense imperative)
-//- (BOOL)execute:(NSString **)errorString;
-//+ (NSString *)helpText;
-//+ (NSString *)creationHelpText;
 
 // Helpers
 - (BOOL)executeAppleScript:(NSString *)script;		// returns YES on success, NO on failure

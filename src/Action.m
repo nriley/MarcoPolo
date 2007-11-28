@@ -64,10 +64,7 @@
 - (void)runPanelAsSheetOfWindow:(NSWindow *)window withParameter:(NSDictionary *)parameter
 		 callbackObject:(NSObject *)callbackObject selector:(SEL)selector
 {
-	//	NSString *typeToUse = [[self typesOfRulesMatched] objectAtIndex:0];
-	//	if ([parameter objectForKey:@"type"])
-	//		typeToUse = [parameter valueForKey:@"type"];
-	//	[self writeToPanel:parameter usingType:typeToUse];
+	[self writeToPanel:parameter];
 
 	// Record callback as an NSInvocation, which is storable as an NSObject pointer.
 	NSMethodSignature *sig = [callbackObject methodSignatureForSelector:selector];
