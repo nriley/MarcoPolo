@@ -214,6 +214,7 @@
 @end
 
 #import "DefaultPrinterAction.h"
+#import "MailSMTPServerAction.h"
 #import "NetworkLocationAction.h"
 
 @implementation ActionSetController
@@ -225,11 +226,13 @@
 
 	NSArray *classes = [NSArray arrayWithObjects:
 		[DefaultPrinterAction class],
+		[MailSMTPServerAction class],
 		[NetworkLocationAction class],
 		nil];
 	if (NO) {
 		// Purely for the benefit of 'genstrings'
 		NSLocalizedString(@"DefaultPrinter", @"Action type");
+		NSLocalizedString(@"MailSMTPServer", @"Action type");
 		NSLocalizedString(@"NetworkLocation", @"Action type");
 	}
 
@@ -309,7 +312,6 @@
 #import "FirewallRuleAction.h"
 #import "IChatAction.h"
 #import "MailIMAPServerAction.h"
-#import "MailSMTPServerAction.h"
 #import "MountAction.h"
 #import "MuteAction.h"
 #import "OpenAction.h"
@@ -335,7 +337,6 @@
 		[FirewallRuleAction class],
 		[IChatAction class],
 		[MailIMAPServerAction class],
-		[MailSMTPServerAction class],
 		[MountAction class],
 		[MuteAction class],
 		[OpenAction class],
@@ -355,7 +356,6 @@
 		NSLocalizedString(@"FirewallRule", @"Action type");
 		NSLocalizedString(@"IChat", @"Action type");
 		NSLocalizedString(@"MailIMAPServer", @"Action type");
-		NSLocalizedString(@"MailSMTPServer", @"Action type");
 		NSLocalizedString(@"Mount", @"Action type");
 		NSLocalizedString(@"Mute", @"Action type");
 		NSLocalizedString(@"Open", @"Action type");

@@ -10,49 +10,13 @@
 
 @implementation MailSMTPServerAction
 
-- (id)init
-{
-	if (!(self = [super init]))
-		return nil;
-
-	hostname = [[NSString alloc] init];
-
-	return self;
-}
-
-- (id)initWithDictionary:(NSDictionary *)dict
-{
-	if (!(self = [super initWithDictionary:dict]))
-		return nil;
-
-	hostname = [[dict valueForKey:@"parameter"] copy];
-
-	return self;
-}
-
-- (void)dealloc
-{
-	[hostname release];
-
-	[super dealloc];
-}
-
-- (NSMutableDictionary *)dictionary
-{
-	NSMutableDictionary *dict = [super dictionary];
-
-	[dict setObject:[[hostname copy] autorelease] forKey:@"parameter"];
-
-	return dict;
-}
-
-- (NSString *)description
+- (NSString *)descriptionOf:(NSDictionary *)actionDict
 {
 	return [NSString stringWithFormat:NSLocalizedString(@"Setting Mail's SMTP server to '%@'.", @""),
-		hostname];
+		[actionDict valueForKey:@"parameter"]];
 }
 
-- (BOOL)execute:(NSString **)errorString
+- (BOOL)execute:(NSDictionary *)actionDict error:(NSString **)errorString;
 {
 	NSString *script = [NSString stringWithFormat:
 		@"tell application \"Mail\"\n"
@@ -66,7 +30,7 @@
 		"      exit repeat\n"
 		"    end if\n"
 		"  end repeat\n"
-		"end tell\n", hostname];
+		"end tell\n", [actionDict valueForKey:@"parameter"]];
 
 	if (![self executeAppleScript:script]) {
 		*errorString = NSLocalizedString(@"Couldn't set SMTP server!", @"In MailSMTPServerAction");
@@ -76,25 +40,19 @@
 	return YES;
 }
 
-+ (NSString *)helpText
-{
-	return NSLocalizedString(@"The parameter for MailSMTPServer actions is the hostname of the "
-				 "SMTP server to make the default for all Mail accounts.", @"");
-}
-
-+ (NSString *)creationHelpText
+- (NSString *)suggestionLeadText
 {
 	return NSLocalizedString(@"Set Mail's SMTP server hostname to", @"");
 }
 
-+ (NSArray *)limitedOptions
+- (NSArray *)suggestions
 {
 	NSString *script =
 		@"tell application \"Mail\"\n"
 		"  get server name of every smtp server\n"
 		"end tell\n";
 
-	NSArray *list = [[[self new] autorelease] executeAppleScriptReturningListOfStrings:script];
+	NSArray *list = [self executeAppleScriptReturningListOfStrings:script];
 	if (!list)		// failure
 		return [NSArray array];
 
@@ -107,14 +65,6 @@
 	}
 
 	return opts;
-}
-
-- (id)initWithOption:(NSString *)option
-{
-	[self init];
-	[hostname autorelease];
-	hostname = [option copy];
-	return self;
 }
 
 @end
