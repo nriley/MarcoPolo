@@ -62,6 +62,7 @@
 		8D91F1FA0C4772FF00D9FC0F /* LightEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D91F1F80C4772FF00D9FC0F /* LightEvidenceSource.m */; };
 		8D969EC10CDD70190077B9CF /* MarcoPolo.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 8D341CBA0CDAF94B000B9A53 /* MarcoPolo.sdef */; };
 		8D9A21B60CFCE91D005BD5A9 /* GenericAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D9A21B40CFCE91D005BD5A9 /* GenericAction.m */; };
+		8D9A22580CFD07AE005BD5A9 /* NetworkLocationAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D6762150C3B8D8D000B63EC /* NetworkLocationAction.m */; };
 		8D9AE3790BE0D11800D4D4E4 /* plus-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D9AE3780BE0D11800D4D4E4 /* plus-arrow.png */; };
 		8D9AE3A60BE0DA7E00D4D4E4 /* PopButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D9AE3A40BE0DA7E00D4D4E4 /* PopButton.m */; };
 		8DB4B4FB0BDF22CC00472564 /* mp-icon-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 8DB4B4FA0BDF22CC00472564 /* mp-icon-active.png */; };
@@ -702,6 +703,7 @@
 				8D341D220CDB0896000B9A53 /* MPApplication.m in Sources */,
 				8D1EDA180CE11C8C00202458 /* Common.m in Sources */,
 				8D9A21B60CFCE91D005BD5A9 /* GenericAction.m in Sources */,
+				8D9A22580CFD07AE005BD5A9 /* NetworkLocationAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

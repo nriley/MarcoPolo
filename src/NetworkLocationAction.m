@@ -50,50 +50,16 @@
 
 #pragma mark -
 
-- (id)init
-{
-	if (!(self = [super init]))
-		return nil;
-
-	networkLocation = [[NSString alloc] init];
-
-	return self;
-}
-
-- (id)initWithDictionary:(NSDictionary *)dict
-{
-	if (!(self = [super initWithDictionary:dict]))
-		return nil;
-
-	networkLocation = [[dict valueForKey:@"parameter"] copy];
-
-	return self;
-}
-
-- (void)dealloc
-{
-	[networkLocation release];
-
-	[super dealloc];
-}
-
-- (NSMutableDictionary *)dictionary
-{
-	NSMutableDictionary *dict = [super dictionary];
-
-	[dict setObject:[[networkLocation copy] autorelease] forKey:@"parameter"];
-
-	return dict;
-}
-
-- (NSString *)description
+- (NSString *)descriptionOf:(NSDictionary *)actionDict
 {
 	return [NSString stringWithFormat:NSLocalizedString(@"Changing network location to '%@'.", @""),
-		networkLocation];
+		[actionDict valueForKey:@"parameter"]];
 }
 
-- (BOOL)execute:(NSString **)errorString
+- (BOOL)execute:(NSDictionary *)actionDict error:(NSString **)errorString
 {
+	NSString *networkLocation = [actionDict valueForKey:@"parameter"];
+
 	// Using SCPreferences* to change the location requires a setuid binary,
 	// so we just execute /usr/sbin/scselect to do the heavy lifting.
 	NSDictionary *all_sets = [[self class] getAllSets];
@@ -122,18 +88,12 @@
 	return YES;
 }
 
-+ (NSString *)helpText
-{
-	return NSLocalizedString(@"The parameter for NetworkLocation actions is the name of the "
-				 "network location to select.", @"");
-}
-
-+ (NSString *)creationHelpText
+- (NSString *)suggestionLeadText
 {
 	return NSLocalizedString(@"Changing network location to", @"");
 }
 
-+ (NSArray *)limitedOptions
+- (NSArray *)suggestions
 {
 	NSMutableArray *loc_list = [NSMutableArray array];
 	NSEnumerator *en = [[[self class] getAllSets] objectEnumerator];
@@ -147,17 +107,9 @@
 	NSString *loc;
 	while ((loc = [en nextObject]))
 		[opts addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-			loc, @"option", loc, @"description", nil]];
+			loc, @"parameter", loc, @"description", nil]];
 
 	return opts;
-}
-
-- (id)initWithOption:(NSString *)option
-{
-	[self init];
-	[networkLocation autorelease];
-	networkLocation = [option copy];
-	return self;
 }
 
 @end

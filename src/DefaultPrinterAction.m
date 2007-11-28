@@ -62,7 +62,7 @@
 		// Printer queue name is first field on the line
 		NSString *queue = [[line componentsSeparatedByString:@" "] objectAtIndex:0];
 		[opts addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-				queue, @"option", queue, @"description", nil]];
+				queue, @"parameter", queue, @"description", nil]];
 	}
 
 	return opts;

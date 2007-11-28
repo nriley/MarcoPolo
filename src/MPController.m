@@ -146,10 +146,11 @@
 
 	// Create contexts, populated from network locations
 	NSMutableDictionary *lookup = [NSMutableDictionary dictionary];	// map location name -> (Context *)
-	NSEnumerator *en = [[NetworkLocationAction limitedOptions] objectEnumerator];
+	NetworkLocationAction *nla = (NetworkLocationAction *) [actionSet actionWithName:@"NetworkLocation"];
+	NSEnumerator *en = [[nla suggestions] objectEnumerator];
 	NSDictionary *dict;
 	while ((dict = [en nextObject])) {
-		Context *ctxt = [contextTree newContextWithName:[dict valueForKey:@"option"] parentUUID:nil];
+		Context *ctxt = [contextTree newContextWithName:[dict valueForKey:@"parameter"] parentUUID:nil];
 		[lookup setObject:ctxt forKey:[ctxt name]];
 	}
 	[contextTree saveContexts:nil];
@@ -166,12 +167,14 @@
 	NSMutableArray *newActions = [NSMutableArray array];
 	en = [lookup objectEnumerator];
 	while ((ctxt = [en nextObject])) {
-		Action *act = [[[NetworkLocationAction alloc] initWithOption:[ctxt name]] autorelease];
-		NSMutableDictionary *act_dict = [act dictionary];
 		NSString *when = [NSString stringWithFormat:@"Arrival@%@", [ctxt uuid]];
-		[act_dict setValue:[NSArray arrayWithObject:when] forKey:@"when"];
-		[act_dict setValue:NSLocalizedString(@"Set Network Location", @"") forKey:@"description"];
-		[newActions addObject:act_dict];
+		NSDictionary *actionDict = [NSDictionary dictionaryWithObjectsAndKeys:
+			[ctxt name], @"parameter",
+			NSLocalizedString(@"Set Network Location", @""), @"description",
+			[NSNumber numberWithFloat:0], @"delay",
+			[NSArray arrayWithObject:when], @"triggers",
+			nil];
+		[newActions addObject:actionDict];
 	}
 	[[NSUserDefaults standardUserDefaults] setObject:newActions forKey:@"Actions"];
 	NSLog(@"Quickstart: Created %d new NetworkLocation actions", [newActions count]);
@@ -543,10 +546,10 @@ finished_import:
 	NSMutableArray *matching_actions = [NSMutableArray array];
 
 	NSEnumerator *en = [actions objectEnumerator];
-	NSDictionary *action;
-	while ((action = [en nextObject])) {
-		if ([[action valueForKey:@"when"] containsObject:when] && [[action valueForKey:@"enabled"] boolValue])
-			[matching_actions addObject:action];
+	NSDictionary *actionDict;
+	while ((actionDict = [en nextObject])) {
+		if ([[actionDict valueForKey:@"when"] containsObject:when] && [[actionDict valueForKey:@"enabled"] boolValue])
+			[matching_actions addObject:actionDict];
 	}
 
 	return matching_actions;
@@ -556,10 +559,10 @@ finished_import:
 - (void)executeAction:(id)arg
 {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	Action *action = (Action *) arg;
+	Action *action = [actionSet actionWithName:[arg valueForKey:@"type"]];
 
 	NSString *errorString;
-	if (![action execute:&errorString])
+	if (![action execute:arg error:&errorString])
 		[self doGrowl:NSLocalizedString(@"Failure", @"Growl message title") withMessage:errorString];
 
 	[pool release];
@@ -588,16 +591,16 @@ finished_import:
 	[self doGrowl:growlTitle withMessage:growlMessage];
 
 	NSEnumerator *en = [actions objectEnumerator];
-	Action *action;
-	while ((action = [en nextObject]))
+	NSDictionary *actionDict;
+	while ((actionDict = [en nextObject]))
 		[NSThread detachNewThreadSelector:@selector(executeAction:)
 					 toTarget:self
-				       withObject:action];
+				       withObject:actionDict];
 
 	[pool release];
 }
 
-// (Private) This will group the growling together. The parameter should be an array of Action objects.
+// (Private) This will group the growling together. The parameter should be an array of action dictionaries.
 - (void)executeActionSet:(NSArray *)actions
 {
 	if ([actions count] == 0)
@@ -605,27 +608,27 @@ finished_import:
 
 	static double batchThreshold = 0.25;		// maximum grouping interval size
 
-	// Sort by delay
-	actions = [actions sortedArrayUsingSelector:@selector(compareDelay:)];
+	// TODO: Sort by delay
+	//actions = [actions sortedArrayUsingSelector:@selector(compareDelay:)];
 
 	NSMutableArray *batch = [NSMutableArray array];
 	NSEnumerator *en = [actions objectEnumerator];
-	Action *action;
-	while ((action = [en nextObject])) {
+	NSDictionary *actionDict;
+	while ((actionDict = [en nextObject])) {
 		if ([batch count] == 0) {
-			[batch addObject:action];
+			[batch addObject:actionDict];
 			continue;
 		}
 		double maxBatchDelay = [[[batch objectAtIndex:0] valueForKey:@"delay"] doubleValue] + batchThreshold;
-		if ([[action valueForKey:@"delay"] doubleValue] < maxBatchDelay) {
-			[batch addObject:action];
+		if ([[actionDict valueForKey:@"delay"] doubleValue] < maxBatchDelay) {
+			[batch addObject:actionDict];
 			continue;
 		}
 		// Completed a batch
 		[NSThread detachNewThreadSelector:@selector(executeActionSetWithDelay:)
 					 toTarget:self
 				       withObject:batch];
-		batch = [NSMutableArray arrayWithObject:action];
+		batch = [NSMutableArray arrayWithObject:actionDict];
 		continue;
 	}
 
@@ -664,7 +667,7 @@ finished_import:
 		double original_delay = [[action valueForKey:@"delay"] doubleValue];
 		[surrogateAction setValue:[NSNumber numberWithDouble:(max_delay - original_delay)]
 				   forKey:@"delay"];
-		[set addObject:[Action actionFromDictionary:surrogateAction]];
+		[set addObject:surrogateAction];
 	}
 	[self executeActionSet:set];
 
@@ -675,14 +678,7 @@ finished_import:
 - (void)triggerArrivalActions:(NSString *)toUUID
 {
 	NSArray *actionsToRun = [self getActionsThatTriggerWhen:[NSString stringWithFormat:@"Arrival@%@", toUUID]];
-
-	NSMutableArray *set = [NSMutableArray arrayWithCapacity:[actionsToRun count]];
-	NSEnumerator *action_enum = [actionsToRun objectEnumerator];
-	NSDictionary *actionDict;
-	while ((actionDict = [action_enum nextObject])) {
-		[set addObject:[Action actionFromDictionary:actionDict]];
-	}
-	[self executeActionSet:set];
+	[self executeActionSet:actionsToRun];
 }
 
 #pragma mark Context switching

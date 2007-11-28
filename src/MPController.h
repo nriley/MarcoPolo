@@ -7,6 +7,7 @@
 
 #include "Growl/GrowlApplicationBridge.h"
 #import <Cocoa/Cocoa.h>
+#import "Action.h"
 #import "ContextTree.h"
 #import "EvidenceSource.h"
 
@@ -34,6 +35,7 @@
 
 	ContextTree *contextTree;
 	IBOutlet EvidenceSourceSetController *evidenceSources;
+	IBOutlet ActionSetController *actionSet;
 
 	IBOutlet NSArrayController *rulesController;
 	IBOutlet NSArrayController *actionsController;
