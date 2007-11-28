@@ -70,6 +70,8 @@
 		8DB8917C0BB89BD8005347C2 /* oui.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8DB8917B0BB89BD8005347C2 /* oui.txt */; };
 		8DBB44980C530F7600064010 /* DSLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DBB44960C530F7600064010 /* DSLogger.m */; };
 		8DBF72920CFD45A900F2A18B /* MailSMTPServerAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DD790C20BC28C4E00705346 /* MailSMTPServerAction.m */; };
+		8DBF72CF0CFD4CA900F2A18B /* ScreenSaverTimeAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DE4EE450C4B2A6F00A5B559 /* ScreenSaverTimeAction.m */; };
+		8DBF72DD0CFD4EF300F2A18B /* VPNAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D643DDB0C4F1F0D006D8ECC /* VPNAction.m */; };
 		8DC410FB0C64665E00393759 /* AboutPanel.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8DC410FA0C64665E00393759 /* AboutPanel.nib */; };
 		8DC72FB30CDD6541005352E8 /* NSCoreSuite.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 8DC72FAC0CDD6541005352E8 /* NSCoreSuite.sdef */; };
 		8DCC52120C42106D00515041 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D1107310486CEB800E47090 /* Info.plist */; };
@@ -702,6 +704,8 @@
 				8D9A21B60CFCE91D005BD5A9 /* GenericAction.m in Sources */,
 				8D9A22580CFD07AE005BD5A9 /* NetworkLocationAction.m in Sources */,
 				8DBF72920CFD45A900F2A18B /* MailSMTPServerAction.m in Sources */,
+				8DBF72CF0CFD4CA900F2A18B /* ScreenSaverTimeAction.m in Sources */,
+				8DBF72DD0CFD4EF300F2A18B /* VPNAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

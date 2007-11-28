@@ -6,23 +6,16 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "Action.h"
+#import "GenericAction.h"
 
 
-@interface ScreenSaverTimeAction : Action <ActionWithLimitedOptions> {
-	NSNumber *time;
+@interface ScreenSaverTimeAction : GenericAction {
 }
 
-- (id)initWithDictionary:(NSDictionary *)dict;
-- (void)dealloc;
-- (NSMutableDictionary *)dictionary;
+- (NSString *)descriptionOf:(NSDictionary *)actionDict;
+- (BOOL)execute:(NSDictionary *)actionDict error:(NSString **)errorString;
 
-- (NSString *)description;
-- (BOOL)execute:(NSString **)errorString;
-+ (NSString *)helpText;
-+ (NSString *)creationHelpText;
-
-+ (NSArray *)limitedOptions;
-- (id)initWithOption:(NSString *)option;
+- (NSString *)suggestionLeadText;
+- (NSArray *)suggestions;
 
 @end

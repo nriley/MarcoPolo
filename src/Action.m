@@ -216,6 +216,8 @@
 #import "DefaultPrinterAction.h"
 #import "MailSMTPServerAction.h"
 #import "NetworkLocationAction.h"
+#import "ScreenSaverTimeAction.h"
+#import "VPNAction.h"
 
 @implementation ActionSetController
 
@@ -228,12 +230,16 @@
 		[DefaultPrinterAction class],
 		[MailSMTPServerAction class],
 		[NetworkLocationAction class],
+		[ScreenSaverTimeAction class],
+		[VPNAction class],
 		nil];
 	if (NO) {
 		// Purely for the benefit of 'genstrings'
 		NSLocalizedString(@"DefaultPrinter", @"Action type");
 		NSLocalizedString(@"MailSMTPServer", @"Action type");
 		NSLocalizedString(@"NetworkLocation", @"Action type");
+		NSLocalizedString(@"ScreenSaverTime", @"Action type");
+		NSLocalizedString(@"VPN", @"Action type");
 	}
 
 	// Instantiate all the actions
@@ -318,12 +324,10 @@
 #import "QuitApplicationAction.h"
 #import "ScreenSaverPasswordAction.h"
 #import "ScreenSaverStartAction.h"
-#import "ScreenSaverTimeAction.h"
 #import "ShellScriptAction.h"
 #import "ToggleBluetoothAction.h"
 #import "ToggleWiFiAction.h"
 #import "UnmountAction.h"
-#import "VPNAction.h"
 
 @implementation ActionSetController
 
@@ -343,12 +347,10 @@
 		[QuitApplicationAction class],
 		[ScreenSaverPasswordAction class],
 		[ScreenSaverStartAction class],
-		[ScreenSaverTimeAction class],
 		[ShellScriptAction class],
 		[ToggleBluetoothAction class],
 		[ToggleWiFiAction class],
 		[UnmountAction class],
-		[VPNAction class],
 			nil];
 	if (NO) {
 		// Purely for the benefit of 'genstrings'
@@ -362,12 +364,10 @@
 		NSLocalizedString(@"QuitApplication", @"Action type");
 		NSLocalizedString(@"ScreenSaverPassword", @"Action type");
 		NSLocalizedString(@"ScreenSaverStart", @"Action type");
-		NSLocalizedString(@"ScreenSaverTime", @"Action type");
 		NSLocalizedString(@"ShellScript", @"Action type");
 		NSLocalizedString(@"ToggleBluetooth", @"Action type");
 		NSLocalizedString(@"ToggleWiFi", @"Action type");
 		NSLocalizedString(@"Unmount", @"Action type");
-		NSLocalizedString(@"VPN", @"Action type");
 	}
 
 	return self;

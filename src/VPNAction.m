@@ -11,44 +11,10 @@
 
 @implementation VPNAction
 
-- (id)init
+- (NSString *)descriptionOf:(NSDictionary *)actionDict
 {
-	if (!(self = [super init]))
-		return nil;
+	NSString *vpnType = [actionDict valueForKey:@"parameter"];
 
-	vpnType = [[NSString alloc] init];
-
-	return self;
-}
-
-- (id)initWithDictionary:(NSDictionary *)dict
-{
-	if (!(self = [super initWithDictionary:dict]))
-		return nil;
-
-	vpnType = [[dict valueForKey:@"parameter"] copy];
-
-	return self;
-}
-
-- (void)dealloc
-{
-	[vpnType release];
-
-	[super dealloc];
-}
-
-- (NSMutableDictionary *)dictionary
-{
-	NSMutableDictionary *dict = [super dictionary];
-
-	[dict setObject:[[vpnType copy] autorelease] forKey:@"parameter"];
-
-	return dict;
-}
-
-- (NSString *)description
-{
 	// Strip off the first character which indicates either enabled or disabled
 	bool enabledPrefix = false;
 	if ([vpnType characterAtIndex:0] == '+')
@@ -63,8 +29,10 @@
 			strippedVPNType];
 }
 
-- (BOOL)execute:(NSString **)errorString
+- (BOOL)execute:(NSDictionary *)actionDict error:(NSString **)errorString
 {
+	NSString *vpnType = [actionDict valueForKey:@"parameter"];
+
 	// Strip off the first character which indicates either enabled or disabled
 	bool enabledPrefix = false;
 	if ([vpnType characterAtIndex:0] == '+')
@@ -100,18 +68,12 @@
 	return YES;
 }
 
-+ (NSString *)helpText
-{
-	return NSLocalizedString(@"The parameter for VPN action is the type of the "
-				 "VPN connection you wish to establish or disconnect.", @"");
-}
-
-+ (NSString *)creationHelpText
+- (NSString *)suggestionLeadText
 {
 	return NSLocalizedString(@"Establish/Disconnect the following VPN:", @"");
 }
 
-+ (NSArray *)limitedOptions
+- (NSArray *)suggestions
 {
 	NSMutableArray *opts = [NSMutableArray arrayWithCapacity:4];
 
@@ -125,14 +87,6 @@
 		@"+L2TP", @"option", @"Enable default L2TP VPN", @"description", nil]];
 
 	return opts;
-}
-
-- (id)initWithOption:(NSString *)option
-{
-	[self init];
-	[vpnType autorelease];
-	vpnType = [option copy];
-	return self;
 }
 
 @end

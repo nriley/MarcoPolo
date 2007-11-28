@@ -11,45 +11,9 @@
 
 @implementation ScreenSaverTimeAction
 
-- (id)init
+- (NSString *)descriptionOf:(NSDictionary *)actionDict
 {
-	if (!(self = [super init]))
-		return nil;
-
-	time = [[NSNumber alloc] initWithInt:0];
-
-	return self;
-}
-
-- (id)initWithDictionary:(NSDictionary *)dict
-{
-	if (!(self = [super initWithDictionary:dict]))
-		return nil;
-
-	time = [[dict valueForKey:@"parameter"] copy];
-
-	return self;
-}
-
-- (void)dealloc
-{
-	[time release];
-
-	[super dealloc];
-}
-
-- (NSMutableDictionary *)dictionary
-{
-	NSMutableDictionary *dict = [super dictionary];
-
-	[dict setObject:[[time copy] autorelease] forKey:@"parameter"];
-
-	return dict;
-}
-
-- (NSString *)description
-{
-	int t = [time intValue];
+	int t = [[actionDict valueForKey:@"parameter"] intValue];
 
 	if (t == 0)
 		return NSLocalizedString(@"Disabling screen saver.", @"");
@@ -59,9 +23,9 @@
 		return [NSString stringWithFormat:NSLocalizedString(@"Setting screen saver idle time to %d minutes.", @""), t];
 }
 
-- (BOOL)execute:(NSString **)errorString
+- (BOOL)execute:(NSDictionary *)actionDict error:(NSString **)errorString
 {
-	NSNumber *n = [NSNumber numberWithInt:[time intValue] * 60];	// minutes -> seconds
+	NSNumber *n = [NSNumber numberWithInt:[[actionDict valueForKey:@"parameter"] intValue] * 60];	// minutes -> seconds
 
 	CFPreferencesSetValue(CFSTR("idleTime"), (CFPropertyListRef) n,
 			      CFSTR("com.apple.screensaver"),
@@ -84,18 +48,12 @@
 	return YES;
 }
 
-+ (NSString *)helpText
-{
-	return NSLocalizedString(@"The parameter for ScreenSaverTimeAction actions is the idle time "
-				 "(in minutes) before you want your screen saver to activate.", @"");
-}
-
-+ (NSString *)creationHelpText
+- (NSString *)suggestionLeadText
 {
 	return NSLocalizedString(@"Set screen saver idle time to", @"");
 }
 
-+ (NSArray *)limitedOptions
+- (NSArray *)suggestions
 {
 	int opts[] = { 3, 5, 15, 30, 60, 120, 0 };
 	int num_opts = sizeof(opts) / sizeof(opts[0]);
@@ -119,17 +77,6 @@
 	}
 
 	return arr;
-}
-
-- (id)initWithOption:(NSString *)option
-{
-	if (!(self = [super init]))
-		return nil;
-
-	[time autorelease];
-	time = [[NSNumber alloc] initWithInt:[option intValue]];
-
-	return self;
 }
 
 @end
