@@ -23,7 +23,7 @@
 		<key>901</key>
 		<string>503 450 433 273 0 0 1440 878 </string>
 		<key>902</key>
-		<string>40 511 497 326 0 0 1440 878 </string>
+		<string>9 474 497 326 0 0 1440 878 </string>
 		<key>903</key>
 		<string>470 358 499 456 0 0 1440 878 </string>
 	</dict>
@@ -37,6 +37,7 @@
 	<integer>4</integer>
 	<key>IBOpenObjects</key>
 	<array>
+		<integer>902</integer>
 		<integer>903</integer>
 	</array>
 	<key>IBSystem Version</key>

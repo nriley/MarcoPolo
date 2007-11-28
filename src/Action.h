@@ -11,7 +11,7 @@
 @interface Action : NSObject {
 	// Sheet hooks
 	NSPanel *panel;
-	NSString *oldDescription_;
+	NSDictionary *originalDictionary_;
 
 	NSAppleEventDescriptor *appleScriptResult_;
 }

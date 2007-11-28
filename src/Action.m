@@ -21,7 +21,7 @@
 	if (!(self = [super init]))
 		return nil;
 
-	oldDescription_ = nil;
+	originalDictionary_ = nil;
 
 	// load nib
 	NSNib *nib = [[[NSNib alloc] initWithNibNamed:name bundle:nil] autorelease];
@@ -54,7 +54,7 @@
 - (void)dealloc
 {
 	[panel release];
-	[oldDescription_ release];
+	[originalDictionary_ release];
 
 	[super dealloc];
 }
@@ -107,24 +107,19 @@
 
 - (NSMutableDictionary *)readFromPanel
 {
-	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:originalDictionary_];
 
-	if (oldDescription_)
-		[dict setValue:oldDescription_ forKey:@"description"];
+	NSString *desc = [dict objectForKey:@"description"];
+	if (desc && ([desc length] == 0))
+		[dict removeObjectForKey:@"description"];
 
 	return dict;
 }
 
 - (void)writeToPanel:(NSDictionary *)dict
 {
-	// Hang on to custom descriptions
-	[oldDescription_ autorelease];
-	oldDescription_ = nil;
-	if ([dict objectForKey:@"description"]) {
-		NSString *desc = [dict valueForKey:@"description"];
-		if (desc && ([desc length] > 0))
-			oldDescription_ = [desc retain];
-	}
+	[originalDictionary_ autorelease];
+	originalDictionary_ = [dict retain];
 }
 
 #pragma mark Stubs

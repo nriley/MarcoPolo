@@ -67,7 +67,7 @@
             ACTIONS = {
                 addAction = id; 
                 addRule = id; 
-                doAddAction = id; 
+                editAction = id; 
                 editRule = id; 
                 newContextPromptingForName = id; 
                 newContextSheetAccepted = id; 
@@ -81,6 +81,7 @@
             CLASS = PrefsWindowController; 
             LANGUAGE = ObjC; 
             OUTLETS = {
+                actionSet = ActionSetController; 
                 actionsController = NSArrayController; 
                 actionsPrefsView = NSView; 
                 advancedPrefsView = NSView; 

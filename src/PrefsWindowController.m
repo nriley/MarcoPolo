@@ -626,9 +626,13 @@
 	Action *action = [sender representedObject];
 
 	[NSApp activateIgnoringOtherApps:YES];
-	//NSDictionary *proto = [NSDictionary dictionaryWithObject:type forKey:@"type"];
+	NSDictionary *proto = [NSDictionary dictionaryWithObjectsAndKeys:
+		[action name], @"type",
+		[NSNumber numberWithFloat:0], @"delay",
+		[NSNumber numberWithBool:YES], @"enabled",
+		nil];
 	[action runPanelAsSheetOfWindow:prefsWindow
-			  withParameter:nil
+			  withParameter:proto
 			 callbackObject:self
 			       selector:@selector(doAddAction:)];
 }
@@ -641,17 +645,17 @@
 
 - (IBAction)editAction:(id)sender
 {
-	// Find relevant evidence source
-	id sel = [[actionsController selectedObjects] lastObject];
-	if (!sel)
+	// Find relevant action
+	NSDictionary *actionDict = [[actionsController selectedObjects] lastObject];
+	if (!actionDict)
 		return;
-	Action *action = [actionSet actionWithName:[sel valueForKey:@"type"]];
+	Action *action = [actionSet actionWithName:[actionDict valueForKey:@"type"]];
 	if (!action)
 		return;
 
 	[NSApp activateIgnoringOtherApps:YES];
 	[action runPanelAsSheetOfWindow:prefsWindow
-			  withParameter:sel
+			  withParameter:actionDict
 			 callbackObject:self
 			       selector:@selector(doEditAction:)];
 }
