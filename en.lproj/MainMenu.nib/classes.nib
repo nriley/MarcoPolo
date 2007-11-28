@@ -67,6 +67,7 @@
                 newContextSheetAccepted = id; 
                 newContextSheetRejected = id; 
                 removeContext = id; 
+                removeTrigger = id; 
                 runAbout = id; 
                 runPreferences = id; 
                 runWebPage = id; 
@@ -80,7 +81,6 @@
                 contextOutlineView = NSOutlineView; 
                 contextsPrefsView = NSView; 
                 defaultContextButton = ContextSelectionButton; 
-                editActionContextButton = ContextSelectionButton; 
                 evidenceSources = EvidenceSourceSetController; 
                 evidenceSourcesPrefsView = NSView; 
                 filteredRulesController = NSArrayController; 
@@ -89,6 +89,7 @@
                 mpController = MPController; 
                 newActionContext = NSPopUpButton; 
                 newActionLimitedOptionsController = NSArrayController; 
+                newActionTriggerButton = PopButton; 
                 newActionWindow = NSWindow; 
                 newActionWindowParameterView = NSView; 
                 newContextSheet = NSPanel; 
@@ -96,6 +97,7 @@
                 prefsWindow = NSWindow; 
                 rulesController = NSArrayController; 
                 rulesPrefsView = NSView; 
+                triggersController = NSArrayController; 
                 whenActionController = NSArrayController; 
             }; 
             SUPERCLASS = NSWindowController; 

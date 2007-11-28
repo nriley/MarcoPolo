@@ -15,4 +15,6 @@
 	IBOutlet MPController *mpController;
 }
 
+- (Context *)currentContext;
+
 @end

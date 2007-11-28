@@ -9,10 +9,6 @@
 
 
 @interface Action : NSObject {
-//	NSString *type;
-//	NSNumber *delay, *enabled;
-//	NSArray *when;
-
 	// Sheet hooks
 	NSPanel *panel;
 	NSString *oldDescription_;

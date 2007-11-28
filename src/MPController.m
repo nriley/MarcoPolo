@@ -27,6 +27,12 @@
 
 - (void)doUpdate:(NSTimer *)theTimer;
 
+- (void)triggerDepartureActions:(NSString *)fromUUID;
+- (void)triggerArrivalActions:(NSString *)toUUID;
+- (void)triggerWakeActions;
+- (void)triggerSleepActions;
+- (void)triggerStartupActions;
+
 - (void)updateThread:(id)arg;
 - (void)goingToSleep:(id)arg;
 - (void)wakeFromSleep:(id)arg;
@@ -81,6 +87,7 @@
 	[appDefaults setValue:[NSNumber numberWithBool:NO] forKey:@"ShowAdvancedPreferences"];
 	[appDefaults setValue:[NSNumber numberWithFloat:5.0] forKey:@"UpdateInterval"];
 	[appDefaults setValue:[NSNumber numberWithBool:NO] forKey:@"WiFiAlwaysScans"];
+	[appDefaults setValue:[NSNumber numberWithFloat:4.0] forKey:@"DelayAfterWake"];
 
 	// Debugging
 	[appDefaults setValue:[NSNumber numberWithBool:NO] forKey:@"Debug OpenPrefsAtStartup"];
@@ -249,16 +256,18 @@
 		NSString *when = [action valueForKey:@"when"];
 		if ([when isEqualToString:@"Arrival"] || [when isEqualToString:@"Departure"]) {
 			when = [NSString stringWithFormat:@"%@@%@", when, uuid];
-			[action setValue:[NSArray arrayWithObject:when] forKey:@"when"];
+			[action setValue:[NSArray arrayWithObject:when] forKey:@"triggers"];
 		} else if ([when isEqualToString:@"Both"]) {
 			when = [NSString stringWithFormat:@"Arrival@%@", uuid];
 			NSString *when2 = [NSString stringWithFormat:@"Departure@%@", uuid];
-			[action setValue:[NSArray arrayWithObjects:when, when2, nil] forKey:@"when"];
+			[action setValue:[NSArray arrayWithObjects:when, when2, nil] forKey:@"triggers"];
 		} else {
 			NSLog(@"Quickstart: Bad '%@' action", [action valueForKey:@"type"]);
 			++num_failed_actions;
 			continue;
 		}
+		[action removeObjectForKey:@"context"];
+		[action removeObjectForKey:@"when"];
 		[newActions addObject:action];
 	}
 	[[NSUserDefaults standardUserDefaults] setObject:newActions forKey:@"Actions"];
@@ -358,6 +367,8 @@ finished_import:
 			}
 		}
 	}
+
+	[self triggerStartupActions];
 
 	[NSThread detachNewThreadSelector:@selector(updateThread:)
 				 toTarget:self
@@ -548,7 +559,7 @@ finished_import:
 	NSEnumerator *en = [actions objectEnumerator];
 	NSDictionary *actionDict;
 	while ((actionDict = [en nextObject])) {
-		if ([[actionDict valueForKey:@"when"] containsObject:when] && [[actionDict valueForKey:@"enabled"] boolValue])
+		if ([[actionDict valueForKey:@"triggers"] containsObject:when] && [[actionDict valueForKey:@"enabled"] boolValue])
 			[matching_actions addObject:actionDict];
 	}
 
@@ -675,10 +686,35 @@ finished_import:
 	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:max_delay]];
 }
 
+- (int)triggerActionsWithTrigger:(NSString *)trigger
+{
+	NSArray *actionsToRun = [self getActionsThatTriggerWhen:trigger];
+	[self executeActionSet:actionsToRun];
+
+	return [actionsToRun count];
+}
+
 - (void)triggerArrivalActions:(NSString *)toUUID
 {
-	NSArray *actionsToRun = [self getActionsThatTriggerWhen:[NSString stringWithFormat:@"Arrival@%@", toUUID]];
-	[self executeActionSet:actionsToRun];
+	[self triggerActionsWithTrigger:[NSString stringWithFormat:@"Arrival@%@", toUUID]];
+}
+
+- (void)triggerWakeActions
+{
+	int cnt = [self triggerActionsWithTrigger:@"Wake"];
+	DSLog(@"Triggered %d Wake action(s)", cnt);
+}
+
+- (void)triggerSleepActions
+{
+	int cnt = [self triggerActionsWithTrigger:@"Sleep"];
+	DSLog(@"Triggered %d Sleep action(s)", cnt);
+}
+
+- (void)triggerStartupActions
+{
+	int cnt = [self triggerActionsWithTrigger:@"Startup"];
+	DSLog(@"Triggered %d Startup action(s)", cnt);
 }
 
 #pragma mark Context switching
@@ -937,6 +973,8 @@ finished_import:
 
 - (void)goingToSleep:(id)arg
 {
+	[self triggerSleepActions];
+
 	DSLog(@"Stopping update thread for sleep.");
 	// Effectively stops timer
 	[updatingTimer setFireDate:[NSDate distantFuture]];
@@ -944,8 +982,11 @@ finished_import:
 
 - (void)wakeFromSleep:(id)arg
 {
-	DSLog(@"Starting update thread after sleep.");
-	[updatingTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:2.0]];
+	[self triggerWakeActions];
+
+	float delay = [[[NSUserDefaults standardUserDefaults] valueForKey:@"DelayAfterWake"] floatValue];
+	DSLog(@"Starting update thread after sleep; delaying %.1fs", delay);
+	[updatingTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:delay]];
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////

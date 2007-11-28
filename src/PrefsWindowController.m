@@ -10,7 +10,7 @@
 @end
 @interface LocalizeTransformer : NSValueTransformer {}
 @end
-@interface WhenLocalizeTransformer : NSValueTransformer {}
+@interface TriggerTransformer : NSValueTransformer {}
 @end
 @interface ContextNameTransformer : NSValueTransformer { }
 @end
@@ -64,8 +64,7 @@
 
 @end
 
-// XXX: Yar... shouldn't really need this!
-@implementation WhenLocalizeTransformer
+@implementation TriggerTransformer
 
 + (Class)transformedValueClass { return [NSString class]; }
 
@@ -73,15 +72,21 @@
 
 - (id)transformedValue:(id)theValue
 {
-	NSString *inc = [(NSString *) theValue lowercaseString];
-	NSString *eng_str;
-	// HACK: this should be sorted out nicer
-	if ([inc isEqualToString:@"both"])
-		eng_str = (NSString *) theValue;
-	else
-		eng_str = [NSString stringWithFormat:@"On %@", inc];
+	NSString *str = (NSString *) theValue;
+	if (!str)
+		return nil;
 
-	return NSLocalizedString(eng_str, @"");
+	ContextTree *tree = [ContextTree sharedInstance];
+	if ([str hasPrefix:@"Arrival@"]) {
+		NSString *uuid = [[str componentsSeparatedByString:@"@"] lastObject];
+		return [NSString stringWithFormat:NSLocalizedString(@"Arrival at %@", @"Context trigger"),
+			[tree pathFromRootTo:uuid]];
+	} else if ([str hasPrefix:@"Departure@"]) {
+		NSString *uuid = [[str componentsSeparatedByString:@"@"] lastObject];
+		return [NSString stringWithFormat:NSLocalizedString(@"Departure from %@", @"Context trigger"),
+			[tree pathFromRootTo:uuid]];
+	} else
+		return NSLocalizedString(str, @"Context trigger");
 }
 
 @end
@@ -104,6 +109,7 @@
 @interface PrefsWindowController (Private)
 
 - (void)triggerOutlineViewReloadData:(NSNotification *)notification;
+- (void)contextsChanged:(NSNotification *)notification;
 - (void)updateLogBuffer:(NSTimer *)timer;
 
 @end
@@ -119,8 +125,8 @@
 					forName:@"DelayValueTransformer"];
 	[NSValueTransformer setValueTransformer:[[[LocalizeTransformer alloc] init] autorelease]
 					forName:@"LocalizeTransformer"];
-	[NSValueTransformer setValueTransformer:[[[WhenLocalizeTransformer alloc] init] autorelease]
-					forName:@"WhenLocalizeTransformer"];
+	[NSValueTransformer setValueTransformer:[[[TriggerTransformer alloc] init] autorelease]
+					forName:@"TriggerTransformer"];
 	[NSValueTransformer setValueTransformer:[[[ContextNameTransformer alloc] init] autorelease]
 					forName:@"ContextNameTransformer"];
 }
@@ -165,7 +171,7 @@
 			@"EvidenceSources", @"name",
 			NSLocalizedString(@"Evidence Sources", "Preferences section"), @"display_name",
 			@"EvidenceSourcesPrefs", @"icon",
-			[NSNumber numberWithBool:NO], @"resizeable",
+			[NSNumber numberWithBool:YES], @"resizeable",
 			evidenceSourcesPrefsView, @"view", nil],
 		[NSMutableDictionary dictionaryWithObjectsAndKeys:
 			@"Rules", @"name",
@@ -219,6 +225,13 @@
 						     name:@"ContextsChangedNotification"
 						   object:tree];
 	[contextOutlineView setDataSource:tree];
+
+	// Register for context change notifications
+	[[NSNotificationCenter defaultCenter] addObserver:self
+						 selector:@selector(contextsChanged:)
+						     name:@"ContextsChangedNotification"
+						   object:[ContextTree sharedInstance]];
+	[self contextsChanged:nil];
 
 	// Load up correct localisations
 	[whenActionController addObject:
@@ -339,7 +352,7 @@
 	[prefsWindow setShowsResizeIndicator:resizeable];
 
 	[prefsWindow setContentView:blankPrefsView];
-	[prefsWindow setTitle:[NSString stringWithFormat:@"MarcoPolo - %@", [group objectForKey:@"display_name"]]];
+	[prefsWindow setTitle:[NSString stringWithFormat:@"MarcoPolo  %C  %@", 0x2014, [group objectForKey:@"display_name"]]];
 	[self resizeWindowToSize:size withMinSize:minSize limitMaxSize:!resizeable];
 
 	if ([prefsToolbar respondsToSelector:@selector(setSelectedItemIdentifier:)])
@@ -619,7 +632,7 @@
 	[filteredRulesController setSelectionIndex:index];
 }
 
-#pragma mark Action creation
+#pragma mark Action creation/editing
 
 - (void)addAction:(id)sender
 {
@@ -728,6 +741,94 @@
 	[actionsController setSelectedObjects:[NSArray arrayWithObject:dict]];
 
 	[newActionWindow performClose:self];
+}
+
+- (IBAction)removeTrigger:(id)sender
+{
+	unsigned int index = [triggersController selectionIndex];
+	if (index == NSNotFound)
+		return;
+
+	// This is a bit ugly because we're updating a collection that's bound to another collection.
+	// Instead of changing the later-collection, we recalculate the overall collection and change the
+	// relevant key on the earlier-collection. Ick.
+	NSMutableArray *array = [[[triggersController arrangedObjects] mutableCopy] autorelease];
+	[array removeObjectAtIndex:index];
+	[[actionsController selection] setValue:array forKey:@"triggers"];
+}
+
+// This method will be called from a menu item in the 'Add action trigger' menu.
+// The represented object for the menu item is the trigger string ("Arrival@<uuid>", etc.).
+- (void)addActionTrigger:(id)sender
+{
+	NSMenuItem *item = (NSMenuItem *) sender;
+	NSString *newTrigger = [item representedObject];
+
+	// (see comment in removeTrigger:)
+	NSMutableArray *array = [[[triggersController arrangedObjects] mutableCopy] autorelease];
+	[array addObject:newTrigger];
+	[[actionsController selection] setValue:array forKey:@"triggers"];
+}
+
+- (void)rebuildAddActionTriggerMenu
+{
+	NSMenu *triggerMenu = [[[NSMenu alloc] init] autorelease];
+
+	// First, create nested menus for arrival and departure triggers
+	NSMenu *arrivalSubmenu = [[[NSMenu alloc] init] autorelease],
+		*departureSubmenu = [[[NSMenu alloc] init] autorelease];
+	NSEnumerator *en = [[[ContextTree sharedInstance] orderedTraversal] objectEnumerator];
+	Context *ctxt;
+	while ((ctxt = [en nextObject])) {
+		NSString *arrivalWhen = [NSString stringWithFormat:@"Arrival@%@", [ctxt uuid]];
+		NSString *departureWhen = [NSString stringWithFormat:@"Departure@%@", [ctxt uuid]];
+
+		NSMenuItem *item = [[[NSMenuItem alloc] init] autorelease];
+		[item setTitle:[ctxt name]];
+		[item setIndentationLevel:[[ctxt valueForKey:@"depth"] intValue]];
+		[item setRepresentedObject:arrivalWhen];
+		[item setTarget:self];
+		[item setAction:@selector(addActionTrigger:)];
+		[arrivalSubmenu addItem:item];
+
+		item = [[item copy] autorelease];
+		[item setRepresentedObject:departureWhen];
+		[departureSubmenu addItem:item];
+	}
+	NSMenuItem *arrivalSubmenuItem = [[[NSMenuItem alloc] init] autorelease];
+	NSMenuItem *departureSubmenuItem = [[[NSMenuItem alloc] init] autorelease];
+	[arrivalSubmenuItem setTitle:NSLocalizedString(@"Arrival", @"In 'add action trigger' menu")];
+	[arrivalSubmenuItem setSubmenu:arrivalSubmenu];
+	[departureSubmenuItem setTitle:NSLocalizedString(@"Departure", @"In 'add action trigger' menu")];
+	[departureSubmenuItem setSubmenu:departureSubmenu];
+	[triggerMenu addItem:arrivalSubmenuItem];
+	[triggerMenu addItem:departureSubmenuItem];
+
+	if (NO) {
+		// Purely for the benefit of 'genstrings'
+		NSLocalizedString(@"Wake", @"In 'add action trigger' menu");
+		NSLocalizedString(@"Sleep", @"In 'add action trigger' menu");
+		NSLocalizedString(@"Startup", @"In 'add action trigger' menu");
+	}
+
+	// Create menu items for other trigger types
+	en = [[NSArray arrayWithObjects:@"Wake", @"Sleep", @"Startup", nil] objectEnumerator];
+	NSString *when;
+	while ((when = [en nextObject])) {
+		NSMenuItem *item = [[[NSMenuItem alloc] init] autorelease];
+		[item setTitle:NSLocalizedString(when, @"In 'add action trigger' menu")];
+		[item setRepresentedObject:when];
+		[item setTarget:self];
+		[item setAction:@selector(addActionTrigger:)];
+		[triggerMenu addItem:item];
+	}
+
+	[newActionTriggerButton setMenu:triggerMenu];
+}
+
+- (void)contextsChanged:(NSNotification *)notification
+{
+	[self rebuildAddActionTriggerMenu];
 }
 
 #pragma mark Miscellaneous

@@ -326,7 +326,7 @@
 	type = [[Action typeForClass:[self class]] retain];
 	delay = [[NSNumber alloc] initWithDouble:0];
 	enabled = [[NSNumber alloc] initWithBool:YES];
-	when = [[NSArray alloc] init];
+	triggers = [[NSArray alloc] init];
 
 	return self;
 }
@@ -344,7 +344,7 @@
 	type = [[Action typeForClass:[self class]] retain];
 	delay = [[dict valueForKey:@"delay"] copy];
 	enabled = [[dict valueForKey:@"enabled"] copy];
-	when = [[dict valueForKey:@"when"] retain];
+	triggers = [[dict valueForKey:@"triggers"] retain];
 
 	return self;
 }
@@ -354,7 +354,7 @@
 	[type release];
 	[delay release];
 	[enabled release];
-	[when release];
+	[triggers release];
 
 	[super dealloc];
 }
@@ -365,7 +365,7 @@
 		[[type copy] autorelease], @"type",
 		[[delay copy] autorelease], @"delay",
 		[[enabled copy] autorelease], @"enabled",
-		[[when copy] autorelease], @"when",
+		[[triggers copy] autorelease], @"triggers",
 		nil];
 }
 
