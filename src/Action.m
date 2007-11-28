@@ -214,6 +214,7 @@
 @end
 
 #import "DefaultPrinterAction.h"
+#import "NetworkLocationAction.h"
 
 @implementation ActionSetController
 
@@ -224,10 +225,12 @@
 
 	NSArray *classes = [NSArray arrayWithObjects:
 		[DefaultPrinterAction class],
+		[NetworkLocationAction class],
 		nil];
 	if (NO) {
 		// Purely for the benefit of 'genstrings'
 		NSLocalizedString(@"DefaultPrinter", @"Action type");
+		NSLocalizedString(@"NetworkLocation", @"Action type");
 	}
 
 	// Instantiate all the actions
@@ -302,7 +305,6 @@
 
 #pragma mark -
 
-#import "DefaultPrinterAction.h"
 #import "DesktopBackgroundAction.h"
 #import "FirewallRuleAction.h"
 #import "IChatAction.h"
@@ -310,7 +312,6 @@
 #import "MailSMTPServerAction.h"
 #import "MountAction.h"
 #import "MuteAction.h"
-#import "NetworkLocationAction.h"
 #import "OpenAction.h"
 #import "QuitApplicationAction.h"
 #import "ScreenSaverPasswordAction.h"
@@ -330,7 +331,6 @@
 		return nil;
 
 	classes = [[NSArray alloc] initWithObjects:
-		[DefaultPrinterAction class],
 		[DesktopBackgroundAction class],
 		[FirewallRuleAction class],
 		[IChatAction class],
@@ -338,7 +338,6 @@
 		[MailSMTPServerAction class],
 		[MountAction class],
 		[MuteAction class],
-		[NetworkLocationAction class],
 		[OpenAction class],
 		[QuitApplicationAction class],
 		[ScreenSaverPasswordAction class],
@@ -352,7 +351,6 @@
 			nil];
 	if (NO) {
 		// Purely for the benefit of 'genstrings'
-		NSLocalizedString(@"DefaultPrinter", @"Action type");
 		NSLocalizedString(@"DesktopBackground", @"Action type");
 		NSLocalizedString(@"FirewallRule", @"Action type");
 		NSLocalizedString(@"IChat", @"Action type");
@@ -360,7 +358,6 @@
 		NSLocalizedString(@"MailSMTPServer", @"Action type");
 		NSLocalizedString(@"Mount", @"Action type");
 		NSLocalizedString(@"Mute", @"Action type");
-		NSLocalizedString(@"NetworkLocation", @"Action type");
 		NSLocalizedString(@"Open", @"Action type");
 		NSLocalizedString(@"QuitApplication", @"Action type");
 		NSLocalizedString(@"ScreenSaverPassword", @"Action type");
