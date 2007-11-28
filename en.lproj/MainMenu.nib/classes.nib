@@ -1,6 +1,11 @@
 {
     IBClasses = (
-        {CLASS = Action; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {closeSheetWithCancel = id; closeSheetWithOK = id; }; 
+            CLASS = Action; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }, 
         {
             CLASS = ActionSetController; 
             LANGUAGE = ObjC; 
@@ -87,18 +92,13 @@
                 generalPrefsView = NSView; 
                 logBufferView = NSTextView; 
                 mpController = MPController; 
-                newActionContext = NSPopUpButton; 
-                newActionLimitedOptionsController = NSArrayController; 
                 newActionTriggerButton = PopButton; 
-                newActionWindow = NSWindow; 
-                newActionWindowParameterView = NSView; 
                 newContextSheet = NSPanel; 
                 newContextSheetName = NSTextField; 
                 prefsWindow = NSWindow; 
                 rulesController = NSArrayController; 
                 rulesPrefsView = NSView; 
                 triggersController = NSArrayController; 
-                whenActionController = NSArrayController; 
             }; 
             SUPERCLASS = NSWindowController; 
         }, 

@@ -1,6 +1,7 @@
 /* PrefsWindowController */
 
 #import <Cocoa/Cocoa.h>
+#import "Action.h"
 #import "ContextTree.h"
 #import "ContextSelectionButton.h"
 #import "MPController.h"
@@ -18,21 +19,17 @@
 
 	IBOutlet MPController *mpController;
 	IBOutlet EvidenceSourceSetController *evidenceSources;
+	IBOutlet ActionSetController *actionSet;
 	IBOutlet NSArrayController *rulesController, *filteredRulesController, *actionsController;
-	IBOutlet NSArrayController *whenActionController;
 
 	// Selection controls for rules
 	IBOutlet ContextSelectionButton *defaultContextButton;
 
 	// New action creation hooks
-	IBOutlet NSWindow *newActionWindow;
-	NSString *newActionType, *newActionTypeString;
-	NSString *newActionWindowHelpText;
-	IBOutlet NSView *newActionWindowParameterView;
-	NSView *newActionWindowParameterViewCurrentControl;
-	IBOutlet NSArrayController *newActionLimitedOptionsController;
-	IBOutlet NSPopUpButton *newActionContext;
-	NSString *newActionWindowWhen;
+//	NSString *newActionType, *newActionTypeString;
+//	NSString *newActionWindowHelpText;
+//	NSView *newActionWindowParameterViewCurrentControl;
+//	NSString *newActionWindowWhen;
 
 	// Action trigger hooks
 	IBOutlet PopButton *newActionTriggerButton;
@@ -76,7 +73,7 @@
 - (IBAction)editRule:(id)sender;
 
 - (void)addAction:(id)sender;
-- (IBAction)doAddAction:(id)sender;
+- (IBAction)editAction:(id)sender;
 
 - (IBAction)removeTrigger:(id)sender;
 

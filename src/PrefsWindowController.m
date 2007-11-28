@@ -138,8 +138,6 @@
 
 	blankPrefsView = [[NSView alloc] init];
 
-	newActionWindowParameterViewCurrentControl = nil;
-
 	[self setValue:[NSNumber numberWithBool:NO] forKey:@"logBufferPaused"];
 	logBufferTimer = nil;
 
@@ -232,18 +230,6 @@
 						     name:@"ContextsChangedNotification"
 						   object:[ContextTree sharedInstance]];
 	[self contextsChanged:nil];
-
-	// Load up correct localisations
-	[whenActionController addObject:
-			[NSMutableDictionary dictionaryWithObjectsAndKeys:
-				@"Arrival", @"option",
-				NSLocalizedString(@"On arrival", @"When an action is triggered"), @"description",
-				nil]];
-	[whenActionController addObject:
-			[NSMutableDictionary dictionaryWithObjectsAndKeys:
-				@"Departure", @"option",
-				NSLocalizedString(@"On departure", @"When an action is triggered"), @"description",
-				nil]];
 
 	[logBufferView setFont:[NSFont fontWithName:@"Monaco" size:9]];
 }
@@ -636,6 +622,53 @@
 
 - (void)addAction:(id)sender
 {
+	// Represented object in this action is an Action object.
+	Action *action = [sender representedObject];
+
+	[NSApp activateIgnoringOtherApps:YES];
+	//NSDictionary *proto = [NSDictionary dictionaryWithObject:type forKey:@"type"];
+	[action runPanelAsSheetOfWindow:prefsWindow
+			  withParameter:nil
+			 callbackObject:self
+			       selector:@selector(doAddAction:)];
+}
+
+// Private: called by -[Action runPanelAsSheetOfWindow:...]
+- (void)doAddAction:(NSDictionary *)dict
+{
+	[actionsController addObject:dict];
+}
+
+- (IBAction)editAction:(id)sender
+{
+	// Find relevant evidence source
+	id sel = [[actionsController selectedObjects] lastObject];
+	if (!sel)
+		return;
+	Action *action = [actionSet actionWithName:[sel valueForKey:@"type"]];
+	if (!action)
+		return;
+
+	[NSApp activateIgnoringOtherApps:YES];
+	[action runPanelAsSheetOfWindow:prefsWindow
+			  withParameter:sel
+			 callbackObject:self
+			       selector:@selector(doEditAction:)];
+}
+
+// Private: called by -[Action runPanelAsSheetOfWindow:...]
+- (void)doEditAction:(NSDictionary *)dict
+{
+	unsigned int index = [actionsController selectionIndex];
+	[actionsController removeObjectAtArrangedObjectIndex:index];
+	[actionsController insertObject:dict atArrangedObjectIndex:index];
+	[actionsController setSelectionIndex:index];
+}
+
+#if 0
+
+- (void)addAction:(id)sender
+{
 	Class klass = [sender representedObject];
 	[self setValue:[Action typeForClass:klass] forKey:@"newActionType"];
 	[self setValue:NSLocalizedString([Action typeForClass:klass], @"Action type")
@@ -742,6 +775,8 @@
 
 	[newActionWindow performClose:self];
 }
+
+#endif
 
 - (IBAction)removeTrigger:(id)sender
 {
