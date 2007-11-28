@@ -594,10 +594,15 @@ finished_import:
 
 	// Aggregate growl messages
 	NSString *growlTitle = NSLocalizedString(@"Performing Action", @"Growl message title");
-	NSString *growlMessage = [[actions objectAtIndex:0] description];
+	NSString *growlMessage = [[actions objectAtIndex:0] valueForKey:@"description"];
 	if ([actions count] > 1) {
 		growlTitle = NSLocalizedString(@"Performing Actions", @"Growl message title");
-		growlMessage = [NSString stringWithFormat:@"* %@", [actions componentsJoinedByString:@"\n* "]];
+		NSMutableArray *messages = [NSMutableArray arrayWithCapacity:[actions count]];
+		NSEnumerator *en = [actions objectEnumerator];
+		NSDictionary *act;
+		while ((act = [en nextObject]))
+			[messages addObject:[act valueForKey:@"description"]];
+		growlMessage = [NSString stringWithFormat:@"* %@", [messages componentsJoinedByString:@"\n* "]];
 	}
 	[self doGrowl:growlTitle withMessage:growlMessage];
 

@@ -51,6 +51,7 @@
             CLASS = MPController; 
             LANGUAGE = ObjC; 
             OUTLETS = {
+                actionSet = ActionSetController; 
                 actionsController = NSArrayController; 
                 contextOutlineView = NSOutlineView; 
                 evidenceSources = EvidenceSourceSetController; 

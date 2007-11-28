@@ -25,12 +25,6 @@
 	// Selection controls for rules
 	IBOutlet ContextSelectionButton *defaultContextButton;
 
-	// New action creation hooks
-//	NSString *newActionType, *newActionTypeString;
-//	NSString *newActionWindowHelpText;
-//	NSView *newActionWindowParameterViewCurrentControl;
-//	NSString *newActionWindowWhen;
-
 	// Action trigger hooks
 	IBOutlet PopButton *newActionTriggerButton;
 	IBOutlet NSArrayController *triggersController;
