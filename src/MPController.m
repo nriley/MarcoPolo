@@ -592,21 +592,25 @@ finished_import:
 	NSTimeInterval delay = [[[actions objectAtIndex:0] valueForKey:@"delay"] doubleValue];
 	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:delay]];
 
+	// Build messages for growling
+	NSMutableArray *messages = [NSMutableArray arrayWithCapacity:[actions count]];
+	NSEnumerator *en = [actions objectEnumerator];
+	NSDictionary *act;
+	while ((act = [en nextObject])) {
+		Action *action = [actionSet actionWithName:[act valueForKey:@"type"]];
+		[messages addObject:[action descriptionOf:act]];
+	}
+
 	// Aggregate growl messages
 	NSString *growlTitle = NSLocalizedString(@"Performing Action", @"Growl message title");
-	NSString *growlMessage = [[actions objectAtIndex:0] valueForKey:@"description"];
+	NSString *growlMessage = [messages objectAtIndex:0];
 	if ([actions count] > 1) {
 		growlTitle = NSLocalizedString(@"Performing Actions", @"Growl message title");
-		NSMutableArray *messages = [NSMutableArray arrayWithCapacity:[actions count]];
-		NSEnumerator *en = [actions objectEnumerator];
-		NSDictionary *act;
-		while ((act = [en nextObject]))
-			[messages addObject:[act valueForKey:@"description"]];
 		growlMessage = [NSString stringWithFormat:@"* %@", [messages componentsJoinedByString:@"\n* "]];
 	}
 	[self doGrowl:growlTitle withMessage:growlMessage];
 
-	NSEnumerator *en = [actions objectEnumerator];
+	en = [actions objectEnumerator];
 	NSDictionary *actionDict;
 	while ((actionDict = [en nextObject]))
 		[NSThread detachNewThreadSelector:@selector(executeAction:)
