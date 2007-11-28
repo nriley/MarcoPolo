@@ -24,13 +24,11 @@
 		8D27ECB00C4456A300AE1929 /* AudioOutputEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D27ECAE0C4456A300AE1929 /* AudioOutputEvidenceSource.m */; };
 		8D2BAAAD0C56E26200A50777 /* NetworkLinkEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2BAAAB0C56E26100A50777 /* NetworkLinkEvidenceSource.m */; };
 		8D341D220CDB0896000B9A53 /* MPApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D341D200CDB0896000B9A53 /* MPApplication.m */; };
-		8D3453C40C18E5C1006011D0 /* IChatAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D3453C20C18E5C1006011D0 /* IChatAction.m */; };
 		8D38B66C0C49D50200290F47 /* SliderWithValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D38B66A0C49D50200290F47 /* SliderWithValue.m */; };
 		8D3A3D5F0C012565008EBF2A /* EvidenceSourcesPrefs.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 8D3A3D5E0C012564008EBF2A /* EvidenceSourcesPrefs.tiff */; };
 		8D3B008E0C620E4A00B9B910 /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = 8D3B008D0C620E4A00B9B910 /* Credits.html */; };
 		8D3BFF3F0C61BE4500B9B910 /* AboutPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D3BFF3D0C61BE4500B9B910 /* AboutPanel.m */; };
 		8D3BFFB20C61CA5300B9B910 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D3BFFB10C61CA5300B9B910 /* WebKit.framework */; };
-		8D3C85150CDD8546009DBCD9 /* ScreenSaverStartAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D3C85130CDD8546009DBCD9 /* ScreenSaverStartAction.m */; };
 		8D3E2DD20AA4F3C000FB21C1 /* marcopolo.icns in Resources */ = {isa = PBXBuildFile; fileRef = 8D3E2DD10AA4F3C000FB21C1 /* marcopolo.icns */; };
 		8D447DF90C3E65D000DAB17A /* ContextSelectionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D447DF70C3E65CF00DAB17A /* ContextSelectionButton.m */; };
 		8D481B0A0B6098DD0097CF9C /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D481B070B6098DD0097CF9C /* IOKit.framework */; };
@@ -41,26 +39,18 @@
 		8D643C680C4EF197006D8ECC /* GenericLoopingEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D643C660C4EF197006D8ECC /* GenericLoopingEvidenceSource.m */; };
 		8D643CDD0C4EF6FD006D8ECC /* LoopingEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D643CDB0C4EF6FD006D8ECC /* LoopingEvidenceSource.m */; };
 		8D643D0D0C4EF84E006D8ECC /* LightRule.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8D643D0B0C4EF84E006D8ECC /* LightRule.nib */; };
-		8D643DDD0C4F1F0D006D8ECC /* VPNAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D643DDB0C4F1F0D006D8ECC /* VPNAction.m */; };
-		8D649BA50BE8033A00716059 /* ToggleWiFiAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D649BA30BE8033A00716059 /* ToggleWiFiAction.m */; };
 		8D66DBD90C548F100093D0D8 /* IPRule.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8D66DBD70C548F100093D0D8 /* IPRule.nib */; };
-		8D6762170C3B8D8D000B63EC /* NetworkLocationAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D6762150C3B8D8D000B63EC /* NetworkLocationAction.m */; };
 		8D68EBDF0C460BF800F25744 /* IPEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8C9EBB0BBB8DAC0074D5B3 /* IPEvidenceSource.m */; };
-		8D71CAEF0C17BA7900E56526 /* ToggleableAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D71CAED0C17BA7900E56526 /* ToggleableAction.m */; };
-		8D71CB790C17C01700E56526 /* ScreenSaverPasswordAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D71CB770C17C01700E56526 /* ScreenSaverPasswordAction.m */; };
 		8D73CB8D0C46FD5200DF839E /* MonitorEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5684B30C38711D00881E32 /* MonitorEvidenceSource.m */; };
 		8D73CBB30C46FEC800DF839E /* PowerEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DCBF4FD0BE5B11F00A01414 /* PowerEvidenceSource.m */; };
 		8D73CC140C470FE000DF839E /* RunningApplicationEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D341CD10C0459D0008A7B4F /* RunningApplicationEvidenceSource.m */; };
 		8D73CC700C47125300DF839E /* WiFiEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D35A30B0BBB9CFD006ACBB0 /* WiFiEvidenceSource.m */; };
-		8D75A6200BE6F68B0069DF3F /* ToggleBluetoothAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D75A61E0BE6F68B0069DF3F /* ToggleBluetoothAction.m */; };
 		8D80BB980B8B033400104A87 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D80BB950B8B033400104A87 /* Growl.framework */; };
 		8D80BBA30B8B036C00104A87 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8D80BB950B8B033400104A87 /* Growl.framework */; };
 		8D8155D00C3A304E00228463 /* ContextTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8155CE0C3A304E00228463 /* ContextTree.m */; };
 		8D82F06D0AA811CE009ADA44 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D82F05B0AA811CE009ADA44 /* SystemConfiguration.framework */; };
 		8D82F0A30AA81411009ADA44 /* PrefsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D82F0A20AA81411009ADA44 /* PrefsWindowController.m */; };
 		8D853E1E0CF83CEE00405337 /* GenericAction.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8D853E1C0CF83CEE00405337 /* GenericAction.nib */; };
-		8D853E240CF8435900405337 /* ActionController.h in Copy Help Files */ = {isa = PBXBuildFile; fileRef = 8D853E220CF8435900405337 /* ActionController.h */; };
-		8D853E250CF8435900405337 /* ActionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D853E230CF8435900405337 /* ActionController.m */; };
 		8D88FE2A0C534737007A14D6 /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D88FE290C534737007A14D6 /* pause.png */; };
 		8D8C9BAB0BBB3ADB0074D5B3 /* Apple80211.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D8C9BA90BBB3ADB0074D5B3 /* Apple80211.framework */; };
 		8D8C9CA60BBB74E70074D5B3 /* EvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8C9CA40BBB74E70074D5B3 /* EvidenceSource.m */; };
@@ -71,36 +61,26 @@
 		8D91F17D0C47148200D9FC0F /* USBEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D35A34D0BBBA0CB006ACBB0 /* USBEvidenceSource.m */; };
 		8D91F1FA0C4772FF00D9FC0F /* LightEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D91F1F80C4772FF00D9FC0F /* LightEvidenceSource.m */; };
 		8D969EC10CDD70190077B9CF /* MarcoPolo.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 8D341CBA0CDAF94B000B9A53 /* MarcoPolo.sdef */; };
+		8D9A21B60CFCE91D005BD5A9 /* GenericAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D9A21B40CFCE91D005BD5A9 /* GenericAction.m */; };
 		8D9AE3790BE0D11800D4D4E4 /* plus-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D9AE3780BE0D11800D4D4E4 /* plus-arrow.png */; };
 		8D9AE3A60BE0DA7E00D4D4E4 /* PopButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D9AE3A40BE0DA7E00D4D4E4 /* PopButton.m */; };
-		8DA2F4150CE8630200F92D4D /* DesktopBackgroundAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DA2F4130CE8630200F92D4D /* DesktopBackgroundAction.m */; };
-		8DB1EF240C6C60A300586F84 /* MailIMAPServerAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DB1EF220C6C60A300586F84 /* MailIMAPServerAction.m */; };
 		8DB4B4FB0BDF22CC00472564 /* mp-icon-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 8DB4B4FA0BDF22CC00472564 /* mp-icon-active.png */; };
 		8DB8911F0BB88D0B005347C2 /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DB8911C0BB88D0B005347C2 /* IOBluetooth.framework */; };
 		8DB8917C0BB89BD8005347C2 /* oui.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8DB8917B0BB89BD8005347C2 /* oui.txt */; };
-		8DBAFAFC0BDC3B7B00BE0747 /* ShellScriptAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DBAFAFA0BDC3B7B00BE0747 /* ShellScriptAction.m */; };
 		8DBB44980C530F7600064010 /* DSLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DBB44960C530F7600064010 /* DSLogger.m */; };
 		8DC410FB0C64665E00393759 /* AboutPanel.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8DC410FA0C64665E00393759 /* AboutPanel.nib */; };
-		8DC4E7FD0C178917007E7E41 /* MuteAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC4E7F90C178917007E7E41 /* MuteAction.m */; };
-		8DC4E8000C17891D007E7E41 /* MailSMTPServerAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DD790C20BC28C4E00705346 /* MailSMTPServerAction.m */; };
 		8DC72FB30CDD6541005352E8 /* NSCoreSuite.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 8DC72FAC0CDD6541005352E8 /* NSCoreSuite.sdef */; };
-		8DCB43580C4DBABD00E71D28 /* FirewallRuleAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DCB43560C4DBABD00E71D28 /* FirewallRuleAction.m */; };
-		8DCBE96C0C1A7ECE008260EF /* MountAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DCBE96A0C1A7ECE008260EF /* MountAction.m */; };
 		8DCC52120C42106D00515041 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D1107310486CEB800E47090 /* Info.plist */; };
 		8DD15A690C9CD5C7008EBFB3 /* mp-icon-inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 8DD15A680C9CD5C7008EBFB3 /* mp-icon-inactive.png */; };
-		8DD790AD0BC28A9F00705346 /* OpenAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DD790AB0BC28A9F00705346 /* OpenAction.m */; };
 		8DE13F0E0C460E1700AEC949 /* FireWireEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DCBF4900BE5622600A01414 /* FireWireEvidenceSource.m */; };
 		8DE428FC0C5084D00073499A /* TimeOfDayEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DE428FA0C5084D00073499A /* TimeOfDayEvidenceSource.m */; };
 		8DE429480C5091F90073499A /* TimeOfDayRule.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8DE429460C5091F90073499A /* TimeOfDayRule.nib */; };
 		8DE4C00C0C4EE58D00511590 /* GenericRule.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8DE4C00A0C4EE58D00511590 /* GenericRule.nib */; };
 		8DE4C0110C4EE60700511590 /* GenericEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DE4C00F0C4EE60700511590 /* GenericEvidenceSource.m */; };
-		8DE4EE470C4B2A6F00A5B559 /* ScreenSaverTimeAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DE4EE450C4B2A6F00A5B559 /* ScreenSaverTimeAction.m */; };
 		8DEF428F0BAA05D300F87273 /* MarcoPolo Help in Copy Help Files */ = {isa = PBXBuildFile; fileRef = 8DEF42780BAA05CD00F87273 /* MarcoPolo Help */; };
 		8DF5A4180BC2353D00CBEB4B /* Action.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DF5A4160BC2353D00CBEB4B /* Action.m */; };
 		8DF5A4610BC239B100CBEB4B /* DefaultPrinterAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DF5A45F0BC239B100CBEB4B /* DefaultPrinterAction.m */; };
 		8DF7E9C70B7159950005375C /* usb-vendors.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8DF7E9C60B7159950005375C /* usb-vendors.txt */; };
-		8DFA46170CC33E46003EAC16 /* QuitApplicationAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DFA46150CC33E46003EAC16 /* QuitApplicationAction.m */; };
-		8DFD0DA60CEBBC8A00E79049 /* UnmountAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DFD0DA40CEBBC8A00E79049 /* UnmountAction.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -231,6 +211,8 @@
 		8D90E51E0B71C4C9007D39FD /* MPController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPController.m; path = src/MPController.m; sourceTree = "<group>"; };
 		8D91F1F70C4772FF00D9FC0F /* LightEvidenceSource.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = LightEvidenceSource.h; path = src/LightEvidenceSource.h; sourceTree = "<group>"; };
 		8D91F1F80C4772FF00D9FC0F /* LightEvidenceSource.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = LightEvidenceSource.m; path = src/LightEvidenceSource.m; sourceTree = "<group>"; };
+		8D9A21B30CFCE91D005BD5A9 /* GenericAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GenericAction.h; path = src/GenericAction.h; sourceTree = "<group>"; };
+		8D9A21B40CFCE91D005BD5A9 /* GenericAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GenericAction.m; path = src/GenericAction.m; sourceTree = "<group>"; };
 		8D9AE3780BE0D11800D4D4E4 /* plus-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "plus-arrow.png"; path = "graphics/plus-arrow.png"; sourceTree = "<group>"; };
 		8D9AE3A30BE0DA7E00D4D4E4 /* PopButton.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PopButton.h; path = src/PopButton.h; sourceTree = "<group>"; };
 		8D9AE3A40BE0DA7E00D4D4E4 /* PopButton.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = PopButton.m; path = src/PopButton.m; sourceTree = "<group>"; };
@@ -554,6 +536,8 @@
 				8DF5A45F0BC239B100CBEB4B /* DefaultPrinterAction.m */,
 				8D853E220CF8435900405337 /* ActionController.h */,
 				8D853E230CF8435900405337 /* ActionController.m */,
+				8D9A21B30CFCE91D005BD5A9 /* GenericAction.h */,
+				8D9A21B40CFCE91D005BD5A9 /* GenericAction.m */,
 			);
 			name = Actions;
 			sourceTree = "<group>";
@@ -692,20 +676,9 @@
 				8D8C9E350BBB89320074D5B3 /* DB.m in Sources */,
 				8DF5A4180BC2353D00CBEB4B /* Action.m in Sources */,
 				8DF5A4610BC239B100CBEB4B /* DefaultPrinterAction.m in Sources */,
-				8DD790AD0BC28A9F00705346 /* OpenAction.m in Sources */,
-				8DBAFAFC0BDC3B7B00BE0747 /* ShellScriptAction.m in Sources */,
 				8D9AE3A60BE0DA7E00D4D4E4 /* PopButton.m in Sources */,
-				8D75A6200BE6F68B0069DF3F /* ToggleBluetoothAction.m in Sources */,
-				8D649BA50BE8033A00716059 /* ToggleWiFiAction.m in Sources */,
 				8D01634F0C029913004AD8DB /* DNDArrayController.m in Sources */,
-				8DC4E7FD0C178917007E7E41 /* MuteAction.m in Sources */,
-				8DC4E8000C17891D007E7E41 /* MailSMTPServerAction.m in Sources */,
-				8D71CAEF0C17BA7900E56526 /* ToggleableAction.m in Sources */,
-				8D71CB790C17C01700E56526 /* ScreenSaverPasswordAction.m in Sources */,
-				8D3453C40C18E5C1006011D0 /* IChatAction.m in Sources */,
-				8DCBE96C0C1A7ECE008260EF /* MountAction.m in Sources */,
 				8D8155D00C3A304E00228463 /* ContextTree.m in Sources */,
-				8D6762170C3B8D8D000B63EC /* NetworkLocationAction.m in Sources */,
 				8D447DF90C3E65D000DAB17A /* ContextSelectionButton.m in Sources */,
 				8D27ECB00C4456A300AE1929 /* AudioOutputEvidenceSource.m in Sources */,
 				8D68EBDF0C460BF800F25744 /* IPEvidenceSource.m in Sources */,
@@ -717,26 +690,18 @@
 				8D91F17D0C47148200D9FC0F /* USBEvidenceSource.m in Sources */,
 				8D91F1FA0C4772FF00D9FC0F /* LightEvidenceSource.m in Sources */,
 				8D38B66C0C49D50200290F47 /* SliderWithValue.m in Sources */,
-				8DE4EE470C4B2A6F00A5B559 /* ScreenSaverTimeAction.m in Sources */,
-				8DCB43580C4DBABD00E71D28 /* FirewallRuleAction.m in Sources */,
 				8DE4C0110C4EE60700511590 /* GenericEvidenceSource.m in Sources */,
 				8D643C680C4EF197006D8ECC /* GenericLoopingEvidenceSource.m in Sources */,
 				8D643CDD0C4EF6FD006D8ECC /* LoopingEvidenceSource.m in Sources */,
-				8D643DDD0C4F1F0D006D8ECC /* VPNAction.m in Sources */,
 				8DE428FC0C5084D00073499A /* TimeOfDayEvidenceSource.m in Sources */,
 				8DBB44980C530F7600064010 /* DSLogger.m in Sources */,
 				8D2BAAAD0C56E26200A50777 /* NetworkLinkEvidenceSource.m in Sources */,
 				8D3BFF3F0C61BE4500B9B910 /* AboutPanel.m in Sources */,
-				8DB1EF240C6C60A300586F84 /* MailIMAPServerAction.m in Sources */,
 				8D1493F70C824B6D00D29FE8 /* BonjourEvidenceSource.m in Sources */,
 				8D8D2B000CB9C91500A3EFAE /* ContextFilteredController.m in Sources */,
-				8DFA46170CC33E46003EAC16 /* QuitApplicationAction.m in Sources */,
 				8D341D220CDB0896000B9A53 /* MPApplication.m in Sources */,
-				8D3C85150CDD8546009DBCD9 /* ScreenSaverStartAction.m in Sources */,
 				8D1EDA180CE11C8C00202458 /* Common.m in Sources */,
-				8DA2F4150CE8630200F92D4D /* DesktopBackgroundAction.m in Sources */,
-				8DFD0DA60CEBBC8A00E79049 /* UnmountAction.m in Sources */,
-				8D853E250CF8435900405337 /* ActionController.m in Sources */,
+				8D9A21B60CFCE91D005BD5A9 /* GenericAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

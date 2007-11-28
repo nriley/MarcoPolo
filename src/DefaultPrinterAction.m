@@ -10,51 +10,15 @@
 
 @implementation DefaultPrinterAction
 
-- (id)init
-{
-	if (!(self = [super init]))
-		return nil;
-
-	printerQueue = [[NSString alloc] init];
-
-	return self;
-}
-
-- (id)initWithDictionary:(NSDictionary *)dict
-{
-	if (!(self = [super initWithDictionary:dict]))
-		return nil;
-
-	printerQueue = [[dict valueForKey:@"parameter"] copy];
-
-	return self;
-}
-
-- (void)dealloc
-{
-	[printerQueue release];
-
-	[super dealloc];
-}
-
-- (NSMutableDictionary *)dictionary
-{
-	NSMutableDictionary *dict = [super dictionary];
-
-	[dict setObject:[[printerQueue copy] autorelease] forKey:@"parameter"];
-
-	return dict;
-}
-
-- (NSString *)description
+- (NSString *)descriptionOf:(NSDictionary *)actionDict
 {
 	return [NSString stringWithFormat:NSLocalizedString(@"Setting default printer to '%@'.", @""),
-		printerQueue];
+		[actionDict valueForKey:@"parameter"]];
 }
 
-- (BOOL)execute:(NSString **)errorString
+- (BOOL)execute:(NSDictionary *)actionDict error:(NSString **)errorString
 {
-	NSArray *args = [NSArray arrayWithObjects:@"-d", printerQueue, nil];
+	NSArray *args = [NSArray arrayWithObjects:@"-d", [actionDict valueForKey:@"parameter"], nil];
 	NSTask *task = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/lpoptions" arguments:args];
 	[task waitUntilExit];
 
@@ -66,19 +30,12 @@
 	return YES;
 }
 
-+ (NSString *)helpText
-{
-	return NSLocalizedString(@"The parameter for DefaultPrinter actions is the name of the "
-				 "printer queue. This is usually the name of the printer, with "
-				 "spaces replaced by underscores.", @"");
-}
-
-+ (NSString *)creationHelpText
+- (NSString *)suggestionLeadText
 {
 	return NSLocalizedString(@"Change default printer to", @"");
 }
 
-+ (NSArray *)limitedOptions
+- (NSArray *)suggestions
 {
 	NSTask *task = [[[NSTask alloc] init] autorelease];
 
@@ -109,14 +66,6 @@
 	}
 
 	return opts;
-}
-
-- (id)initWithOption:(NSString *)option
-{
-	[self init];
-	[printerQueue autorelease];
-	printerQueue = [option copy];
-	return self;
 }
 
 @end

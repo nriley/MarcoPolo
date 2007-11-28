@@ -9,30 +9,56 @@
 
 
 @interface Action : NSObject {
-	NSString *type;
-	NSNumber *delay, *enabled;
-	NSArray *when;
+//	NSString *type;
+//	NSNumber *delay, *enabled;
+//	NSArray *when;
+
+	// Sheet hooks
+	NSPanel *panel;
+	NSString *oldDescription_;
 
 	NSAppleEventDescriptor *appleScriptResult_;
 }
 
-+ (NSString *)typeForClass:(Class)klass;
-+ (Class)classForType:(NSString *)type;
+//+ (NSString *)typeForClass:(Class)klass;
+//+ (Class)classForType:(NSString *)type;
 
-+ (Action *)actionFromDictionary:(NSDictionary *)dict;
-- (id)init;
-- (id)initWithDictionary:(NSDictionary *)dict;
+- (id)initWithNibNamed:(NSString *)name;
 - (void)dealloc;
-- (NSMutableDictionary *)dictionary;
-+ (NSString *)helpTextForActionOfType:(NSString *)type;
 
-- (NSComparisonResult)compareDelay:(Action *)other;
+- (void)runPanelAsSheetOfWindow:(NSWindow *)window withParameter:(NSDictionary *)parameter
+		 callbackObject:(NSObject *)callbackObject selector:(SEL)selector;
+- (IBAction)closeSheetWithOK:(id)sender;
+- (IBAction)closeSheetWithCancel:(id)sender;
+
+//+ (Action *)actionFromDictionary:(NSDictionary *)dict;
+//- (id)init;
+//- (id)initWithDictionary:(NSDictionary *)dict;
+//- (void)dealloc;
+//- (NSMutableDictionary *)dictionary;
+//+ (NSString *)helpTextForActionOfType:(NSString *)type;
+
+// Need to be extended by descendant classes
+// (need to add handling of 'parameter', and optionally 'description' keys)
+// Some rules:
+//	- parameter *must* be filled in
+//	- description *must not* be filled in if [super readFromPanel] does it
+- (NSMutableDictionary *)readFromPanel;
+- (void)writeToPanel:(NSDictionary *)dict;
 
 // To be implemented by descendant classes:
-- (NSString *)description;	// (use present-tense imperative)
-- (BOOL)execute:(NSString **)errorString;
-+ (NSString *)helpText;
-+ (NSString *)creationHelpText;
+- (NSString *)name;	// Optional; defaults to class name, with "Action" removed from the end
+- (NSString *)descriptionOf:(NSDictionary *)actionDict;
+- (BOOL)execute:(NSDictionary *)actionDict error:(NSString **)errorString;
+
+
+//- (NSComparisonResult)compareDelay:(Action *)other;
+//
+//// To be implemented by descendant classes:
+//- (NSString *)description;	// (use present-tense imperative)
+//- (BOOL)execute:(NSString **)errorString;
+//+ (NSString *)helpText;
+//+ (NSString *)creationHelpText;
 
 // Helpers
 - (BOOL)executeAppleScript:(NSString *)script;		// returns YES on success, NO on failure
@@ -40,32 +66,14 @@
 
 @end
 
-@protocol ActionWithLimitedOptions
-+ (NSArray *)limitedOptions;		// Returns an array of dictionaries (keys: option, description)
-- (id)initWithOption:(NSObject *)option;
-@end
-
-@protocol ActionWithFileParameter
-- (id)initWithFile:(NSString *)file;
-@end
-
-// An action whose creation UI should just prompt for a string (NSTextField)
-@protocol ActionWithString
-@end
-
 //////////////////////////////////////////////////////////////////////////////////////////
 
 @interface ActionSetController : NSObject {
 	IBOutlet NSWindowController *prefsWindowController;
-	NSArray *classes;	// array of class objects
+	NSArray *actions;	// dictionary of Action descendants (key is its name)
 }
 
-- (NSArray *)types;
-
-// NSMenu delegates
-- (BOOL)menu:(NSMenu *)menu updateItem:(NSMenuItem *)item atIndex:(int)index shouldCancel:(BOOL)shouldCancel;
-- (BOOL)menuHasKeyEquivalent:(NSMenu *)menu forEvent:(NSEvent *)event target:(id *)target action:(SEL *)action;
-- (int)numberOfItemsInMenu:(NSMenu *)menu;
-
+- (Action *)actionWithName:(NSString *)name;
+- (NSEnumerator *)actionEnumerator;
 
 @end
