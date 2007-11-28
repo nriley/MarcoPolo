@@ -598,7 +598,10 @@ finished_import:
 	NSDictionary *act;
 	while ((act = [en nextObject])) {
 		Action *action = [actionSet actionWithName:[act valueForKey:@"type"]];
-		[messages addObject:[action descriptionOf:act]];
+		if (action)
+			[messages addObject:[action descriptionOf:act]];
+		else
+			[messages addObject:[NSString stringWithFormat:@"(Broken action: %@)", [act valueForKey:@"type"]]];
 	}
 
 	// Aggregate growl messages
