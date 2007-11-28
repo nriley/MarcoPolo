@@ -6,8 +6,6 @@
 
 
 // This is here to avoid IB's problem with unknown base classes
-@interface ActionTypeHelpTransformer : NSValueTransformer {}
-@end
 @interface DelayValueTransformer : NSValueTransformer {}
 @end
 @interface LocalizeTransformer : NSValueTransformer {}
@@ -17,19 +15,6 @@
 @interface ContextNameTransformer : NSValueTransformer { }
 @end
 
-
-@implementation ActionTypeHelpTransformer
-
-+ (Class)transformedValueClass { return [NSString class]; }
-
-+ (BOOL)allowsReverseTransformation { return NO; }
-
-- (id)transformedValue:(id)theValue
-{
-	return [Action helpTextForActionOfType:(NSString *) theValue];
-}
-
-@end
 
 @implementation DelayValueTransformer
 
@@ -130,8 +115,6 @@
 + (void)initialize
 {
 	// Register value transformers
-	[NSValueTransformer setValueTransformer:[[[ActionTypeHelpTransformer alloc] init] autorelease]
-					forName:@"ActionTypeHelpTransformer"];
 	[NSValueTransformer setValueTransformer:[[[DelayValueTransformer alloc] init] autorelease]
 					forName:@"DelayValueTransformer"];
 	[NSValueTransformer setValueTransformer:[[[LocalizeTransformer alloc] init] autorelease]
