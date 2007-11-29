@@ -13,7 +13,6 @@
 	int destState_;
 }
 
-- (NSString *)suggestionLeadText;
 - (NSString *)descriptionOfState:(BOOL)state;
 - (NSString *)descriptionOfTransitionToState:(BOOL)state;
 - (BOOL)executeTransition:(BOOL)state error:(NSString **)errorString;

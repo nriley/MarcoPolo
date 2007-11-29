@@ -12,12 +12,6 @@
 
 @implementation ScreenSaverPasswordAction
 
-- (NSString *)suggestionLeadText
-{
-	// FIXME: is there some useful text we could use?
-	return @"";
-}
-
 - (NSString *)descriptionOfState:(BOOL)state
 {
 	if (state)

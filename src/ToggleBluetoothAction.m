@@ -10,11 +10,6 @@
 
 @implementation ToggleBluetoothAction
 
-- (NSString *)suggestionLeadText
-{
-	return NSLocalizedString(@"Set Bluetooth state:", @"");
-}
-
 - (NSString *)descriptionOfState:(BOOL)state
 {
 	if (state)

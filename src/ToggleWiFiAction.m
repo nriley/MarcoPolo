@@ -11,11 +11,6 @@
 
 @implementation ToggleWiFiAction
 
-- (NSString *)suggestionLeadText
-{
-	return NSLocalizedString(@"Set WiFi state:", @"");
-}
-
 - (NSString *)descriptionOfState:(BOOL)state
 {
 	if (state)
