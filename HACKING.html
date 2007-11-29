@@ -17,7 +17,7 @@
 </head>
 <body>
 <h1>MarcoPolo Hacking Guide</h1>
-<h2>9 October 2007</h2>
+<h2>30 November 2007</h2>
 
 <h3>Adding a new Evidence Source</h3>
 <ol>
@@ -104,8 +104,17 @@
 <h3>Adding a new Action</h3>
 <ol>
 <li>Pick a <em>short name</em> for the action; no spaces, starting with a letter (e.g. <tt>Foo</tt>)</li>
-<li>Create an Objective-C class called <tt>FooAction</tt> in the same style as the other actions</li>
-<li>Add mention of it in the three places in Action.m (from around line 148):
+<li>Create an Objective-C class called <tt>FooAction</tt> in the same style as the other actions. It should inherit from one of these:
+<dl>
+	<dt><tt>Action</tt></dt>
+	<dd>The most general; provide your own nib</dd>
+	<dt><tt>GenericAction</tt></dt>
+	<dd>Limited options, selected in a combo box control</dd>
+	<dt><tt>ToggleableAction</tt></dt>
+	<dd>Two-state (on/off), selected using two radio buttons</dd>
+</dl>
+</li>
+<li>Add mention of it in the three places in Action.m (from around line 216):
 <pre>
 	#import "FooAction.h"
 	...
