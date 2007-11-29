@@ -16,12 +16,20 @@
 	return NSLocalizedString(@"Set WiFi power:", @"");
 }
 
+- (NSString *)descriptionOfState:(BOOL)state
+{
+	if (state)
+		return NSLocalizedString(@"Turn WiFi on", @"Future tense");
+	else
+		return NSLocalizedString(@"Turn WiFi off", @"Future tense");
+}
+
 - (NSString *)descriptionOfTransitionToState:(BOOL)state
 {
 	if (state)
-		return NSLocalizedString(@"Turning WiFi on.", @"");
+		return NSLocalizedString(@"Turning WiFi on.", @"Present continuous tense");
 	else
-		return NSLocalizedString(@"Turning WiFi off.", @"");
+		return NSLocalizedString(@"Turning WiFi off.", @"Present continuous tense");
 }
 
 - (BOOL)executeTransition:(BOOL)state error:(NSString **)errorString
