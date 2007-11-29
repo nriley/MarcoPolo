@@ -215,7 +215,7 @@
 
 #import "DefaultPrinterAction.h"
 //#import "DesktopBackgroundAction.h"
-//#import "FirewallRuleAction.h"
+#import "FirewallRuleAction.h"
 //#import "IChatAction.h"
 //#import "MailIMAPServerAction.h"
 #import "MailSMTPServerAction.h"
@@ -243,7 +243,7 @@
 	NSArray *classes = [NSArray arrayWithObjects:
 		[DefaultPrinterAction class],
 //		[DesktopBackgroundAction class],
-//		[FirewallRuleAction class],
+		[FirewallRuleAction class],
 //		[IChatAction class],
 //		[MailIMAPServerAction class],
 		[MailSMTPServerAction class],

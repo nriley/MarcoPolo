@@ -12,8 +12,8 @@
 
 @interface FirewallRuleAction (Private)
 
-- (BOOL)isEnableRule;
-- (NSString *)strippedRuleName;
+- (BOOL)isEnableRule:(NSString *)rule;
+- (NSString *)strippedRuleName:(NSString *)rule;
 
 @end
 
@@ -26,72 +26,38 @@ static NSLock *sharedLock = nil;
 	sharedLock = [[NSLock alloc] init];
 }
 
-- (BOOL)isEnableRule
+- (BOOL)isEnableRule:(NSString *)rule
 {
-	return ([ruleName characterAtIndex:0] == '+');
+	return ([rule characterAtIndex:0] == '+');
 }
 
-- (NSString *)strippedRuleName
+- (NSString *)strippedRuleName:(NSString *)rule
 {
-	return [ruleName substringFromIndex:1];
+	return [rule substringFromIndex:1];
 }
 
-- (id)init
+- (NSString *)descriptionOf:(NSDictionary *)actionDict
 {
-	if (!(self = [super init]))
-		return nil;
+	NSString *rule = [actionDict valueForKey:@"parameter"];
+	NSString *name = [self strippedRuleName:rule];
 
-	ruleName = [[NSString alloc] init];
-
-	return self;
-}
-
-- (id)initWithDictionary:(NSDictionary *)dict
-{
-	if (!(self = [super initWithDictionary:dict]))
-		return nil;
-
-	ruleName = [[dict valueForKey:@"parameter"] copy];
-
-	return self;
-}
-
-- (void)dealloc
-{
-	[ruleName release];
-
-	[super dealloc];
-}
-
-- (NSMutableDictionary *)dictionary
-{
-	NSMutableDictionary *dict = [super dictionary];
-
-	[dict setObject:[[ruleName copy] autorelease] forKey:@"parameter"];
-
-	return dict;
-}
-
-- (NSString *)description
-{
-	NSString *name = [self strippedRuleName];
-
-	if ([self isEnableRule])
+	if ([self isEnableRule:rule])
 		return [NSString stringWithFormat:NSLocalizedString(@"Enabling Firewall Rule '%@'.", @""), name];
 	else
 		return [NSString stringWithFormat:NSLocalizedString(@"Disabling Firewall Rule '%@'.", @""), name];
 }
 
-- (BOOL)execute:(NSString **)errorString
+- (BOOL)execute:(NSDictionary *)actionDict error:(NSString **)errorString
 {
 	if (isLeopardOrLater()) {
-		*errorString = @"Sorry, FirewallRuleAction isn't supported in Leopard yet.";
+		*errorString = @"Sorry, FirewallRule action isn't supported in Leopard yet.";
 		return NO;
 	}
 
 	// Strip off the first character which indicates either enabled or disabled
-	BOOL isEnable = [self isEnableRule];
-	NSString *name = [self strippedRuleName];
+	NSString *rule = [actionDict valueForKey:@"parameter"];
+	BOOL isEnable = [self isEnableRule:rule];
+	NSString *name = [self strippedRuleName:rule];
 
 	[sharedLock lock];
 
@@ -142,19 +108,12 @@ static NSLock *sharedLock = nil;
 	return YES;
 }
 
-+ (NSString *)helpText
-{
-	return NSLocalizedString(@"The parameter for FirewallRule action is the name of the "
-				 "firewall rule you wish to modify, prefixed with '+' or '-' to "
-				 "enable or disable it, respectively.", @"");
-}
-
-+ (NSString *)creationHelpText
+- (NSString *)suggestionLeadText
 {
 	return NSLocalizedString(@"Set the following firewall rule:", @"");
 }
 
-+ (NSArray *)limitedOptions
+- (NSArray *)suggestions
 {
 	// Locate the firewall preferences dictionary
 	NSDictionary *dict = (NSDictionary *) CFPreferencesCopyAppValue(CFSTR("firewall"), CFSTR("com.apple.sharing.firewall"));
@@ -177,14 +136,6 @@ static NSLock *sharedLock = nil;
 	}
 
 	return opts;
-}
-
-- (id)initWithOption:(NSString *)option
-{
-	[self init];
-	[ruleName autorelease];
-	ruleName = [option copy];
-	return self;
 }
 
 @end
