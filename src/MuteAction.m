@@ -10,18 +10,32 @@
 
 @implementation MuteAction
 
-- (NSString *)description
+- (NSString *)suggestionLeadText
 {
-	if (turnOn)
-		return NSLocalizedString(@"Unmuting system audio.", @"");
-	else
-		return NSLocalizedString(@"Muting system audio.", @"");
+	// FIXME: is there some useful text we could use?
+	return @"";
 }
 
-- (BOOL)execute:(NSString **)errorString
+- (NSString *)descriptionOfState:(BOOL)state
+{
+	if (state)
+		return NSLocalizedString(@"Unmute system audio.", @"Future tense");
+	else
+		return NSLocalizedString(@"Mute system audio.", @"Future tense");
+}
+
+- (NSString *)descriptionOfTransitionToState:(BOOL)state
+{
+	if (state)
+		return NSLocalizedString(@"Unmuting system audio.", @"Present continuous tense");
+	else
+		return NSLocalizedString(@"Muting system audio.", @"Present continuous tense");
+}
+
+- (BOOL)executeTransition:(BOOL)state error:(NSString **)errorString
 {
 	NSString *script = [NSString stringWithFormat:@"set volume %@ output muted",
-				(turnOn ? @"without" : @"with")];
+				(state ? @"without" : @"with")];
 
 	// Should never fail
 	[self executeAppleScript:script];
@@ -30,29 +44,6 @@
 	//}
 
 	return YES;
-}
-
-+ (NSString *)helpText
-{
-	return NSLocalizedString(@"The parameter for Mute actions is either \"1\" "
-				 "or \"0\", depending on whether you want your system audio "
-				 "unmuted or muted.", @"");
-}
-
-+ (NSString *)creationHelpText
-{
-	// FIXME: is there some useful text we could use?
-	return @"";
-}
-
-+ (NSArray *)limitedOptions
-{
-	return [NSArray arrayWithObjects:
-		[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:NO], @"option",
-			NSLocalizedString(@"Mute system audio", @""), @"description", nil],
-		[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], @"option",
-			NSLocalizedString(@"Unmute system audio", @""), @"description", nil],
-		nil];
 }
 
 @end

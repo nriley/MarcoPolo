@@ -10,21 +10,35 @@
 
 @implementation ScreenSaverStartAction
 
-- (NSString *)description
+- (NSString *)suggestionLeadText
 {
-	if (turnOn)
+	// FIXME: is there some useful text we could use?
+	return @"";
+}
+
+- (NSString *)descriptionOfState:(BOOL)state
+{
+	if (state)
+		return NSLocalizedString(@"Start screen saver", @"Future tense");
+	else
+		return NSLocalizedString(@"Stop screen saver", @"Future tense");
+}
+
+- (NSString *)descriptionOfTransitionToState:(BOOL)state
+{
+	if (state)
 		return NSLocalizedString(@"Starting screen saver.", @"");
 	else
 		return NSLocalizedString(@"Stopping screen saver.", @"");
 }
 
-- (BOOL)execute:(NSString **)errorString
+- (BOOL)executeTransition:(BOOL)state error:(NSString **)errorString
 {
 	NSString *script = [NSString stringWithFormat:@"tell application \"ScreenSaverEngine\" to %@",
-		(turnOn ? @"activate" : @"quit")];
+		(state ? @"activate" : @"quit")];
 
 	if (![self executeAppleScript:script]) {
-		if (turnOn)
+		if (state)
 			*errorString = NSLocalizedString(@"Failed starting screen saver!", @"");
 		else
 			*errorString = NSLocalizedString(@"Failed stopping screen saver!", @"");
@@ -32,29 +46,6 @@
 	}
 
 	return YES;
-}
-
-+ (NSString *)helpText
-{
-	return NSLocalizedString(@"The parameter for ScreenSaverStartAction actions is either \"1\" "
-				 "or \"0\", depending on whether you want your screen saver to "
-				 "start or stop.", @"");
-}
-
-+ (NSString *)creationHelpText
-{
-	// FIXME: is there some useful text we could use?
-	return @"";
-}
-
-+ (NSArray *)limitedOptions
-{
-	return [NSArray arrayWithObjects:
-		[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], @"option",
-			NSLocalizedString(@"Start screen saver", @""), @"description", nil],
-		[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:NO], @"option",
-			NSLocalizedString(@"Stop screen saver", @""), @"description", nil],
-		nil];
 }
 
 @end

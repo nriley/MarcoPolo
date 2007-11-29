@@ -12,20 +12,35 @@
 
 @implementation ScreenSaverPasswordAction
 
-- (NSString *)description
+- (NSString *)suggestionLeadText
 {
-	if (turnOn)
-		return NSLocalizedString(@"Enabling screen saver password.", @"");
-	else
-		return NSLocalizedString(@"Disabling screen saver password.", @"");
+	// FIXME: is there some useful text we could use?
+	return @"";
 }
 
-- (BOOL)execute:(NSString **)errorString
+- (NSString *)descriptionOfState:(BOOL)state
+{
+	if (state)
+		return NSLocalizedString(@"Enable screen saver password", @"Future tense");
+	else
+		return NSLocalizedString(@"Disable screen saver password", @"Future tense");
+}
+
+- (NSString *)descriptionOfTransitionToState:(BOOL)state
+{
+	if (state)
+		return NSLocalizedString(@"Enabling screen saver password.", @"Present continuous tense");
+	else
+		return NSLocalizedString(@"Disabling screen saver password.", @"Present continuous tense");
+}
+
+- (BOOL)executeTransition:(BOOL)state error:(NSString **)errorString
 {
 	BOOL success;
 
 	if (!isLeopardOrLater()) {
-		NSNumber *val = [NSNumber numberWithBool:turnOn];
+		// Mac OS X 10.4 (Tiger) and earlier
+		NSNumber *val = [NSNumber numberWithBool:state];
 		CFPreferencesSetValue(CFSTR("askForPassword"), (CFPropertyListRef) val,
 				      CFSTR("com.apple.screensaver"),
 				      kCFPreferencesCurrentUser, kCFPreferencesCurrentHost);
@@ -39,12 +54,13 @@
 			CFRelease(port);
 		}
 	} else {
+		// Mac OS X 10.5 (Leopard) and later
 		NSString *script = [NSString stringWithFormat:
 			@"tell application \"System Events\"\n"
 			"  tell security preferences\n"
 			"    set require password to wake to %@\n"
 			"  end tell\n"
-			"end tell\n", (turnOn ? @"true" : @"false")];
+			"end tell\n", (state ? @"true" : @"false")];
 		success = [self executeAppleScript:script];
 	}
 
@@ -53,29 +69,6 @@
 		return NO;
 	}
 	return YES;
-}
-
-+ (NSString *)helpText
-{
-	return NSLocalizedString(@"The parameter for ScreenSaverPasswordAction actions is either \"1\" "
-				 "or \"0\", depending on whether you want your screen saver password "
-				 "enabled or disabled.", @"");
-}
-
-+ (NSString *)creationHelpText
-{
-	// FIXME: is there some useful text we could use?
-	return @"";
-}
-
-+ (NSArray *)limitedOptions
-{
-	return [NSArray arrayWithObjects:
-		[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], @"option",
-			NSLocalizedString(@"Enable screen saver password", @""), @"description", nil],
-		[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:NO], @"option",
-			NSLocalizedString(@"Disable screen saver password", @""), @"description", nil],
-		nil];
 }
 
 @end

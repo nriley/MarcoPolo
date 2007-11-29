@@ -12,11 +12,9 @@
 @interface ScreenSaverStartAction : ToggleableAction {
 }
 
-- (NSString *)description;
-- (BOOL)execute:(NSString **)errorString;
-+ (NSString *)helpText;
-+ (NSString *)creationHelpText;
-
-+ (NSArray *)limitedOptions;
+- (NSString *)suggestionLeadText;
+- (NSString *)descriptionOfState:(BOOL)state;
+- (NSString *)descriptionOfTransitionToState:(BOOL)state;
+- (BOOL)executeTransition:(BOOL)state error:(NSString **)errorString;
 
 @end

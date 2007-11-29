@@ -220,12 +220,12 @@
 //#import "MailIMAPServerAction.h"
 #import "MailSMTPServerAction.h"
 //#import "MountAction.h"
-//#import "MuteAction.h"
+#import "MuteAction.h"
 #import "NetworkLocationAction.h"
 //#import "OpenAction.h"
 //#import "QuitApplicationAction.h"
-//#import "ScreenSaverPasswordAction.h"
-//#import "ScreenSaverStartAction.h"
+#import "ScreenSaverPasswordAction.h"
+#import "ScreenSaverStartAction.h"
 #import "ScreenSaverTimeAction.h"
 //#import "ShellScriptAction.h"
 #import "ToggleBluetoothAction.h"
@@ -248,12 +248,12 @@
 //		[MailIMAPServerAction class],
 		[MailSMTPServerAction class],
 //		[MountAction class],
-//		[MuteAction class],
+		[MuteAction class],
 		[NetworkLocationAction class],
 //		[OpenAction class],
 //		[QuitApplicationAction class],
-//		[ScreenSaverPasswordAction class],
-//		[ScreenSaverStartAction class],
+		[ScreenSaverPasswordAction class],
+		[ScreenSaverStartAction class],
 		[ScreenSaverTimeAction class],
 //		[ShellScriptAction class],
 		[ToggleBluetoothAction class],
