@@ -13,7 +13,7 @@
 
 - (NSString *)suggestionLeadText
 {
-	return NSLocalizedString(@"Set WiFi power:", @"");
+	return NSLocalizedString(@"Set WiFi state:", @"");
 }
 
 - (NSString *)descriptionOfState:(BOOL)state
