@@ -6,18 +6,21 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "Action.h"
+#import "GenericAction.h"
 
 
-@interface ToggleableAction : Action <ActionWithLimitedOptions> {
-	BOOL turnOn;
+@interface ToggleableAction : GenericAction {
 }
 
-- (id)initWithDictionary:(NSDictionary *)dict;
-- (void)dealloc;
-- (NSMutableDictionary *)dictionary;
+- (NSString *)descriptionOf:(NSDictionary *)actionDict;
+- (BOOL)execute:(NSDictionary *)actionDict error:(NSString **)errorString;
 
-+ (NSArray *)limitedOptions;
-- (id)initWithOption:(NSNumber *)option;
+- (NSArray *)suggestions;
+
+// To be implemented by descendant classes
+- (NSString *)suggestionLeadText;	// optional
+- (NSString *)descriptionOfState:(BOOL)state;	// defaults to "on"/"off"
+- (NSString *)descriptionOfTransitionToState:(BOOL)state;
+- (BOOL)executeTransition:(BOOL)state error:(NSString **)errorString;
 
 @end

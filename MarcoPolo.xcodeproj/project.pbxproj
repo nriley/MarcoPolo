@@ -76,6 +76,8 @@
 		8DC72FB30CDD6541005352E8 /* NSCoreSuite.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 8DC72FAC0CDD6541005352E8 /* NSCoreSuite.sdef */; };
 		8DCC52120C42106D00515041 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D1107310486CEB800E47090 /* Info.plist */; };
 		8DD15A690C9CD5C7008EBFB3 /* mp-icon-inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 8DD15A680C9CD5C7008EBFB3 /* mp-icon-inactive.png */; };
+		8DDB68C20CFE866300300021 /* ToggleableAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D71CAED0C17BA7900E56526 /* ToggleableAction.m */; };
+		8DDB69000CFE89C900300021 /* ToggleWiFiAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D649BA30BE8033A00716059 /* ToggleWiFiAction.m */; };
 		8DE13F0E0C460E1700AEC949 /* FireWireEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DCBF4900BE5622600A01414 /* FireWireEvidenceSource.m */; };
 		8DE428FC0C5084D00073499A /* TimeOfDayEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DE428FA0C5084D00073499A /* TimeOfDayEvidenceSource.m */; };
 		8DE429480C5091F90073499A /* TimeOfDayRule.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8DE429460C5091F90073499A /* TimeOfDayRule.nib */; };
@@ -706,6 +708,8 @@
 				8DBF72920CFD45A900F2A18B /* MailSMTPServerAction.m in Sources */,
 				8DBF72CF0CFD4CA900F2A18B /* ScreenSaverTimeAction.m in Sources */,
 				8DBF72DD0CFD4EF300F2A18B /* VPNAction.m in Sources */,
+				8DDB68C20CFE866300300021 /* ToggleableAction.m in Sources */,
+				8DDB69000CFE89C900300021 /* ToggleWiFiAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

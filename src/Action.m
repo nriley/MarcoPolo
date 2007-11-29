@@ -217,6 +217,7 @@
 #import "MailSMTPServerAction.h"
 #import "NetworkLocationAction.h"
 #import "ScreenSaverTimeAction.h"
+#import "ToggleWiFiAction.h"
 #import "VPNAction.h"
 
 @implementation ActionSetController
@@ -231,14 +232,29 @@
 		[MailSMTPServerAction class],
 		[NetworkLocationAction class],
 		[ScreenSaverTimeAction class],
+		[ToggleWiFiAction class],
 		[VPNAction class],
 		nil];
 	if (NO) {
 		// Purely for the benefit of 'genstrings'
 		NSLocalizedString(@"DefaultPrinter", @"Action type");
+		NSLocalizedString(@"DesktopBackground", @"Action type");
+		NSLocalizedString(@"FirewallRule", @"Action type");
+		NSLocalizedString(@"IChat", @"Action type");
+		NSLocalizedString(@"MailIMAPServer", @"Action type");
 		NSLocalizedString(@"MailSMTPServer", @"Action type");
+		NSLocalizedString(@"Mount", @"Action type");
+		NSLocalizedString(@"Mute", @"Action type");
 		NSLocalizedString(@"NetworkLocation", @"Action type");
+		NSLocalizedString(@"Open", @"Action type");
+		NSLocalizedString(@"QuitApplication", @"Action type");
+		NSLocalizedString(@"ScreenSaverPassword", @"Action type");
+		NSLocalizedString(@"ScreenSaverStart", @"Action type");
 		NSLocalizedString(@"ScreenSaverTime", @"Action type");
+		NSLocalizedString(@"ShellScript", @"Action type");
+		NSLocalizedString(@"ToggleBluetooth", @"Action type");
+		NSLocalizedString(@"ToggleWiFi", @"Action type");
+		NSLocalizedString(@"Unmount", @"Action type");
 		NSLocalizedString(@"VPN", @"Action type");
 	}
 
@@ -326,7 +342,6 @@
 #import "ScreenSaverStartAction.h"
 #import "ShellScriptAction.h"
 #import "ToggleBluetoothAction.h"
-#import "ToggleWiFiAction.h"
 #import "UnmountAction.h"
 
 @implementation ActionSetController
@@ -349,25 +364,10 @@
 		[ScreenSaverStartAction class],
 		[ShellScriptAction class],
 		[ToggleBluetoothAction class],
-		[ToggleWiFiAction class],
 		[UnmountAction class],
 			nil];
 	if (NO) {
 		// Purely for the benefit of 'genstrings'
-		NSLocalizedString(@"DesktopBackground", @"Action type");
-		NSLocalizedString(@"FirewallRule", @"Action type");
-		NSLocalizedString(@"IChat", @"Action type");
-		NSLocalizedString(@"MailIMAPServer", @"Action type");
-		NSLocalizedString(@"Mount", @"Action type");
-		NSLocalizedString(@"Mute", @"Action type");
-		NSLocalizedString(@"Open", @"Action type");
-		NSLocalizedString(@"QuitApplication", @"Action type");
-		NSLocalizedString(@"ScreenSaverPassword", @"Action type");
-		NSLocalizedString(@"ScreenSaverStart", @"Action type");
-		NSLocalizedString(@"ShellScript", @"Action type");
-		NSLocalizedString(@"ToggleBluetooth", @"Action type");
-		NSLocalizedString(@"ToggleWiFi", @"Action type");
-		NSLocalizedString(@"Unmount", @"Action type");
 	}
 
 	return self;

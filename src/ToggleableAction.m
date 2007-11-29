@@ -8,6 +8,14 @@
 #import "ToggleableAction.h"
 
 
+@interface ToggleableAction (Private)
+
+- (BOOL)decodeParameter:(NSObject *)parameter;
+
+@end
+
+#pragma mark -
+
 @implementation ToggleableAction
 
 - (id)init
@@ -15,58 +23,61 @@
 	if (!(self = [super init]))
 		return nil;
 
-	turnOn = NO;
-
 	return self;
 }
 
-- (id)initWithDictionary:(NSDictionary *)dict
+- (BOOL)decodeParameter:(NSObject *)parameter
 {
-	if (!(self = [super initWithDictionary:dict]))
-		return nil;
-
-	NSObject *val = [dict valueForKey:@"parameter"];
-	if ([val isKindOfClass:[NSNumber class]])
-		turnOn = [[dict valueForKey:@"parameter"] boolValue];
-	else {
-		if ([val isEqual:@"on"] || [val isEqual:@"1"])
-			turnOn = YES;
-		else
-			turnOn = NO;
-	}
-
-	return self;
+	if ([parameter isKindOfClass:[NSNumber class]])
+		return [(NSNumber *) parameter boolValue];
+	else
+		return ([parameter isEqual:@"on"] || [parameter isEqual:@"1"]);
 }
 
-- (void)dealloc
+- (NSString *)descriptionOf:(NSDictionary *)actionDict
 {
-	[super dealloc];
+	return [self descriptionOfTransitionToState:[self decodeParameter:[actionDict valueForKey:@"parameter"]]];
 }
 
-- (NSMutableDictionary *)dictionary
+- (BOOL)execute:(NSDictionary *)actionDict error:(NSString **)errorString
 {
-	NSMutableDictionary *dict = [super dictionary];
-
-	[dict setObject:[NSNumber numberWithBool:turnOn] forKey:@"parameter"];
-
-	return dict;
+	return [self executeTransition:[self decodeParameter:[actionDict valueForKey:@"parameter"]]
+				 error:errorString];
 }
 
-+ (NSArray *)limitedOptions
+- (NSArray *)suggestions
 {
 	return [NSArray arrayWithObjects:
 		[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], @"option",
-			NSLocalizedString(@"on", @"Used in toggling actions"), @"description", nil],
+			[self descriptionOfState:YES], @"description", nil],
 		[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:NO], @"option",
-			NSLocalizedString(@"off", @"Used in toggling actions"), @"description", nil],
+			[self descriptionOfState:NO], @"description", nil],
 		nil];
 }
 
-- (id)initWithOption:(NSNumber *)option
+- (NSString *)suggestionLeadText
 {
-	[self init];
-	turnOn = [option boolValue];
-	return self;
+	return @"";
+}
+
+- (NSString *)descriptionOfState:(BOOL)state
+{
+	if (state)
+		return NSLocalizedString(@"on", @"Used in toggling actions");
+	else
+		return NSLocalizedString(@"off", @"Used in toggling actions");
+}
+
+- (NSString *)descriptionOfTransitionToState:(BOOL)state
+{
+	[self doesNotRecognizeSelector:_cmd];
+	return nil;
+}
+
+- (BOOL)executeTransition:(BOOL)state error:(NSString **)errorString
+{
+	[self doesNotRecognizeSelector:_cmd];
+	return NO;
 }
 
 @end
