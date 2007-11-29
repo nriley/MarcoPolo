@@ -57,6 +57,7 @@
 		8D8C9CE70BBB7BE00074D5B3 /* BluetoothEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8C9CE50BBB7BE00074D5B3 /* BluetoothEvidenceSource.m */; };
 		8D8C9E350BBB89320074D5B3 /* DB.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8C9E330BBB89320074D5B3 /* DB.m */; };
 		8D8D2B000CB9C91500A3EFAE /* ContextFilteredController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8D2AFE0CB9C91500A3EFAE /* ContextFilteredController.m */; };
+		8D8E6DBF0CFF780600BC05F0 /* ToggleableAction.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8D8E6DBD0CFF780600BC05F0 /* ToggleableAction.nib */; };
 		8D90E51F0B71C4C9007D39FD /* MPController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D90E51E0B71C4C9007D39FD /* MPController.m */; };
 		8D91F17D0C47148200D9FC0F /* USBEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D35A34D0BBBA0CB006ACBB0 /* USBEvidenceSource.m */; };
 		8D91F1FA0C4772FF00D9FC0F /* LightEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D91F1F80C4772FF00D9FC0F /* LightEvidenceSource.m */; };
@@ -216,6 +217,7 @@
 		8D8C9EBB0BBB8DAC0074D5B3 /* IPEvidenceSource.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = IPEvidenceSource.m; path = src/IPEvidenceSource.m; sourceTree = "<group>"; };
 		8D8D2AFD0CB9C91500A3EFAE /* ContextFilteredController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContextFilteredController.h; path = src/ContextFilteredController.h; sourceTree = "<group>"; };
 		8D8D2AFE0CB9C91500A3EFAE /* ContextFilteredController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContextFilteredController.m; path = src/ContextFilteredController.m; sourceTree = "<group>"; };
+		8D8E6DBE0CFF780600BC05F0 /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/ToggleableAction.nib; sourceTree = "<group>"; };
 		8D90E51D0B71C4C9007D39FD /* MPController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPController.h; path = src/MPController.h; sourceTree = "<group>"; };
 		8D90E51E0B71C4C9007D39FD /* MPController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPController.m; path = src/MPController.m; sourceTree = "<group>"; };
 		8D91F1F70C4772FF00D9FC0F /* LightEvidenceSource.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = LightEvidenceSource.h; path = src/LightEvidenceSource.h; sourceTree = "<group>"; };
@@ -376,6 +378,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8D8E6DBD0CFF780600BC05F0 /* ToggleableAction.nib */,
 				8DC72FAC0CDD6541005352E8 /* NSCoreSuite.sdef */,
 				8D341CBA0CDAF94B000B9A53 /* MarcoPolo.sdef */,
 				8DD15A680C9CD5C7008EBFB3 /* mp-icon-inactive.png */,
@@ -631,6 +634,7 @@
 				8DC72FB30CDD6541005352E8 /* NSCoreSuite.sdef in Resources */,
 				8D969EC10CDD70190077B9CF /* MarcoPolo.sdef in Resources */,
 				8D853E1E0CF83CEE00405337 /* GenericAction.nib in Resources */,
+				8D8E6DBF0CFF780600BC05F0 /* ToggleableAction.nib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -764,6 +768,14 @@
 				8D853E1D0CF83CEE00405337 /* en */,
 			);
 			name = GenericAction.nib;
+			sourceTree = "<group>";
+		};
+		8D8E6DBD0CFF780600BC05F0 /* ToggleableAction.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8D8E6DBE0CFF780600BC05F0 /* en */,
+			);
+			name = ToggleableAction.nib;
 			sourceTree = "<group>";
 		};
 		8DE429460C5091F90073499A /* TimeOfDayRule.nib */ = {

@@ -20,10 +20,38 @@
 
 - (id)init
 {
-	if (!(self = [super init]))
+	if (!(self = [super initWithNibNamed:@"ToggleableAction"]))
 		return nil;
 
 	return self;
+}
+
+- (NSMutableDictionary *)readFromPanel
+{
+	NSMutableDictionary *dict = [super readFromPanel];
+
+	BOOL val = [radio1 intValue];
+
+	[dict setValue:[NSNumber numberWithBool:val] forKey:@"parameter"];
+	if (![dict objectForKey:@"description"])
+		[dict setValue:[self descriptionOfState:val] forKey:@"description"];
+
+	return dict;
+}
+
+- (void)writeToPanel:(NSDictionary *)dict
+{
+	[super writeToPanel:dict];
+
+	[radio1 setTitle:[self descriptionOfState:YES]];
+	[radio2 setTitle:[self descriptionOfState:NO]];
+
+	NSButtonCell *sel = radio1;
+	if ([dict objectForKey:@"parameter"]) {
+		BOOL val = [self decodeParameter:[dict valueForKey:@"parameter"]];
+		sel = (val ? radio1 : radio2);
+	}
+	[sel performClick:self];
 }
 
 - (BOOL)decodeParameter:(NSObject *)parameter
@@ -43,21 +71,6 @@
 {
 	return [self executeTransition:[self decodeParameter:[actionDict valueForKey:@"parameter"]]
 				 error:errorString];
-}
-
-- (NSArray *)suggestions
-{
-	return [NSArray arrayWithObjects:
-		[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], @"parameter",
-			[self descriptionOfState:YES], @"description", nil],
-		[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:NO], @"parameter",
-			[self descriptionOfState:NO], @"description", nil],
-		nil];
-}
-
-- (NSString *)suggestionLeadText
-{
-	return @"";
 }
 
 - (NSString *)descriptionOfState:(BOOL)state

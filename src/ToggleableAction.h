@@ -6,19 +6,19 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "GenericAction.h"
+#import "Action.h"
 
 
-@interface ToggleableAction : GenericAction {
+@interface ToggleableAction : Action {
+	IBOutlet NSButtonCell *radio1, *radio2;
 }
+
+- (id)init;
 
 - (NSString *)descriptionOf:(NSDictionary *)actionDict;
 - (BOOL)execute:(NSDictionary *)actionDict error:(NSString **)errorString;
 
-- (NSArray *)suggestions;
-
 // To be implemented by descendant classes
-- (NSString *)suggestionLeadText;	// optional
 - (NSString *)descriptionOfState:(BOOL)state;	// defaults to "on"/"off"
 - (NSString *)descriptionOfTransitionToState:(BOOL)state;
 - (BOOL)executeTransition:(BOOL)state error:(NSString **)errorString;
