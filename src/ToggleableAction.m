@@ -48,9 +48,9 @@
 - (NSArray *)suggestions
 {
 	return [NSArray arrayWithObjects:
-		[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], @"option",
+		[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], @"parameter",
 			[self descriptionOfState:YES], @"description", nil],
-		[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:NO], @"option",
+		[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:NO], @"parameter",
 			[self descriptionOfState:NO], @"description", nil],
 		nil];
 }
