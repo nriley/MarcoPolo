@@ -10,28 +10,42 @@
 
 @implementation ToggleBluetoothAction
 
-- (NSString *)description
+- (NSString *)suggestionLeadText
 {
-	if (turnOn)
-		return NSLocalizedString(@"Turning Bluetooth on.", @"");
+	return NSLocalizedString(@"Set Bluetooth state:", @"");
+}
+
+- (NSString *)descriptionOfState:(BOOL)state
+{
+	if (state)
+		return NSLocalizedString(@"Turn Bluetooth on", @"Future tense");
 	else
-		return NSLocalizedString(@"Turning Bluetooth off.", @"");
+		return NSLocalizedString(@"Turn Bluetooth off", @"Future tense");
+}
+
+- (NSString *)descriptionOfTransitionToState:(BOOL)state
+{
+	if (state)
+		return NSLocalizedString(@"Turning Bluetooth on.", @"Present continuous tense");
+	else
+		return NSLocalizedString(@"Turning Bluetooth off.", @"Present continuous tense");
 }
 
 // IOBluetooth.framework is not thread-safe, so all IOBluetooth calls need to be done in the main thread.
 - (void)setPowerState
 {
-	IOBluetoothPreferenceSetControllerPowerState(turnOn ? 1 : 0);
-	setState = IOBluetoothPreferenceGetControllerPowerState();
+	IOBluetoothPreferenceSetControllerPowerState(destState_ ? 1 : 0);
+	destState_ = IOBluetoothPreferenceGetControllerPowerState();
 }
 
-- (BOOL)execute:(NSString **)errorString
+- (BOOL)executeTransition:(BOOL)state error:(NSString **)errorString
 {
-	int state = (turnOn ? 1 : 0);
+	int aim = (state ? 1 : 0);
+	destState_ = aim;
 
 	[self performSelectorOnMainThread:@selector(setPowerState) withObject:nil waitUntilDone:YES];
-	if (state != setState) {
-		if (turnOn)
+	if (aim != destState_) {
+		if (state)
 			*errorString = NSLocalizedString(@"Failed turning Bluetooth on.", @"");
 		else
 			*errorString = NSLocalizedString(@"Failed turning Bluetooth off.", @"");
@@ -39,18 +53,6 @@
 	}
 
 	return YES;
-}
-
-+ (NSString *)helpText
-{
-	return NSLocalizedString(@"The parameter for ToggleBluetooth actions is either \"1\" "
-				 "or \"0\", depending on whether you want your Bluetooth controller's power "
-				 "turned on or off.", @"");
-}
-
-+ (NSString *)creationHelpText
-{
-	return NSLocalizedString(@"Turn Bluetooth", @"Will be followed by 'on' or 'off'");
 }
 
 @end

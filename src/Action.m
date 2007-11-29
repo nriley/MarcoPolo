@@ -214,10 +214,23 @@
 @end
 
 #import "DefaultPrinterAction.h"
+//#import "DesktopBackgroundAction.h"
+//#import "FirewallRuleAction.h"
+//#import "IChatAction.h"
+//#import "MailIMAPServerAction.h"
 #import "MailSMTPServerAction.h"
+//#import "MountAction.h"
+//#import "MuteAction.h"
 #import "NetworkLocationAction.h"
+//#import "OpenAction.h"
+//#import "QuitApplicationAction.h"
+//#import "ScreenSaverPasswordAction.h"
+//#import "ScreenSaverStartAction.h"
 #import "ScreenSaverTimeAction.h"
+//#import "ShellScriptAction.h"
+#import "ToggleBluetoothAction.h"
 #import "ToggleWiFiAction.h"
+//#import "UnmountAction.h"
 #import "VPNAction.h"
 
 @implementation ActionSetController
@@ -229,10 +242,23 @@
 
 	NSArray *classes = [NSArray arrayWithObjects:
 		[DefaultPrinterAction class],
+//		[DesktopBackgroundAction class],
+//		[FirewallRuleAction class],
+//		[IChatAction class],
+//		[MailIMAPServerAction class],
 		[MailSMTPServerAction class],
+//		[MountAction class],
+//		[MuteAction class],
 		[NetworkLocationAction class],
+//		[OpenAction class],
+//		[QuitApplicationAction class],
+//		[ScreenSaverPasswordAction class],
+//		[ScreenSaverStartAction class],
 		[ScreenSaverTimeAction class],
+//		[ShellScriptAction class],
+		[ToggleBluetoothAction class],
 		[ToggleWiFiAction class],
+//		[UnmountAction class],
 		[VPNAction class],
 		nil];
 	if (NO) {
@@ -325,70 +351,3 @@
 }
 
 @end
-
-#if 0
-
-#pragma mark -
-
-#import "DesktopBackgroundAction.h"
-#import "FirewallRuleAction.h"
-#import "IChatAction.h"
-#import "MailIMAPServerAction.h"
-#import "MountAction.h"
-#import "MuteAction.h"
-#import "OpenAction.h"
-#import "QuitApplicationAction.h"
-#import "ScreenSaverPasswordAction.h"
-#import "ScreenSaverStartAction.h"
-#import "ShellScriptAction.h"
-#import "ToggleBluetoothAction.h"
-#import "UnmountAction.h"
-
-@implementation ActionSetController
-
-- (id)init
-{
-	if (!(self = [super init]))
-		return nil;
-
-	classes = [[NSArray alloc] initWithObjects:
-		[DesktopBackgroundAction class],
-		[FirewallRuleAction class],
-		[IChatAction class],
-		[MailIMAPServerAction class],
-		[MountAction class],
-		[MuteAction class],
-		[OpenAction class],
-		[QuitApplicationAction class],
-		[ScreenSaverPasswordAction class],
-		[ScreenSaverStartAction class],
-		[ShellScriptAction class],
-		[ToggleBluetoothAction class],
-		[UnmountAction class],
-			nil];
-	if (NO) {
-		// Purely for the benefit of 'genstrings'
-	}
-
-	return self;
-}
-
-- (void)dealloc
-{
-	[classes release];
-
-	[super dealloc];
-}
-
-- (NSArray *)types
-{
-	NSMutableArray *array = [NSMutableArray arrayWithCapacity:[classes count]];
-	NSEnumerator *en = [classes objectEnumerator];
-	Class klass;
-	while ((klass = [en nextObject])) {
-		[array addObject:[Action typeForClass:klass]];
-	}
-	return array;
-}
-
-#endif
