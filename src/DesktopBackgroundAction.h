@@ -6,20 +6,13 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "Action.h"
+#import "ActionWithFile.h"
 
 
-@interface DesktopBackgroundAction : Action <ActionWithFileParameter> {
-	NSString *path;
+@interface DesktopBackgroundAction : ActionWithFile {
 }
 
-- (id)initWithDictionary:(NSDictionary *)dict;
-- (void)dealloc;
-- (NSMutableDictionary *)dictionary;
-
-- (NSString *)description;
-- (BOOL)execute:(NSString **)errorString;
-
-- (id)initWithFile:(NSString *)file;
+- (NSString *)descriptionOf:(NSDictionary *)actionDict;
+- (BOOL)execute:(NSDictionary *)actionDict error:(NSString **)errorString;
 
 @end

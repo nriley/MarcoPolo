@@ -57,10 +57,10 @@
 		8D82F06D0AA811CE009ADA44 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D82F05B0AA811CE009ADA44 /* SystemConfiguration.framework */; };
 		8D82F0A30AA81411009ADA44 /* PrefsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D82F0A20AA81411009ADA44 /* PrefsWindowController.m */; };
 		8D88FE2A0C534737007A14D6 /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D88FE290C534737007A14D6 /* pause.png */; };
-		8D8C6D240D001A6E00D13245 /* ActionWithFile.h in Copy Help Files */ = {isa = PBXBuildFile; fileRef = 8D8C6D220D001A6E00D13245 /* ActionWithFile.h */; };
 		8D8C6D250D001A6E00D13245 /* ActionWithFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8C6D230D001A6E00D13245 /* ActionWithFile.m */; };
 		8D8C6D330D001CE900D13245 /* ActionWithFile.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C6D310D001CE900D13245 /* ActionWithFile.nib */; };
 		8D8C6D570D00210D00D13245 /* OpenAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DD790AB0BC28A9F00705346 /* OpenAction.m */; };
+		8D8C6DC10D00304E00D13245 /* DesktopBackgroundAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DA2F4130CE8630200F92D4D /* DesktopBackgroundAction.m */; };
 		8D8C9BAB0BBB3ADB0074D5B3 /* Apple80211.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D8C9BA90BBB3ADB0074D5B3 /* Apple80211.framework */; };
 		8D8C9CA60BBB74E70074D5B3 /* EvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8C9CA40BBB74E70074D5B3 /* EvidenceSource.m */; };
 		8D8C9CE70BBB7BE00074D5B3 /* BluetoothEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8C9CE50BBB7BE00074D5B3 /* BluetoothEvidenceSource.m */; };
@@ -125,7 +125,6 @@
 			dstSubfolderSpec = 7;
 			files = (
 				8DEF428F0BAA05D300F87273 /* MarcoPolo Help in Copy Help Files */,
-				8D8C6D240D001A6E00D13245 /* ActionWithFile.h in Copy Help Files */,
 			);
 			name = "Copy Help Files";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -766,6 +765,7 @@
 				8D1CEEB40CFFC31F00C95533 /* QuitApplicationAction.m in Sources */,
 				8D8C6D250D001A6E00D13245 /* ActionWithFile.m in Sources */,
 				8D8C6D570D00210D00D13245 /* OpenAction.m in Sources */,
+				8D8C6DC10D00304E00D13245 /* DesktopBackgroundAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

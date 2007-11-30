@@ -10,49 +10,13 @@
 
 @implementation DesktopBackgroundAction
 
-- (id)init
-{
-	if (!(self = [super init]))
-		return nil;
-
-	path = [[NSString alloc] init];
-
-	return self;
-}
-
-- (id)initWithDictionary:(NSDictionary *)dict
-{
-	if (!(self = [super initWithDictionary:dict]))
-		return nil;
-
-	path = [[dict valueForKey:@"parameter"] copy];
-
-	return self;
-}
-
-- (void)dealloc
-{
-	[path release];
-
-	[super dealloc];
-}
-
-- (NSMutableDictionary *)dictionary
-{
-	NSMutableDictionary *dict = [super dictionary];
-
-	[dict setObject:[[path copy] autorelease] forKey:@"parameter"];
-
-	return dict;
-}
-
-- (NSString *)description
+- (NSString *)descriptionOf:(NSDictionary *)actionDict
 {
 	return [NSString stringWithFormat:NSLocalizedString(@"Setting desktop background to '%@'.", @""),
-		[path lastPathComponent]];
+		[[actionDict valueForKey:@"parameter"] lastPathComponent]];
 }
 
-- (NSString *)pathAsHFSPath
+- (NSString *)pathAsHFSPath:(NSString *)path
 {
 	CFURLRef url = CFURLCreateWithFileSystemPath(NULL, (CFStringRef) path, kCFURLPOSIXPathStyle, false);
 	NSString *ret = (NSString *) CFURLCopyFileSystemPath(url, kCFURLHFSPathStyle);
@@ -61,8 +25,10 @@
 	return ret;
 }
 
-- (BOOL)execute:(NSString **)errorString
+- (BOOL)execute:(NSDictionary *)actionDict error:(NSString **)errorString
 {
+	NSString *path = [actionDict valueForKey:@"parameter"];
+
 	if (![[NSFileManager defaultManager] fileExistsAtPath:path])
 		goto failed_to_set;
 
@@ -70,28 +36,15 @@
 	NSString *script = [NSString stringWithFormat:
 		@"tell application \"Finder\"\n"
 		"  set desktop picture to \"%@\"\n"
-		"end tell\n", [self pathAsHFSPath]];
+		"end tell\n", [self pathAsHFSPath:path]];
 
 	if ([self executeAppleScript:script])
 		return YES;
 
 failed_to_set:
-	*errorString = [NSString stringWithFormat:NSLocalizedString(@"Failed setting '%@' as desktop background.", @""), path];
+	*errorString = [NSString stringWithFormat:NSLocalizedString(@"Failed setting '%@' as desktop background.", @""),
+		[path lastPathComponent]];
 	return NO;
-}
-
-+ (NSString *)helpText
-{
-	return NSLocalizedString(@"The parameter for DesktopBackground actions is the full path of the "
-				 "image to be set as the background picture.", @"");
-}
-
-- (id)initWithFile:(NSString *)file
-{
-	[self init];
-	[path release];
-	path = [file copy];
-	return self;
 }
 
 @end
