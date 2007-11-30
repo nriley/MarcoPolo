@@ -216,14 +216,14 @@
 #import "DefaultPrinterAction.h"
 //#import "DesktopBackgroundAction.h"
 #import "FirewallRuleAction.h"
-//#import "IChatAction.h"
-//#import "MailIMAPServerAction.h"
+#import "IChatAction.h"
+#import "MailIMAPServerAction.h"
 #import "MailSMTPServerAction.h"
 #import "MountAction.h"
 #import "MuteAction.h"
 #import "NetworkLocationAction.h"
 //#import "OpenAction.h"
-//#import "QuitApplicationAction.h"
+#import "QuitApplicationAction.h"
 #import "ScreenSaverPasswordAction.h"
 #import "ScreenSaverStartAction.h"
 #import "ScreenSaverTimeAction.h"
@@ -244,14 +244,14 @@
 		[DefaultPrinterAction class],
 //		[DesktopBackgroundAction class],
 		[FirewallRuleAction class],
-//		[IChatAction class],
-//		[MailIMAPServerAction class],
+		[IChatAction class],
+		[MailIMAPServerAction class],
 		[MailSMTPServerAction class],
 		[MountAction class],
 		[MuteAction class],
 		[NetworkLocationAction class],
 //		[OpenAction class],
-//		[QuitApplicationAction class],
+		[QuitApplicationAction class],
 		[ScreenSaverPasswordAction class],
 		[ScreenSaverStartAction class],
 		[ScreenSaverTimeAction class],

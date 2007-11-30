@@ -6,20 +6,14 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "Action.h"
+#import "StringAction.h"
 
 
-@interface IChatAction : Action <ActionWithString> {
-	NSString *status;
+@interface IChatAction : StringAction {
 }
 
-- (id)initWithDictionary:(NSDictionary *)dict;
-- (void)dealloc;
-- (NSMutableDictionary *)dictionary;
-
-- (NSString *)description;
-- (BOOL)execute:(NSString **)errorString;
-+ (NSString *)helpText;
-+ (NSString *)creationHelpText;
+- (NSString *)leadText;
+- (NSString *)descriptionOf:(NSDictionary *)actionDict;
+- (BOOL)execute:(NSDictionary *)actionDict error:(NSString **)errorString;
 
 @end

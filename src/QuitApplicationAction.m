@@ -10,51 +10,23 @@
 
 @implementation QuitApplicationAction
 
-- (id)init
+- (NSString *)leadText
 {
-	if (!(self = [super init]))
-		return nil;
-
-	application = [[NSString alloc] init];
-
-	return self;
+	return NSLocalizedString(@"Quit application with this name:", @"");
 }
 
-- (id)initWithDictionary:(NSDictionary *)dict
+- (NSString *)descriptionOf:(NSDictionary *)actionDict
 {
-	if (!(self = [super initWithDictionary:dict]))
-		return nil;
-
-	application = [[dict valueForKey:@"parameter"] copy];
-
-	return self;
+	return [NSString stringWithFormat:NSLocalizedString(@"Quitting application '%@'.", @""),
+		[actionDict valueForKey:@"parameter"]];
 }
 
-- (void)dealloc
-{
-	[application release];
-
-	[super dealloc];
-}
-
-- (NSMutableDictionary *)dictionary
-{
-	NSMutableDictionary *dict = [super dictionary];
-
-	[dict setObject:[[application copy] autorelease] forKey:@"parameter"];
-
-	return dict;
-}
-
-- (NSString *)description
-{
-	return [NSString stringWithFormat:NSLocalizedString(@"Quitting application '%@'.", @""), application];
-}
-
-- (BOOL)execute:(NSString **)errorString
+- (BOOL)execute:(NSDictionary *)actionDict error:(NSString **)errorString
 {
 	// TODO: properly escape application name!
-	NSString *script = [NSString stringWithFormat:@"tell application \"%@\" to quit", application];
+	NSString *script = [NSString stringWithFormat:
+		@"tell application \"%@\" to quit",
+		[actionDict valueForKey:@"parameter"]];
 
 	if (![self executeAppleScript:script]) {
 		*errorString = NSLocalizedString(@"Couldn't quit application!", @"In QuitApplicationAction");
@@ -62,16 +34,6 @@
 	}
 
 	return YES;
-}
-
-+ (NSString *)helpText
-{
-	return NSLocalizedString(@"The parameter for QuitApplication actions is the name of the application to quit.", @"");
-}
-
-+ (NSString *)creationHelpText
-{
-	return NSLocalizedString(@"Quit application with this name:", @"");
 }
 
 @end

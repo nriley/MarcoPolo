@@ -738,10 +738,10 @@ int compareDelay(id actionDict1, id actionDict2, void *context)
 {
 	// Running some types of actions (notably the Mount action) on Startup
 	// causes the GUI (main) thread to freeze up for some reason.
-	// This is a simple workaround for it, with only a 100ms delay.
+	// This is a simple workaround for it, with only a 250ms delay.
 	[self performSelector:@selector(triggerActionsWithTrigger:)
 		   withObject:@"Startup"
-		   afterDelay:0.1];
+		   afterDelay:0.25];
 }
 
 #pragma mark Context switching

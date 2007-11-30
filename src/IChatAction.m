@@ -10,54 +10,24 @@
 
 @implementation IChatAction
 
-- (id)init
+- (NSString *)leadText
 {
-	if (!(self = [super init]))
-		return nil;
-
-	status = [[NSString alloc] init];
-
-	return self;
+	return NSLocalizedString(@"Set iChat status message:", @"");
 }
 
-- (id)initWithDictionary:(NSDictionary *)dict
+- (NSString *)descriptionOf:(NSDictionary *)actionDict
 {
-	if (!(self = [super initWithDictionary:dict]))
-		return nil;
-
-	status = [[dict valueForKey:@"parameter"] copy];
-
-	return self;
+	return [NSString stringWithFormat:NSLocalizedString(@"Setting iChat status to '%@'.", @""),
+		[actionDict valueForKey:@"parameter"]];
 }
 
-- (void)dealloc
-{
-	[status release];
-
-	[super dealloc];
-}
-
-- (NSMutableDictionary *)dictionary
-{
-	NSMutableDictionary *dict = [super dictionary];
-
-	[dict setObject:[[status copy] autorelease] forKey:@"parameter"];
-
-	return dict;
-}
-
-- (NSString *)description
-{
-	return [NSString stringWithFormat:NSLocalizedString(@"Setting iChat status to '%@'.", @""), status];
-}
-
-- (BOOL)execute:(NSString **)errorString
+- (BOOL)execute:(NSDictionary *)actionDict error:(NSString **)errorString
 {
 	// TODO: properly escape status message!
 	NSString *script = [NSString stringWithFormat:
 		@"tell application \"iChat\"\n"
 		"  set status message to \"%@\"\n"
-		"end tell\n", status];
+		"end tell\n", [actionDict valueForKey:@"parameter"]];
 
 	if (![self executeAppleScript:script]) {
 		*errorString = NSLocalizedString(@"Couldn't set iChat status!", @"In IChatAction");
@@ -65,16 +35,6 @@
 	}
 
 	return YES;
-}
-
-+ (NSString *)helpText
-{
-	return NSLocalizedString(@"The parameter for iChat actions is the status message to set.", @"");
-}
-
-+ (NSString *)creationHelpText
-{
-	return NSLocalizedString(@"Set iChat status message to", @"");
 }
 
 @end
