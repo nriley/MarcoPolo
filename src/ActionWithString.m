@@ -1,18 +1,18 @@
 //
-//  StringAction.m
+//  ActionWithString.m
 //  MarcoPolo
 //
 //  Created by David Symonds on 30/11/07.
 //
 
-#import "StringAction.h"
+#import "ActionWithString.h"
 
 
-@implementation StringAction
+@implementation ActionWithString
 
 - (id)init
 {
-	if (!(self = [super initWithNibNamed:@"StringAction"]))
+	if (!(self = [super initWithNibNamed:@"ActionWithString"]))
 		return nil;
 
 	return self;

@@ -6,10 +6,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "StringAction.h"
+#import "ActionWithString.h"
 
 
-@interface MailIMAPServerAction : StringAction {
+@interface MailIMAPServerAction : ActionWithString {
 }
 
 - (NSString *)leadText;

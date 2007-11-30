@@ -6,10 +6,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "StringAction.h"
+#import "ActionWithString.h"
 
 
-@interface UnmountAction : StringAction {
+@interface UnmountAction : ActionWithString {
 }
 
 - (NSString *)leadText;

@@ -12,13 +12,13 @@
             OUTLETS = {prefsWindowController = NSWindowController; }; 
             SUPERCLASS = NSObject; 
         }, 
-        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
         {
-            CLASS = StringAction; 
+            CLASS = ActionWithString; 
             LANGUAGE = ObjC; 
             OUTLETS = {leadTextField = NSTextField; parameterTextField = NSTextField; }; 
             SUPERCLASS = Action; 
-        }
+        }, 
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }
     ); 
     IBVersion = 1; 
 }

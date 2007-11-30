@@ -1,5 +1,5 @@
 //
-//  StringAction.h
+//  ActionWithString.h
 //  MarcoPolo
 //
 //  Created by David Symonds on 30/11/07.
@@ -9,7 +9,7 @@
 #import "Action.h"
 
 
-@interface StringAction : Action {
+@interface ActionWithString : Action {
 	IBOutlet NSTextField *leadTextField;
 	IBOutlet NSTextField *parameterTextField;
 }

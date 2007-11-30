@@ -6,10 +6,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "StringAction.h"
+#import "ActionWithString.h"
 
 
-@interface IChatAction : StringAction {
+@interface IChatAction : ActionWithString {
 }
 
 - (NSString *)leadText;
