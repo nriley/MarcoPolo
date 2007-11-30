@@ -10,55 +10,25 @@
 
 @implementation UnmountAction
 
-- (id)init
+- (NSString *)leadText
 {
-	if (!(self = [super init]))
-		return nil;
-
-	path = [[NSString alloc] init];
-
-	return self;
+	return NSLocalizedString(@"Unmount this volume:", @"");
 }
 
-- (id)initWithDictionary:(NSDictionary *)dict
+- (NSString *)descriptionOf:(NSDictionary *)actionDict
 {
-	if (!(self = [super initWithDictionary:dict]))
-		return nil;
-
-	path = [[dict valueForKey:@"parameter"] copy];
-
-	return self;
+	return [NSString stringWithFormat:NSLocalizedString(@"Unmounting '%@'.", @""),
+		[actionDict valueForKey:@"parameter"]];
 }
 
-- (void)dealloc
-{
-	[path release];
-
-	[super dealloc];
-}
-
-- (NSMutableDictionary *)dictionary
-{
-	NSMutableDictionary *dict = [super dictionary];
-
-	[dict setObject:[[path copy] autorelease] forKey:@"parameter"];
-
-	return dict;
-}
-
-- (NSString *)description
-{
-	return [NSString stringWithFormat:NSLocalizedString(@"Unmounting '%@'.", @""), path];
-}
-
-- (BOOL)execute:(NSString **)errorString
+- (BOOL)execute:(NSDictionary *)actionDict error:(NSString **)errorString
 {
 	// TODO: properly escape path?
 	NSString *script = [NSString stringWithFormat:
 		@"tell application \"Finder\"\n"
 		"  activate\n"
 		"  eject \"%@\"\n"
-		"end tell\n", path];
+		"end tell\n", [actionDict valueForKey:@"parameter"]];
 
 	if (![self executeAppleScript:script]) {
 		*errorString = NSLocalizedString(@"Couldn't unmount that volume!", @"In UnmountAction");
@@ -66,17 +36,6 @@
 	}
 
 	return YES;
-}
-
-+ (NSString *)helpText
-{
-	return NSLocalizedString(@"The parameter for Unmount actions is the volume name to unmount. "
-				 "You can find the volume name in the /Volumes/ folder after a successful mount.", @"");
-}
-
-+ (NSString *)creationHelpText
-{
-	return NSLocalizedString(@"Unmount a volume with mount location", @"");
 }
 
 @end

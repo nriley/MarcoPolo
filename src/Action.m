@@ -230,7 +230,7 @@
 //#import "ShellScriptAction.h"
 #import "ToggleBluetoothAction.h"
 #import "ToggleWiFiAction.h"
-//#import "UnmountAction.h"
+#import "UnmountAction.h"
 #import "VPNAction.h"
 
 @implementation ActionSetController
@@ -258,7 +258,7 @@
 //		[ShellScriptAction class],
 		[ToggleBluetoothAction class],
 		[ToggleWiFiAction class],
-//		[UnmountAction class],
+		[UnmountAction class],
 		[VPNAction class],
 		nil];
 	if (NO) {
