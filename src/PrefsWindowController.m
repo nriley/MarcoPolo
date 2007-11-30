@@ -641,6 +641,11 @@
 - (void)doAddAction:(NSDictionary *)dict
 {
 	[actionsController addObject:dict];
+
+	// Select and reveal new action
+	unsigned int index = [[actionsController arrangedObjects] indexOfObject:dict];
+	[actionsTableView scrollRowToVisible:index];
+	[actionsController setSelectionIndex:index];
 }
 
 - (IBAction)editAction:(id)sender
@@ -666,6 +671,9 @@
 	unsigned int index = [actionsController selectionIndex];
 	[actionsController removeObjectAtArrangedObjectIndex:index];
 	[actionsController insertObject:dict atArrangedObjectIndex:index];
+
+	// Select and reveal edited action
+	[actionsTableView scrollRowToVisible:index];
 	[actionsController setSelectionIndex:index];
 }
 

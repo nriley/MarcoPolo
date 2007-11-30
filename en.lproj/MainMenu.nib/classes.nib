@@ -84,6 +84,7 @@
                 actionSet = ActionSetController; 
                 actionsController = NSArrayController; 
                 actionsPrefsView = NSView; 
+                actionsTableView = NSTableView; 
                 advancedPrefsView = NSView; 
                 contextOutlineView = NSOutlineView; 
                 contextsPrefsView = NSView; 

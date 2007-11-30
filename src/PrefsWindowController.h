@@ -21,6 +21,7 @@
 	IBOutlet EvidenceSourceSetController *evidenceSources;
 	IBOutlet ActionSetController *actionSet;
 	IBOutlet NSArrayController *rulesController, *filteredRulesController, *actionsController;
+	IBOutlet NSTableView *actionsTableView;
 
 	// Selection controls for rules
 	IBOutlet ContextSelectionButton *defaultContextButton;
