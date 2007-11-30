@@ -89,6 +89,8 @@
 		8DE429480C5091F90073499A /* TimeOfDayRule.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8DE429460C5091F90073499A /* TimeOfDayRule.nib */; };
 		8DE4C00C0C4EE58D00511590 /* GenericRule.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8DE4C00A0C4EE58D00511590 /* GenericRule.nib */; };
 		8DE4C0110C4EE60700511590 /* GenericEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DE4C00F0C4EE60700511590 /* GenericEvidenceSource.m */; };
+		8DE6DDE90CFFB07C005BC54E /* StringAction.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8DE6DDE70CFFB07C005BC54E /* StringAction.nib */; };
+		8DE6DDEE0CFFB0E7005BC54E /* StringAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DE6DDEC0CFFB0E7005BC54E /* StringAction.m */; };
 		8DEF428F0BAA05D300F87273 /* MarcoPolo Help in Copy Help Files */ = {isa = PBXBuildFile; fileRef = 8DEF42780BAA05CD00F87273 /* MarcoPolo Help */; };
 		8DF5A4180BC2353D00CBEB4B /* Action.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DF5A4160BC2353D00CBEB4B /* Action.m */; };
 		8DF5A4610BC239B100CBEB4B /* DefaultPrinterAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DF5A45F0BC239B100CBEB4B /* DefaultPrinterAction.m */; };
@@ -114,6 +116,7 @@
 			dstSubfolderSpec = 7;
 			files = (
 				8DEF428F0BAA05D300F87273 /* MarcoPolo Help in Copy Help Files */,
+				8DE6DDED0CFFB0E7005BC54E /* StringAction.h in Copy Help Files */,
 			);
 			name = "Copy Help Files";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -264,6 +267,9 @@
 		8DE4C00F0C4EE60700511590 /* GenericEvidenceSource.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = GenericEvidenceSource.m; path = src/GenericEvidenceSource.m; sourceTree = "<group>"; };
 		8DE4EE440C4B2A6F00A5B559 /* ScreenSaverTimeAction.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ScreenSaverTimeAction.h; path = src/ScreenSaverTimeAction.h; sourceTree = "<group>"; };
 		8DE4EE450C4B2A6F00A5B559 /* ScreenSaverTimeAction.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = ScreenSaverTimeAction.m; path = src/ScreenSaverTimeAction.m; sourceTree = "<group>"; };
+		8DE6DDE80CFFB07C005BC54E /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/StringAction.nib; sourceTree = "<group>"; };
+		8DE6DDEB0CFFB0E7005BC54E /* StringAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringAction.h; path = src/StringAction.h; sourceTree = "<group>"; };
+		8DE6DDEC0CFFB0E7005BC54E /* StringAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringAction.m; path = src/StringAction.m; sourceTree = "<group>"; };
 		8DEF42780BAA05CD00F87273 /* MarcoPolo Help */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "MarcoPolo Help"; sourceTree = "<group>"; };
 		8DF5A4150BC2353D00CBEB4B /* Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Action.h; path = src/Action.h; sourceTree = "<group>"; };
 		8DF5A4160BC2353D00CBEB4B /* Action.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Action.m; path = src/Action.m; sourceTree = "<group>"; };
@@ -378,6 +384,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8DE6DDE70CFFB07C005BC54E /* StringAction.nib */,
 				8D8E6DBD0CFF780600BC05F0 /* ToggleableAction.nib */,
 				8DC72FAC0CDD6541005352E8 /* NSCoreSuite.sdef */,
 				8D341CBA0CDAF94B000B9A53 /* MarcoPolo.sdef */,
@@ -455,8 +462,6 @@
 		8DAD148E0BBCA40700F93914 /* Evidence Sources */ = {
 			isa = PBXGroup;
 			children = (
-				8D1493F40C824B6D00D29FE8 /* BonjourEvidenceSource.h */,
-				8D1493F50C824B6D00D29FE8 /* BonjourEvidenceSource.m */,
 				8DE4C0C00C4EEE3E00511590 /* Concrete Evidence Sources */,
 				8D643CDA0C4EF6FD006D8ECC /* LoopingEvidenceSource.h */,
 				8D643CDB0C4EF6FD006D8ECC /* LoopingEvidenceSource.m */,
@@ -473,6 +478,8 @@
 		8DE4C0C00C4EEE3E00511590 /* Concrete Evidence Sources */ = {
 			isa = PBXGroup;
 			children = (
+				8D1493F40C824B6D00D29FE8 /* BonjourEvidenceSource.h */,
+				8D1493F50C824B6D00D29FE8 /* BonjourEvidenceSource.m */,
 				8D2BAAAA0C56E26100A50777 /* NetworkLinkEvidenceSource.h */,
 				8D2BAAAB0C56E26100A50777 /* NetworkLinkEvidenceSource.m */,
 				8DE428F90C5084D00073499A /* TimeOfDayEvidenceSource.h */,
@@ -548,6 +555,8 @@
 				8DF5A45F0BC239B100CBEB4B /* DefaultPrinterAction.m */,
 				8D9A21B30CFCE91D005BD5A9 /* GenericAction.h */,
 				8D9A21B40CFCE91D005BD5A9 /* GenericAction.m */,
+				8DE6DDEB0CFFB0E7005BC54E /* StringAction.h */,
+				8DE6DDEC0CFFB0E7005BC54E /* StringAction.m */,
 			);
 			name = Actions;
 			sourceTree = "<group>";
@@ -635,6 +644,7 @@
 				8D969EC10CDD70190077B9CF /* MarcoPolo.sdef in Resources */,
 				8D853E1E0CF83CEE00405337 /* GenericAction.nib in Resources */,
 				8D8E6DBF0CFF780600BC05F0 /* ToggleableAction.nib in Resources */,
+				8DE6DDE90CFFB07C005BC54E /* StringAction.nib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -724,6 +734,7 @@
 				8DDB69D30CFE9EED00300021 /* MuteAction.m in Sources */,
 				8DDB69D70CFE9EF500300021 /* ScreenSaverStartAction.m in Sources */,
 				8DDB69DB0CFE9EFA00300021 /* ScreenSaverPasswordAction.m in Sources */,
+				8DE6DDEE0CFFB0E7005BC54E /* StringAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -792,6 +803,14 @@
 				8DE4C00B0C4EE58D00511590 /* en */,
 			);
 			name = GenericRule.nib;
+			sourceTree = "<group>";
+		};
+		8DE6DDE70CFFB07C005BC54E /* StringAction.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8DE6DDE80CFFB07C005BC54E /* en */,
+			);
+			name = StringAction.nib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

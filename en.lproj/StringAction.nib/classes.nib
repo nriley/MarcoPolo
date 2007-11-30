@@ -1,0 +1,24 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {closeSheetWithCancel = id; closeSheetWithOK = id; }; 
+            CLASS = Action; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            CLASS = ActionSetController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {prefsWindowController = NSWindowController; }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            CLASS = StringAction; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {leadTextField = NSTextField; parameterTextField = NSTextField; }; 
+            SUPERCLASS = Action; 
+        }
+    ); 
+    IBVersion = 1; 
+}
