@@ -712,6 +712,8 @@ int compareDelay(id actionDict1, id actionDict2, void *context)
 - (int)triggerActionsWithTrigger:(NSString *)trigger
 {
 	NSArray *actionsToRun = [self getActionsThatTriggerWhen:trigger];
+	int cnt = [actionsToRun count];
+	DSLog(@"Triggered %d %@ %@", cnt, trigger, (cnt == 1) ? @"action" : @"actions");
 	[self executeActionSet:actionsToRun];
 
 	return [actionsToRun count];
@@ -724,20 +726,22 @@ int compareDelay(id actionDict1, id actionDict2, void *context)
 
 - (void)triggerWakeActions
 {
-	int cnt = [self triggerActionsWithTrigger:@"Wake"];
-	DSLog(@"Triggered %d Wake action(s)", cnt);
+	[self triggerActionsWithTrigger:@"Wake"];
 }
 
 - (void)triggerSleepActions
 {
-	int cnt = [self triggerActionsWithTrigger:@"Sleep"];
-	DSLog(@"Triggered %d Sleep action(s)", cnt);
+	[self triggerActionsWithTrigger:@"Sleep"];
 }
 
 - (void)triggerStartupActions
 {
-	int cnt = [self triggerActionsWithTrigger:@"Startup"];
-	DSLog(@"Triggered %d Startup action(s)", cnt);
+	// Running some types of actions (notably the Mount action) on Startup
+	// causes the GUI (main) thread to freeze up for some reason.
+	// This is a simple workaround for it, with only a 100ms delay.
+	[self performSelector:@selector(triggerActionsWithTrigger:)
+		   withObject:@"Startup"
+		   afterDelay:0.1];
 }
 
 #pragma mark Context switching
