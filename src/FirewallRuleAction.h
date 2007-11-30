@@ -6,10 +6,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "GenericAction.h"
+#import "ActionWithLimitedOptions.h"
 
 
-@interface FirewallRuleAction : GenericAction {
+@interface FirewallRuleAction : ActionWithLimitedOptions {
 }
 
 - (NSString *)descriptionOf:(NSDictionary *)actionDict;

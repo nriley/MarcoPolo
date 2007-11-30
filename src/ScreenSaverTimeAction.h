@@ -6,10 +6,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "GenericAction.h"
+#import "ActionWithLimitedOptions.h"
 
 
-@interface ScreenSaverTimeAction : GenericAction {
+@interface ScreenSaverTimeAction : ActionWithLimitedOptions {
 }
 
 - (NSString *)descriptionOf:(NSDictionary *)actionDict;

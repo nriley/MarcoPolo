@@ -1,18 +1,18 @@
 //
-//  GenericAction.m
+//  ActionWithLimitedOptions.m
 //  MarcoPolo
 //
 //  Created by David Symonds on 28/11/07.
 //
 
-#import "GenericAction.h"
+#import "ActionWithLimitedOptions.h"
 
 
-@implementation GenericAction
+@implementation ActionWithLimitedOptions
 
 - (id)init
 {
-	if (!(self = [super initWithNibNamed:@"GenericAction"]))
+	if (!(self = [super initWithNibNamed:@"ActionWithLimitedOptions"]))
 		return nil;
 
 	return self;

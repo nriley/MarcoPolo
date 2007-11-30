@@ -6,10 +6,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "GenericAction.h"
+#import "ActionWithLimitedOptions.h"
 
 
-@interface VPNAction : GenericAction {
+@interface VPNAction : ActionWithLimitedOptions {
 }
 
 - (NSString *)descriptionOf:(NSDictionary *)actionDict;

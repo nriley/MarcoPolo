@@ -1,5 +1,5 @@
 //
-//  GenericAction.h
+//  ActionWithLimitedOptions.h
 //  MarcoPolo
 //
 //  Created by David Symonds on 28/11/07.
@@ -9,7 +9,7 @@
 #import "Action.h"
 
 
-@interface GenericAction : Action {
+@interface ActionWithLimitedOptions : Action {
 	IBOutlet NSTextField *suggestionLeadTextField;
 	IBOutlet NSArrayController *actionParameterController;
 }

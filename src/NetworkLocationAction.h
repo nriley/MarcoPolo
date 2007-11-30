@@ -6,10 +6,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "GenericAction.h"
+#import "ActionWithLimitedOptions.h"
 
 
-@interface NetworkLocationAction : GenericAction {
+@interface NetworkLocationAction : ActionWithLimitedOptions {
 }
 
 - (NSString *)descriptionOf:(NSDictionary *)actionDict;

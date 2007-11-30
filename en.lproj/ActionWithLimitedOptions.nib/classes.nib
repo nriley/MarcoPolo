@@ -12,16 +12,16 @@
             OUTLETS = {prefsWindowController = NSWindowController; }; 
             SUPERCLASS = NSObject; 
         }, 
-        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
         {
-            CLASS = GenericAction; 
+            CLASS = ActionWithLimitedOptions; 
             LANGUAGE = ObjC; 
             OUTLETS = {
                 actionParameterController = NSArrayController; 
                 suggestionLeadTextField = NSTextField; 
             }; 
             SUPERCLASS = Action; 
-        }
+        }, 
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }
     ); 
     IBVersion = 1; 
 }
