@@ -13,7 +13,7 @@
 - (NSString *)descriptionOf:(NSDictionary *)actionDict
 {
 	return [NSString stringWithFormat:NSLocalizedString(@"Opening '%@'.", @""),
-		[actionDict valueForKey:@"parameter"]];
+		[[actionDict valueForKey:@"parameter"] lastPathComponent]];
 }
 
 - (BOOL)execute:(NSDictionary *)actionDict error:(NSString **)errorString
