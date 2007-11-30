@@ -1,5 +1,5 @@
 //
-//  ToggleableAction.h
+//  ActionWithBool.h
 //  MarcoPolo
 //
 //  Created by David Symonds on 7/06/07.
@@ -9,7 +9,7 @@
 #import "Action.h"
 
 
-@interface ToggleableAction : Action {
+@interface ActionWithBool : Action {
 	IBOutlet NSButtonCell *radio1, *radio2;
 }
 

@@ -6,10 +6,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "ToggleableAction.h"
+#import "ActionWithBool.h"
 
 
-@interface MuteAction : ToggleableAction {
+@interface MuteAction : ActionWithBool {
 }
 
 - (NSString *)descriptionOfState:(BOOL)state;

@@ -1,14 +1,14 @@
 //
-//  ToggleableAction.m
+//  ActionWithBool.m
 //  MarcoPolo
 //
 //  Created by David Symonds on 7/06/07.
 //
 
-#import "ToggleableAction.h"
+#import "ActionWithBool.h"
 
 
-@interface ToggleableAction (Private)
+@interface ActionWithBool (Private)
 
 - (BOOL)decodeParameter:(NSObject *)parameter;
 
@@ -16,11 +16,11 @@
 
 #pragma mark -
 
-@implementation ToggleableAction
+@implementation ActionWithBool
 
 - (id)init
 {
-	if (!(self = [super initWithNibNamed:@"ToggleableAction"]))
+	if (!(self = [super initWithNibNamed:@"ActionWithBool"]))
 		return nil;
 
 	return self;

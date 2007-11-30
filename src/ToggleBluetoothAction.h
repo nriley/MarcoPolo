@@ -6,10 +6,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "ToggleableAction.h"
+#import "ActionWithBool.h"
 
 
-@interface ToggleBluetoothAction : ToggleableAction {
+@interface ToggleBluetoothAction : ActionWithBool {
 	int destState_;
 }
 

@@ -12,22 +12,13 @@
             OUTLETS = {prefsWindowController = NSWindowController; }; 
             SUPERCLASS = NSObject; 
         }, 
-        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
         {
-            CLASS = GenericAction; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {
-                actionParameterController = NSArrayController; 
-                suggestionLeadTextField = NSTextField; 
-            }; 
-            SUPERCLASS = Action; 
-        }, 
-        {
-            CLASS = ToggleableAction; 
+            CLASS = ActionWithBool; 
             LANGUAGE = ObjC; 
             OUTLETS = {radio1 = NSButtonCell; radio2 = NSButtonCell; }; 
             SUPERCLASS = Action; 
-        }
+        }, 
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }
     ); 
     IBVersion = 1; 
 }

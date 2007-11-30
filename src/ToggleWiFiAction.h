@@ -6,10 +6,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "ToggleableAction.h"
+#import "ActionWithBool.h"
 
 
-@interface ToggleWiFiAction : ToggleableAction {
+@interface ToggleWiFiAction : ActionWithBool {
 }
 
 - (NSString *)descriptionOfState:(BOOL)state;

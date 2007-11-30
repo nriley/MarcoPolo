@@ -6,10 +6,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "ToggleableAction.h"
+#import "ActionWithBool.h"
 
 
-@interface ScreenSaverPasswordAction : ToggleableAction {
+@interface ScreenSaverPasswordAction : ActionWithBool {
 }
 
 - (NSString *)descriptionOfState:(BOOL)state;
