@@ -10,49 +10,15 @@
 
 @implementation OpenAction
 
-- (id)init
+- (NSString *)descriptionOf:(NSDictionary *)actionDict
 {
-	if (!(self = [super init]))
-		return nil;
-
-	path = [[NSString alloc] init];
-
-	return self;
+	return [NSString stringWithFormat:NSLocalizedString(@"Opening '%@'.", @""),
+		[actionDict valueForKey:@"parameter"]];
 }
 
-- (id)initWithDictionary:(NSDictionary *)dict
+- (BOOL)execute:(NSDictionary *)actionDict error:(NSString **)errorString
 {
-	if (!(self = [super initWithDictionary:dict]))
-		return nil;
-
-	path = [[dict valueForKey:@"parameter"] copy];
-
-	return self;
-}
-
-- (void)dealloc
-{
-	[path release];
-
-	[super dealloc];
-}
-
-- (NSMutableDictionary *)dictionary
-{
-	NSMutableDictionary *dict = [super dictionary];
-
-	[dict setObject:[[path copy] autorelease] forKey:@"parameter"];
-
-	return dict;
-}
-
-- (NSString *)description
-{
-	return [NSString stringWithFormat:NSLocalizedString(@"Opening '%@'.", @""), path];
-}
-
-- (BOOL)execute:(NSString **)errorString
-{
+	NSString *path = [actionDict valueForKey:@"parameter"];
 	NSString *app, *fileType;
 
 	if (![[NSWorkspace sharedWorkspace] getInfoForFile:path application:&app type:&fileType])
@@ -77,20 +43,6 @@
 failed_to_open:
 	*errorString = [NSString stringWithFormat:NSLocalizedString(@"Failed opening '%@'.", @""), path];
 	return NO;
-}
-
-+ (NSString *)helpText
-{
-	return NSLocalizedString(@"The parameter for Open actions is the full path of the "
-				 "object to be opened, such as an application or a document.", @"");
-}
-
-- (id)initWithFile:(NSString *)file
-{
-	[self init];
-	[path release];
-	path = [file copy];
-	return self;
 }
 
 @end

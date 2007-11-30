@@ -222,7 +222,7 @@
 #import "MountAction.h"
 #import "MuteAction.h"
 #import "NetworkLocationAction.h"
-//#import "OpenAction.h"
+#import "OpenAction.h"
 #import "QuitApplicationAction.h"
 #import "ScreenSaverPasswordAction.h"
 #import "ScreenSaverStartAction.h"
@@ -250,7 +250,7 @@
 		[MountAction class],
 		[MuteAction class],
 		[NetworkLocationAction class],
-//		[OpenAction class],
+		[OpenAction class],
 		[QuitApplicationAction class],
 		[ScreenSaverPasswordAction class],
 		[ScreenSaverStartAction class],
