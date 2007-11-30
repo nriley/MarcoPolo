@@ -219,7 +219,7 @@
 //#import "IChatAction.h"
 //#import "MailIMAPServerAction.h"
 #import "MailSMTPServerAction.h"
-//#import "MountAction.h"
+#import "MountAction.h"
 #import "MuteAction.h"
 #import "NetworkLocationAction.h"
 //#import "OpenAction.h"
@@ -247,7 +247,7 @@
 //		[IChatAction class],
 //		[MailIMAPServerAction class],
 		[MailSMTPServerAction class],
-//		[MountAction class],
+		[MountAction class],
 		[MuteAction class],
 		[NetworkLocationAction class],
 //		[OpenAction class],

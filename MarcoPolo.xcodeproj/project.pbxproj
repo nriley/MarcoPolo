@@ -91,6 +91,7 @@
 		8DE4C0110C4EE60700511590 /* GenericEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DE4C00F0C4EE60700511590 /* GenericEvidenceSource.m */; };
 		8DE6DDE90CFFB07C005BC54E /* StringAction.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8DE6DDE70CFFB07C005BC54E /* StringAction.nib */; };
 		8DE6DDEE0CFFB0E7005BC54E /* StringAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DE6DDEC0CFFB0E7005BC54E /* StringAction.m */; };
+		8DE6DE2A0CFFB3D1005BC54E /* MountAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DCBE96A0C1A7ECE008260EF /* MountAction.m */; };
 		8DEF428F0BAA05D300F87273 /* MarcoPolo Help in Copy Help Files */ = {isa = PBXBuildFile; fileRef = 8DEF42780BAA05CD00F87273 /* MarcoPolo Help */; };
 		8DF5A4180BC2353D00CBEB4B /* Action.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DF5A4160BC2353D00CBEB4B /* Action.m */; };
 		8DF5A4610BC239B100CBEB4B /* DefaultPrinterAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DF5A45F0BC239B100CBEB4B /* DefaultPrinterAction.m */; };
@@ -116,7 +117,6 @@
 			dstSubfolderSpec = 7;
 			files = (
 				8DEF428F0BAA05D300F87273 /* MarcoPolo Help in Copy Help Files */,
-				8DE6DDED0CFFB0E7005BC54E /* StringAction.h in Copy Help Files */,
 			);
 			name = "Copy Help Files";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -735,6 +735,7 @@
 				8DDB69D70CFE9EF500300021 /* ScreenSaverStartAction.m in Sources */,
 				8DDB69DB0CFE9EFA00300021 /* ScreenSaverPasswordAction.m in Sources */,
 				8DE6DDEE0CFFB0E7005BC54E /* StringAction.m in Sources */,
+				8DE6DE2A0CFFB3D1005BC54E /* MountAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
