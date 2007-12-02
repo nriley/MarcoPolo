@@ -42,6 +42,8 @@
 		8D4E5CB30C48AE9F0054A67C /* ContextsPrefs.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 8D4E5CB20C48AE9F0054A67C /* ContextsPrefs.tiff */; };
 		8D514D3F0BE994A10013C1ED /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8D514D3E0BE994A10013C1ED /* Localizable.strings */; };
 		8D57B1440C4457AB00EC620D /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D57B1430C4457AB00EC620D /* CoreAudio.framework */; };
+		8D5984500D037C9D0012D116 /* PowerManagerAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D59844C0D037C9D0012D116 /* PowerManagerAction.m */; };
+		8D5984520D037C9D0012D116 /* SleepAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D59844E0D037C9D0012D116 /* SleepAction.m */; };
 		8D643C680C4EF197006D8ECC /* GenericLoopingEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D643C660C4EF197006D8ECC /* GenericLoopingEvidenceSource.m */; };
 		8D643CDD0C4EF6FD006D8ECC /* LoopingEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D643CDB0C4EF6FD006D8ECC /* LoopingEvidenceSource.m */; };
 		8D643D0D0C4EF84E006D8ECC /* LightRule.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8D643D0B0C4EF84E006D8ECC /* LightRule.nib */; };
@@ -192,6 +194,10 @@
 		8D5684B20C38711D00881E32 /* MonitorEvidenceSource.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = MonitorEvidenceSource.h; path = src/MonitorEvidenceSource.h; sourceTree = "<group>"; };
 		8D5684B30C38711D00881E32 /* MonitorEvidenceSource.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = MonitorEvidenceSource.m; path = src/MonitorEvidenceSource.m; sourceTree = "<group>"; };
 		8D57B1430C4457AB00EC620D /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
+		8D59844B0D037C9D0012D116 /* PowerManagerAction.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PowerManagerAction.h; path = src/PowerManagerAction.h; sourceTree = "<group>"; };
+		8D59844C0D037C9D0012D116 /* PowerManagerAction.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = PowerManagerAction.m; path = src/PowerManagerAction.m; sourceTree = "<group>"; };
+		8D59844D0D037C9D0012D116 /* SleepAction.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = SleepAction.h; path = src/SleepAction.h; sourceTree = "<group>"; };
+		8D59844E0D037C9D0012D116 /* SleepAction.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = SleepAction.m; path = src/SleepAction.m; sourceTree = "<group>"; };
 		8D643C650C4EF197006D8ECC /* GenericLoopingEvidenceSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GenericLoopingEvidenceSource.h; path = src/GenericLoopingEvidenceSource.h; sourceTree = "<group>"; };
 		8D643C660C4EF197006D8ECC /* GenericLoopingEvidenceSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GenericLoopingEvidenceSource.m; path = src/GenericLoopingEvidenceSource.m; sourceTree = "<group>"; };
 		8D643CDA0C4EF6FD006D8ECC /* LoopingEvidenceSource.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = LoopingEvidenceSource.h; path = src/LoopingEvidenceSource.h; sourceTree = "<group>"; };
@@ -462,6 +468,10 @@
 		8D497F9C0CFFD26C00C6816F /* Concrete Actions */ = {
 			isa = PBXGroup;
 			children = (
+				8D59844B0D037C9D0012D116 /* PowerManagerAction.h */,
+				8D59844C0D037C9D0012D116 /* PowerManagerAction.m */,
+				8D59844D0D037C9D0012D116 /* SleepAction.h */,
+				8D59844E0D037C9D0012D116 /* SleepAction.m */,
 				8DF5A45E0BC239B100CBEB4B /* DefaultPrinterAction.h */,
 				8DF5A45F0BC239B100CBEB4B /* DefaultPrinterAction.m */,
 				8DC4E7F80C178917007E7E41 /* MuteAction.h */,
@@ -766,6 +776,8 @@
 				8D8C6D250D001A6E00D13245 /* ActionWithFile.m in Sources */,
 				8D8C6D570D00210D00D13245 /* OpenAction.m in Sources */,
 				8D8C6DC10D00304E00D13245 /* DesktopBackgroundAction.m in Sources */,
+				8D5984500D037C9D0012D116 /* PowerManagerAction.m in Sources */,
+				8D5984520D037C9D0012D116 /* SleepAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
