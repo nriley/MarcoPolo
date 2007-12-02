@@ -84,6 +84,7 @@
 		8DBF72DD0CFD4EF300F2A18B /* VPNAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D643DDB0C4F1F0D006D8ECC /* VPNAction.m */; };
 		8DC410FB0C64665E00393759 /* AboutPanel.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8DC410FA0C64665E00393759 /* AboutPanel.nib */; };
 		8DC72FB30CDD6541005352E8 /* NSCoreSuite.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 8DC72FAC0CDD6541005352E8 /* NSCoreSuite.sdef */; };
+		8DCABF7A0D0268730044D0BC /* TimeZoneAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DCABF780D0268730044D0BC /* TimeZoneAction.m */; };
 		8DCC52120C42106D00515041 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D1107310486CEB800E47090 /* Info.plist */; };
 		8DD15A690C9CD5C7008EBFB3 /* mp-icon-inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 8DD15A680C9CD5C7008EBFB3 /* mp-icon-inactive.png */; };
 		8DDB68C20CFE866300300021 /* ActionWithBool.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D71CAED0C17BA7900E56526 /* ActionWithBool.m */; };
@@ -260,6 +261,8 @@
 		8DC4E7F80C178917007E7E41 /* MuteAction.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = MuteAction.h; path = src/MuteAction.h; sourceTree = "<group>"; };
 		8DC4E7F90C178917007E7E41 /* MuteAction.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = MuteAction.m; path = src/MuteAction.m; sourceTree = "<group>"; };
 		8DC72FAC0CDD6541005352E8 /* NSCoreSuite.sdef */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.sdef; name = NSCoreSuite.sdef; path = Resources/NSCoreSuite.sdef; sourceTree = "<group>"; };
+		8DCABF770D0268730044D0BC /* TimeZoneAction.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TimeZoneAction.h; path = src/TimeZoneAction.h; sourceTree = "<group>"; };
+		8DCABF780D0268730044D0BC /* TimeZoneAction.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = TimeZoneAction.m; path = src/TimeZoneAction.m; sourceTree = "<group>"; };
 		8DCB43550C4DBABD00E71D28 /* FirewallRuleAction.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = FirewallRuleAction.h; path = src/FirewallRuleAction.h; sourceTree = "<group>"; };
 		8DCB43560C4DBABD00E71D28 /* FirewallRuleAction.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = FirewallRuleAction.m; path = src/FirewallRuleAction.m; sourceTree = "<group>"; };
 		8DCBE9690C1A7ECE008260EF /* MountAction.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = MountAction.h; path = src/MountAction.h; sourceTree = "<group>"; };
@@ -466,6 +469,8 @@
 		8D497F9C0CFFD26C00C6816F /* Concrete Actions */ = {
 			isa = PBXGroup;
 			children = (
+				8DCABF770D0268730044D0BC /* TimeZoneAction.h */,
+				8DCABF780D0268730044D0BC /* TimeZoneAction.m */,
 				8DF5A45E0BC239B100CBEB4B /* DefaultPrinterAction.h */,
 				8DF5A45F0BC239B100CBEB4B /* DefaultPrinterAction.m */,
 				8DC4E7F80C178917007E7E41 /* MuteAction.h */,
@@ -770,6 +775,7 @@
 				8D8C6D250D001A6E00D13245 /* ActionWithFile.m in Sources */,
 				8D8C6D570D00210D00D13245 /* OpenAction.m in Sources */,
 				8D8C6DC10D00304E00D13245 /* DesktopBackgroundAction.m in Sources */,
+				8DCABF7A0D0268730044D0BC /* TimeZoneAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
