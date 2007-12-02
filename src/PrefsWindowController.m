@@ -232,6 +232,14 @@
 	[self contextsChanged:nil];
 
 	[logBufferView setFont:[NSFont fontWithName:@"Monaco" size:9]];
+
+	// Double-clicking a rule or action (in a non-editable cell) should open the editing sheet
+	[rulesTableView setTarget:self];
+	[rulesTableView setAction:NULL];
+	[rulesTableView setDoubleAction:@selector(editRule:)];
+	[actionsTableView setTarget:self];
+	[actionsTableView setAction:NULL];
+	[actionsTableView setDoubleAction:@selector(editAction:)];
 }
 
 - (IBAction)runPreferences:(id)sender

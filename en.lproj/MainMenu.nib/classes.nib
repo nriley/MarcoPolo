@@ -101,6 +101,7 @@
                 prefsWindow = NSWindow; 
                 rulesController = NSArrayController; 
                 rulesPrefsView = NSView; 
+                rulesTableView = NSTableView; 
                 triggersController = NSArrayController; 
             }; 
             SUPERCLASS = NSWindowController; 
