@@ -5,6 +5,8 @@
 //  Created by David Symonds on 3/04/07.
 //
 
+#import <Security/Authorization.h>
+#import <Security/AuthorizationTags.h>
 #import "Action.h"
 #import "DSLogger.h"
 
@@ -198,6 +200,70 @@
 	}
 
 	return list;
+}
+
+#pragma mark Authorisation helpers
+
+static AuthorizationRef authRef = 0;
+
+// Private
+- (BOOL)authForExec:(NSString *)path prompt:(NSString *)prompt
+{
+	if (!authRef) {
+		OSStatus err = AuthorizationCreate(NULL, NULL, 0, &authRef);
+		if (err != noErr) {
+			NSLog(@"AuthorizationCreate failed with error=%d", err);
+			return NO;
+		}
+	}
+
+	const char *rawPath = [path fileSystemRepresentation];
+	const char *rawPrompt = [prompt UTF8String];
+
+	AuthorizationItem authorization;
+	authorization.name = kAuthorizationRightExecute;
+	authorization.value = (void *) rawPath;
+	authorization.valueLength = strlen(rawPath);
+	authorization.flags = 0;
+
+	AuthorizationItem config;
+	config.name = kAuthorizationEnvironmentPrompt;
+	config.value = (void *) rawPrompt;
+	config.valueLength = strlen(rawPrompt);
+	config.flags = 0;
+	AuthorizationEnvironment env = {1, &config};
+
+	AuthorizationRights rights = {1, &authorization};
+	AuthorizationFlags flags = kAuthorizationFlagInteractionAllowed | kAuthorizationFlagExtendRights;
+
+	OSStatus err = AuthorizationCopyRights(authRef, &rights, &env, flags, NULL);
+	if (err != noErr) {
+		NSLog(@"AuthorizationCopyRights failed with error=%d", err);
+		return NO;
+	}
+
+	return YES;
+}
+
+- (BOOL)authExec:(NSString *)path args:(NSArray *)args authPrompt:(NSString *)prompt
+{
+	if (![self authForExec:path prompt:prompt])
+		return NO;
+
+	const char *rawPath = [path fileSystemRepresentation];
+	char **rawArgs = calloc([args count] + 1, sizeof(const char *));
+	int i;
+	for (i = 0; i < [args count]; ++i)
+		rawArgs[i] = (char *) [[args objectAtIndex:i] UTF8String];
+
+	OSStatus err = AuthorizationExecuteWithPrivileges(authRef, rawPath,
+							  kAuthorizationFlagDefaults, rawArgs, NULL);
+	if (err != noErr) {
+		NSLog(@"AuthorizationExecuteWithPrivileges failed with error=%d while running '%@'", err, path);
+		return NO;
+	}
+
+	return YES;
 }
 
 @end

@@ -19,6 +19,7 @@
 		8D1CEEB00CFFC31500C95533 /* MailIMAPServerAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DB1EF220C6C60A300586F84 /* MailIMAPServerAction.m */; };
 		8D1CEEB40CFFC31F00C95533 /* QuitApplicationAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DFA46150CC33E46003EAC16 /* QuitApplicationAction.m */; };
 		8D1EDA180CE11C8C00202458 /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D1EDA160CE11C8C00202458 /* Common.m */; };
+		8D1F5EFF0D03E14D00322E8A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D1F5EFE0D03E14D00322E8A /* Security.framework */; };
 		8D2072110B86AB0000D61A9E /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D20720E0B86AB0000D61A9E /* Sparkle.framework */; };
 		8D2073890B86AB8000D61A9E /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8D20720E0B86AB0000D61A9E /* Sparkle.framework */; };
 		8D232F800BD9D228006A3963 /* GeneralPrefs.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 8D232F7F0BD9D228006A3963 /* GeneralPrefs.tiff */; };
@@ -151,6 +152,7 @@
 		8D1A455A0BA00DE2004A6BC4 /* plus-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "plus-8.png"; path = "graphics/plus-8.png"; sourceTree = "<group>"; };
 		8D1EDA150CE11C8C00202458 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Common.h; path = src/Common.h; sourceTree = "<group>"; };
 		8D1EDA160CE11C8C00202458 /* Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Common.m; path = src/Common.m; sourceTree = "<group>"; };
+		8D1F5EFE0D03E14D00322E8A /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
 		8D20720E0B86AB0000D61A9E /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		8D232F7F0BD9D228006A3963 /* GeneralPrefs.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = GeneralPrefs.tiff; path = graphics/GeneralPrefs.tiff; sourceTree = "<group>"; };
 		8D232FB30BD9D507006A3963 /* ActionsPrefs.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = ActionsPrefs.tiff; path = graphics/ActionsPrefs.tiff; sourceTree = "<group>"; };
@@ -307,6 +309,7 @@
 				8D8C9BAB0BBB3ADB0074D5B3 /* Apple80211.framework in Frameworks */,
 				8D57B1440C4457AB00EC620D /* CoreAudio.framework in Frameworks */,
 				8D3BFFB20C61CA5300B9B910 /* WebKit.framework in Frameworks */,
+				8D1F5EFF0D03E14D00322E8A /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,6 +435,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8D1F5EFE0D03E14D00322E8A /* Security.framework */,
 				8D3BFFB10C61CA5300B9B910 /* WebKit.framework */,
 				8D57B1430C4457AB00EC620D /* CoreAudio.framework */,
 				8D8C9BA90BBB3ADB0074D5B3 /* Apple80211.framework */,
