@@ -15,13 +15,13 @@
 	NSString *setting = [actionDict valueForKey:@"parameter"];
 	NSArray *split = [setting componentsSeparatedByString:@" "];
 	int t = [[split objectAtIndex:1] intValue];
-	NSString *action = @"unknown";
 
-	if ([[split objectAtIndex:0] compare:@"comp"] == NSOrderedSame)
+	NSString *action = @"unknown";
+	if ([[split objectAtIndex:0] isEqualToString:@"comp"])
 		action = @"computer";
-	else if ([[split objectAtIndex:0] compare:@"disp"] == NSOrderedSame)
+	else if ([[split objectAtIndex:0] isEqualToString:@"disp"])
 		action = @"display";
-	else if ([[split objectAtIndex:0] compare:@"disk"] == NSOrderedSame)
+	else if ([[split objectAtIndex:0] isEqualToString:@"disk"])
 		action = @"disk";
 
 	if (t == 0)
@@ -36,8 +36,7 @@
 
 - (void)checkPerms
 {
-	if (! [self executeAppleScript:@"do shell script \"/bin/ls -l /usr/bin/pmset | awk '{if (substr($1, 4, 1) == \\\"s\\\") exit 0; else exit 1;}'\""])
-	{
+	if (![self executeAppleScript:@"do shell script \"/bin/ls -l /usr/bin/pmset | awk '{if (substr($1, 4, 1) == \\\"s\\\") exit 0; else exit 1;}'\""]) {
 		[self executeAppleScript:@"do shell script \"chmod +s /usr/bin/pmset\" with administrator privileges"];
 	}
 }
@@ -48,31 +47,23 @@
 	NSString *cmd = nil;
 	NSArray *split = [setting componentsSeparatedByString:@" "];
 
-	if ([[split objectAtIndex:0] compare:@"comp"] == NSOrderedSame)
+	if ([[split objectAtIndex:0] isEqualToString:@"comp"])
 		cmd = [NSString stringWithFormat:@"sleep %@", [split objectAtIndex:1]];
-	else if ([[split objectAtIndex:0] compare:@"disp"] == NSOrderedSame)
-		cmd = [NSString stringWithFormat:@"displaysleep %@",
-                        [split objectAtIndex:1]];
-	else if ([[split objectAtIndex:0] compare:@"disk"] == NSOrderedSame)
-		cmd = [NSString stringWithFormat:@"disksleep %@",
-                        [split objectAtIndex:1]];
-	else
-	{
-		*errorString = [[NSString stringWithFormat:
-			NSLocalizedString(@"Invalid option: %@",
-					  @""), setting]
-			retain];
+	else if ([[split objectAtIndex:0] isEqualToString:@"disp"])
+		cmd = [NSString stringWithFormat:@"displaysleep %@", [split objectAtIndex:1]];
+	else if ([[split objectAtIndex:0] isEqualToString:@"disk"])
+		cmd = [NSString stringWithFormat:@"disksleep %@", [split objectAtIndex:1]];
+	else {
+		*errorString = [NSString stringWithFormat:NSLocalizedString(@"Invalid option: %@", @""),
+			setting];
 		return NO;
 	}
 
 	[self checkPerms];
 
-	NSString *script = [NSString stringWithFormat:
-		@"do shell script \"/usr/bin/pmset %@\"", cmd];
-	if (! [self executeAppleScript:script])
-	{
-		*errorString = [NSString stringWithFormat:
-			NSLocalizedString(@"Couldn't set '%@'!", @""),
+	NSString *script = [NSString stringWithFormat:@"do shell script \"/usr/bin/pmset %@\"", cmd];
+	if (![self executeAppleScript:script]) {
+		*errorString = [NSString stringWithFormat:NSLocalizedString(@"Couldn't set '%@'!", @""),
 			setting];
 		return NO;
 	}
@@ -94,18 +85,16 @@
                               arrayWithCapacity:[opts count] * [names count]];
 
 	int i, j;
-	for (i = 0; i < [names count]; ++i)
-	{
-		for (j = 0; j < [opts count]; ++j)
-		{
+	for (i = 0; i < [names count]; ++i) {
+		for (j = 0; j < [opts count]; ++j) {
 			NSString *option = [NSString stringWithFormat:@"%@ %@",
 				[short_names objectAtIndex:i],
 				[opts objectAtIndex:j]];
 			NSString *description;
 
-			if ([[opts objectAtIndex:j] compare:@"0"] == NSOrderedSame)
+			if ([[opts objectAtIndex:j] isEqualToString:@"0"])
 				description = [NSString stringWithFormat:NSLocalizedString(@"%@ never", @""), [names objectAtIndex:i]];
-			else if ([[opts objectAtIndex:j] compare:@"1"] == NSOrderedSame)
+			else if ([[opts objectAtIndex:j] isEqualToString:@"1"])
 				description = [NSString stringWithFormat:NSLocalizedString(@"%@ 1 minute", @""), [names objectAtIndex:i]];
 			else
 				description = [NSString stringWithFormat:NSLocalizedString(@"%@ %@ minutes", @""), [names objectAtIndex:i], [opts objectAtIndex:j]];
