@@ -61,7 +61,7 @@
 	NSString *hostname;
 	while ((hostname = [en nextObject])) {
 		[opts addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-			hostname, @"option", hostname, @"description", nil]];
+			hostname, @"parameter", hostname, @"description", nil]];
 	}
 
 	return opts;

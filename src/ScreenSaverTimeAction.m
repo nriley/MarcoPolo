@@ -72,7 +72,7 @@
 			description = [NSString stringWithFormat:NSLocalizedString(@"%d minutes", @"Screen saver idle time"), opts[i]];
 
 		[arr addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-			option, @"option",
+			option, @"parameter",
 			description, @"description", nil]];
 	}
 

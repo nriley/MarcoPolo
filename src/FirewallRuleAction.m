@@ -130,9 +130,9 @@ static NSLock *sharedLock = nil;
 		NSString *disableDesc = [NSString stringWithFormat:NSLocalizedString(@"Disable %@", @"In FirewallRuleAction"), name];
 
 		[opts addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-			enableOpt, @"option", enableDesc, @"description", nil]];
+			enableOpt, @"parameter", enableDesc, @"description", nil]];
 		[opts addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-			disableOpt, @"option", disableDesc, @"description", nil]];
+			disableOpt, @"parameter", disableDesc, @"description", nil]];
 	}
 
 	return opts;
