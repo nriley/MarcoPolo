@@ -2,28 +2,20 @@
 //  PowerManagerAction.h
 //  MarcoPolo
 //
-//  Created by James Newton on 11/23/07.
+//  Created by James Newton on 23/11/07.
 //
 
 #import <Cocoa/Cocoa.h>
-#import "Action.h"
+#import "ActionWithLimitedOptions.h"
 
 
-@interface PowerManagerAction : Action <ActionWithLimitedOptions> {
-    NSString* setting;
+@interface PowerManagerAction : ActionWithLimitedOptions {
 }
 
-- (id)initWithDictionary:(NSDictionary *)dict;
-- (void)dealloc;
-- (NSMutableDictionary *)dictionary;
+- (NSString *)descriptionOf:(NSDictionary *)actionDict;
+- (BOOL)execute:(NSDictionary *)actionDict error:(NSString **)errorString;
 
-- (NSString *)description;
-- (BOOL)execute:(NSString **)errorString;
-+ (NSString *)helpText;
-+ (NSString *)creationHelpText;
-
-+ (NSArray *)limitedOptions;
-- (id)initWithOption:(NSString *)option;
-- (void)checkPerms;
+- (NSString *)suggestionLeadText;
+- (NSArray *)suggestions;
 
 @end
