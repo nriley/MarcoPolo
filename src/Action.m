@@ -223,11 +223,13 @@
 #import "MuteAction.h"
 #import "NetworkLocationAction.h"
 #import "OpenAction.h"
+#import "PowerManagerAction.h"
 #import "QuitApplicationAction.h"
 #import "ScreenSaverPasswordAction.h"
 #import "ScreenSaverStartAction.h"
 #import "ScreenSaverTimeAction.h"
 //#import "ShellScriptAction.h"
+#import "SleepAction.h"
 #import "ToggleBluetoothAction.h"
 #import "ToggleWiFiAction.h"
 #import "UnmountAction.h"
@@ -251,11 +253,13 @@
 		[MuteAction class],
 		[NetworkLocationAction class],
 		[OpenAction class],
+		[PowerManagerAction class],
 		[QuitApplicationAction class],
 		[ScreenSaverPasswordAction class],
 		[ScreenSaverStartAction class],
 		[ScreenSaverTimeAction class],
 //		[ShellScriptAction class],
+		[SleepAction class],
 		[ToggleBluetoothAction class],
 		[ToggleWiFiAction class],
 		[UnmountAction class],
@@ -273,11 +277,13 @@
 		NSLocalizedString(@"Mute", @"Action type");
 		NSLocalizedString(@"NetworkLocation", @"Action type");
 		NSLocalizedString(@"Open", @"Action type");
+		NSLocalizedString(@"PowerManager", @"Action type");
 		NSLocalizedString(@"QuitApplication", @"Action type");
 		NSLocalizedString(@"ScreenSaverPassword", @"Action type");
 		NSLocalizedString(@"ScreenSaverStart", @"Action type");
 		NSLocalizedString(@"ScreenSaverTime", @"Action type");
 		NSLocalizedString(@"ShellScript", @"Action type");
+		NSLocalizedString(@"Sleep", @"Action type");
 		NSLocalizedString(@"ToggleBluetooth", @"Action type");
 		NSLocalizedString(@"ToggleWiFi", @"Action type");
 		NSLocalizedString(@"Unmount", @"Action type");
