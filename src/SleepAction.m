@@ -100,7 +100,7 @@
 				description = [NSString stringWithFormat:NSLocalizedString(@"%@ %@ minutes", @""), [names objectAtIndex:i], [opts objectAtIndex:j]];
 
 			[arr addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-				option, @"option",
+				option, @"parameter",
 				description, @"description", nil]];
 		}
 	}

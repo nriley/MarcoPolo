@@ -24,62 +24,62 @@ static NSMutableArray *pma_opts = nil;
 	pma_opts = [[NSMutableArray alloc] initWithCapacity:20];
 
 	[pma_opts addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-		@"cpuauto", @"option",
+		@"cpuauto", @"parameter",
 		NSLocalizedString(@"Processor speed: Automatic", @""), @"description", nil]];
 	[pma_opts addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-		@"cpuhighest", @"option",
+		@"cpuhighest", @"parameter",
 		NSLocalizedString(@"Processor speed: Highest", @""), @"description", nil]];
 	[pma_opts addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-		@"cpureduced", @"option",
+		@"cpureduced", @"parameter",
 		NSLocalizedString(@"Processor speed: Reduced", @""), @"description", nil]];
 
 	[pma_opts addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-		@"+womp", @"option",
+		@"+womp", @"parameter",
 		NSLocalizedString(@"Enable wake up on ethernet", @""), @"description", nil]];
 	[pma_opts addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-		@"-womp", @"option",
+		@"-womp", @"parameter",
 		NSLocalizedString(@"Disable wake up on ethernet", @""), @"description", nil]];
 
 	[pma_opts addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-		@"+ring", @"option",
+		@"+ring", @"parameter",
 		NSLocalizedString(@"Enable wake up on modem ring", @""), @"description", nil]];
 	[pma_opts addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-		@"-ring", @"option",
+		@"-ring", @"parameter",
 		NSLocalizedString(@"Disable wake up on modem ring", @""), @"description", nil]];
 
 	[pma_opts addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-		@"+lidwake", @"option",
+		@"+lidwake", @"parameter",
 		NSLocalizedString(@"Enable wake up on lid open", @""), @"description", nil]];
 	[pma_opts addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-		@"-lidwake", @"option",
+		@"-lidwake", @"parameter",
 		NSLocalizedString(@"Disable wake up on lid open", @""), @"description", nil]];
 
 	[pma_opts addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-		@"+acwake", @"option",
+		@"+acwake", @"parameter",
 		NSLocalizedString(@"Enable wake up when AC is plugged in", @""), @"description", nil]];
 	[pma_opts addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-		@"-acwake", @"option",
+		@"-acwake", @"parameter",
 		NSLocalizedString(@"Disable wake up when AC is plugged in", @""), @"description", nil]];
 
 	[pma_opts addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-		@"+autorestart", @"option",
+		@"+autorestart", @"parameter",
 		NSLocalizedString(@"Enable restart on power loss", @""), @"description", nil]];
 	[pma_opts addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-		@"-autorestart", @"option",
+		@"-autorestart", @"parameter",
 		NSLocalizedString(@"Disable restart on power loss", @""), @"description", nil]];
 
 	[pma_opts addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-		@"+powerbutton", @"option",
+		@"+powerbutton", @"parameter",
 		NSLocalizedString(@"Enable put machine to sleep on power button press", @""), @"description", nil]];
 	[pma_opts addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-		@"-powerbutton", @"option",
+		@"-powerbutton", @"parameter",
 		NSLocalizedString(@"Disable put machine to sleep on power button press", @""), @"description", nil]];
 
 	[pma_opts addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-		@"+halfdim", @"option",
+		@"+halfdim", @"parameter",
 		NSLocalizedString(@"Enable intermediate half-brightness on display sleep", @""), @"description", nil]];
 	[pma_opts addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-		@"-halfdim", @"option",
+		@"-halfdim", @"parameter",
 		NSLocalizedString(@"Disable intermediate half-brightness on display sleep", @""), @"description", nil]];
 }
 
