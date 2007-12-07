@@ -38,11 +38,12 @@
 		8D481B0A0B6098DD0097CF9C /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D481B070B6098DD0097CF9C /* IOKit.framework */; };
 		8D497FE40CFFD3AE00C6816F /* ActionWithString.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8D497FE20CFFD3AE00C6816F /* ActionWithString.nib */; };
 		8D49803C0CFFD55F00C6816F /* ActionWithLimitedOptions.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8D49803A0CFFD55F00C6816F /* ActionWithLimitedOptions.nib */; };
-		8D4980620CFFD6A700C6816F /* ActionWithBool.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8D4980600CFFD6A700C6816F /* ActionWithBool.nib */; };
 		8D4DBDC30BE1E3C00024DEA0 /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D4DBDC20BE1E3C00024DEA0 /* gear.png */; };
 		8D4E5CB30C48AE9F0054A67C /* ContextsPrefs.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 8D4E5CB20C48AE9F0054A67C /* ContextsPrefs.tiff */; };
 		8D514D3F0BE994A10013C1ED /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8D514D3E0BE994A10013C1ED /* Localizable.strings */; };
 		8D57B1440C4457AB00EC620D /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D57B1430C4457AB00EC620D /* CoreAudio.framework */; };
+		8D5C792E0D08F7E0001EC10E /* LocalisableButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5C792C0D08F7E0001EC10E /* LocalisableButton.m */; };
+		8D5C79540D08FA7A001EC10E /* ActionWithBool.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8D5C79530D08FA7A001EC10E /* ActionWithBool.nib */; };
 		8D643C680C4EF197006D8ECC /* GenericLoopingEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D643C660C4EF197006D8ECC /* GenericLoopingEvidenceSource.m */; };
 		8D643CDD0C4EF6FD006D8ECC /* LoopingEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D643CDB0C4EF6FD006D8ECC /* LoopingEvidenceSource.m */; };
 		8D643D0D0C4EF84E006D8ECC /* LightRule.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8D643D0B0C4EF84E006D8ECC /* LightRule.nib */; };
@@ -187,13 +188,15 @@
 		8D481B070B6098DD0097CF9C /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
 		8D497FE30CFFD3AE00C6816F /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/ActionWithString.nib; sourceTree = "<group>"; };
 		8D49803B0CFFD55F00C6816F /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/ActionWithLimitedOptions.nib; sourceTree = "<group>"; };
-		8D4980610CFFD6A700C6816F /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/ActionWithBool.nib; sourceTree = "<group>"; };
 		8D4DBDC20BE1E3C00024DEA0 /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gear.png; path = graphics/gear.png; sourceTree = "<group>"; };
 		8D4E5CB20C48AE9F0054A67C /* ContextsPrefs.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = ContextsPrefs.tiff; path = graphics/ContextsPrefs.tiff; sourceTree = "<group>"; };
 		8D514D120BE98CCF0013C1ED /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8D5684B20C38711D00881E32 /* MonitorEvidenceSource.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = MonitorEvidenceSource.h; path = src/MonitorEvidenceSource.h; sourceTree = "<group>"; };
 		8D5684B30C38711D00881E32 /* MonitorEvidenceSource.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = MonitorEvidenceSource.m; path = src/MonitorEvidenceSource.m; sourceTree = "<group>"; };
 		8D57B1430C4457AB00EC620D /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
+		8D5C792B0D08F7E0001EC10E /* LocalisableButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocalisableButton.h; path = src/LocalisableButton.h; sourceTree = "<group>"; };
+		8D5C792C0D08F7E0001EC10E /* LocalisableButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocalisableButton.m; path = src/LocalisableButton.m; sourceTree = "<group>"; };
+		8D5C79530D08FA7A001EC10E /* ActionWithBool.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = ActionWithBool.nib; path = Resources/ActionWithBool.nib; sourceTree = "<group>"; };
 		8D643C650C4EF197006D8ECC /* GenericLoopingEvidenceSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GenericLoopingEvidenceSource.h; path = src/GenericLoopingEvidenceSource.h; sourceTree = "<group>"; };
 		8D643C660C4EF197006D8ECC /* GenericLoopingEvidenceSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GenericLoopingEvidenceSource.m; path = src/GenericLoopingEvidenceSource.m; sourceTree = "<group>"; };
 		8D643CDA0C4EF6FD006D8ECC /* LoopingEvidenceSource.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = LoopingEvidenceSource.h; path = src/LoopingEvidenceSource.h; sourceTree = "<group>"; };
@@ -398,8 +401,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8D5C79530D08FA7A001EC10E /* ActionWithBool.nib */,
 				8D8C6D310D001CE900D13245 /* ActionWithFile.nib */,
-				8D4980600CFFD6A700C6816F /* ActionWithBool.nib */,
 				8D49803A0CFFD55F00C6816F /* ActionWithLimitedOptions.nib */,
 				8D497FE20CFFD3AE00C6816F /* ActionWithString.nib */,
 				8DC72FAC0CDD6541005352E8 /* NSCoreSuite.sdef */,
@@ -459,6 +462,8 @@
 				8D38B66A0C49D50200290F47 /* SliderWithValue.m */,
 				8D8D2AFD0CB9C91500A3EFAE /* ContextFilteredController.h */,
 				8D8D2AFE0CB9C91500A3EFAE /* ContextFilteredController.m */,
+				8D5C792B0D08F7E0001EC10E /* LocalisableButton.h */,
+				8D5C792C0D08F7E0001EC10E /* LocalisableButton.m */,
 			);
 			name = "UI Utilities";
 			sourceTree = "<group>";
@@ -670,8 +675,8 @@
 				8D969EC10CDD70190077B9CF /* MarcoPolo.sdef in Resources */,
 				8D497FE40CFFD3AE00C6816F /* ActionWithString.nib in Resources */,
 				8D49803C0CFFD55F00C6816F /* ActionWithLimitedOptions.nib in Resources */,
-				8D4980620CFFD6A700C6816F /* ActionWithBool.nib in Resources */,
 				8D8C6D330D001CE900D13245 /* ActionWithFile.nib in Resources */,
+				8D5C79540D08FA7A001EC10E /* ActionWithBool.nib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -770,6 +775,7 @@
 				8D8C6D250D001A6E00D13245 /* ActionWithFile.m in Sources */,
 				8D8C6D570D00210D00D13245 /* OpenAction.m in Sources */,
 				8D8C6DC10D00304E00D13245 /* DesktopBackgroundAction.m in Sources */,
+				8D5C792E0D08F7E0001EC10E /* LocalisableButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -798,14 +804,6 @@
 				8D49803B0CFFD55F00C6816F /* en */,
 			);
 			name = ActionWithLimitedOptions.nib;
-			sourceTree = "<group>";
-		};
-		8D4980600CFFD6A700C6816F /* ActionWithBool.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8D4980610CFFD6A700C6816F /* en */,
-			);
-			name = ActionWithBool.nib;
 			sourceTree = "<group>";
 		};
 		8D514D3E0BE994A10013C1ED /* Localizable.strings */ = {
