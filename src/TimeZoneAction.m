@@ -62,7 +62,14 @@
 		return NO;
 	}
 
-	// TODO: What standard system programs do we need to restart to get clock displays correct?
+	// Notify login process
+	NSTask *task = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/killall"
+						arguments:[NSArray arrayWithObject:@"SystemUIServer"]];
+	[task waitUntilExit];
+	if ([task terminationStatus] != 0)
+		NSLog(@"%@ return code is %d", [task launchPath], [task terminationStatus]);
+
+	// TODO: What other standard system programs do we need to restart to get clock displays correct?
 
 	return YES;
 }
