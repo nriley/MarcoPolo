@@ -7,10 +7,12 @@
 
 #import <Cocoa/Cocoa.h>
 #import "Action.h"
+#import "FlexControls.h"
 
 
 @interface ActionWithBool : Action {
 	IBOutlet NSButtonCell *radio1, *radio2;
+	IBOutlet FlexMatrix *radioMatrix;
 }
 
 - (id)init;

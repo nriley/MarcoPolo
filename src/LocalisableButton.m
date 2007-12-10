@@ -27,7 +27,7 @@
 	initialTitle = [[self title] copy];
 
 	// Ensure we're flexible
-	[self setAutoresizingMask:([self autoresizingMask] | NSViewWidthSizable)];
+	//[self setAutoresizingMask:([self autoresizingMask] | NSViewWidthSizable)];
 
 	return self;
 }

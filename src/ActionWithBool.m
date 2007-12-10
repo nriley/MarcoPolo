@@ -45,6 +45,7 @@
 
 	[radio1 setTitle:[self descriptionOfState:YES]];
 	[radio2 setTitle:[self descriptionOfState:NO]];
+	[radioMatrix flexToFit];
 
 	NSButtonCell *sel = radio1;
 	if ([dict objectForKey:@"parameter"]) {
