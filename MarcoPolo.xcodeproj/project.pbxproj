@@ -66,6 +66,8 @@
 		8D8C9CE70BBB7BE00074D5B3 /* BluetoothEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8C9CE50BBB7BE00074D5B3 /* BluetoothEvidenceSource.m */; };
 		8D8C9E350BBB89320074D5B3 /* DB.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8C9E330BBB89320074D5B3 /* DB.m */; };
 		8D8D2B000CB9C91500A3EFAE /* ContextFilteredController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8D2AFE0CB9C91500A3EFAE /* ContextFilteredController.m */; };
+		8D8E05070D0E5ACA003106ED /* MailServerAction.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8D8E05060D0E5ACA003106ED /* MailServerAction.nib */; };
+		8D8E050D0D0E5C22003106ED /* ActionSettingMailServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8E050B0D0E5C22003106ED /* ActionSettingMailServer.m */; };
 		8D90E51F0B71C4C9007D39FD /* MPController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D90E51E0B71C4C9007D39FD /* MPController.m */; };
 		8D91F17D0C47148200D9FC0F /* USBEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D35A34D0BBBA0CB006ACBB0 /* USBEvidenceSource.m */; };
 		8D91F1FA0C4772FF00D9FC0F /* LightEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D91F1F80C4772FF00D9FC0F /* LightEvidenceSource.m */; };
@@ -237,6 +239,9 @@
 		8D8C9EBB0BBB8DAC0074D5B3 /* IPEvidenceSource.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = IPEvidenceSource.m; path = src/IPEvidenceSource.m; sourceTree = "<group>"; };
 		8D8D2AFD0CB9C91500A3EFAE /* ContextFilteredController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContextFilteredController.h; path = src/ContextFilteredController.h; sourceTree = "<group>"; };
 		8D8D2AFE0CB9C91500A3EFAE /* ContextFilteredController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContextFilteredController.m; path = src/ContextFilteredController.m; sourceTree = "<group>"; };
+		8D8E05060D0E5ACA003106ED /* MailServerAction.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = MailServerAction.nib; path = Resources/MailServerAction.nib; sourceTree = "<group>"; };
+		8D8E050A0D0E5C22003106ED /* ActionSettingMailServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ActionSettingMailServer.h; path = src/ActionSettingMailServer.h; sourceTree = "<group>"; };
+		8D8E050B0D0E5C22003106ED /* ActionSettingMailServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ActionSettingMailServer.m; path = src/ActionSettingMailServer.m; sourceTree = "<group>"; };
 		8D90E51D0B71C4C9007D39FD /* MPController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPController.h; path = src/MPController.h; sourceTree = "<group>"; };
 		8D90E51E0B71C4C9007D39FD /* MPController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPController.m; path = src/MPController.m; sourceTree = "<group>"; };
 		8D91F1F70C4772FF00D9FC0F /* LightEvidenceSource.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = LightEvidenceSource.h; path = src/LightEvidenceSource.h; sourceTree = "<group>"; };
@@ -405,6 +410,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8D8E05060D0E5ACA003106ED /* MailServerAction.nib */,
 				8D2470B40D0E4DC200AB4693 /* ActionWithString.nib */,
 				8DCDC18E0D0E41850026AD93 /* ActionWithLimitedOptions.nib */,
 				8D5C79530D08FA7A001EC10E /* ActionWithBool.nib */,
@@ -595,6 +601,8 @@
 				8D9A21B40CFCE91D005BD5A9 /* ActionWithLimitedOptions.m */,
 				8DE6DDEB0CFFB0E7005BC54E /* ActionWithString.h */,
 				8DE6DDEC0CFFB0E7005BC54E /* ActionWithString.m */,
+				8D8E050A0D0E5C22003106ED /* ActionSettingMailServer.h */,
+				8D8E050B0D0E5C22003106ED /* ActionSettingMailServer.m */,
 			);
 			name = Actions;
 			sourceTree = "<group>";
@@ -683,6 +691,7 @@
 				8D5C79540D08FA7A001EC10E /* ActionWithBool.nib in Resources */,
 				8DCDC18F0D0E41850026AD93 /* ActionWithLimitedOptions.nib in Resources */,
 				8D2470B50D0E4DC200AB4693 /* ActionWithString.nib in Resources */,
+				8D8E05070D0E5ACA003106ED /* MailServerAction.nib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -784,6 +793,7 @@
 				8DCABF7A0D0268730044D0BC /* TimeZoneAction.m in Sources */,
 				8D5C792E0D08F7E0001EC10E /* LocalisableButton.m in Sources */,
 				8DE62C640D0DF36800AC20A5 /* FlexControls.m in Sources */,
+				8D8E050D0D0E5C22003106ED /* ActionSettingMailServer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

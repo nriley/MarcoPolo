@@ -6,16 +6,16 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "ActionWithLimitedOptions.h"
+#import "ActionSettingMailServer.h"
 
 
-@interface MailSMTPServerAction : ActionWithLimitedOptions {
+@interface MailSMTPServerAction : ActionSettingMailServer {
 }
 
 - (NSString *)descriptionOf:(NSDictionary *)actionDict;
 - (BOOL)execute:(NSDictionary *)actionDict error:(NSString **)errorString;
 
-- (NSString *)suggestionLeadText;
-- (NSArray *)suggestions;
+- (NSString *)leadText;
+- (NSArray *)serverOptions;
 
 @end
