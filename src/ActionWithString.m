@@ -34,6 +34,7 @@
 	[super writeToPanel:dict];
 
 	[leadTextField setStringValue:[self leadText]];
+	[leadTextField flexToFit];
 
 	if ([dict objectForKey:@"parameter"])
 		[parameterTextField setStringValue:[dict valueForKey:@"parameter"]];

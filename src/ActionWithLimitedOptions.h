@@ -7,10 +7,11 @@
 
 #import <Cocoa/Cocoa.h>
 #import "Action.h"
+#import "FlexControls.h"
 
 
 @interface ActionWithLimitedOptions : Action {
-	IBOutlet NSTextField *suggestionLeadTextField;
+	IBOutlet FlexTextField *suggestionLeadTextField;
 	IBOutlet NSArrayController *actionParameterController;
 }
 

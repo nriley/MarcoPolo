@@ -17,11 +17,14 @@
             LANGUAGE = ObjC; 
             OUTLETS = {
                 actionParameterController = NSArrayController; 
-                suggestionLeadTextField = NSTextField; 
+                suggestionLeadTextField = FlexTextField; 
             }; 
             SUPERCLASS = Action; 
         }, 
-        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = FlexMatrix; LANGUAGE = ObjC; SUPERCLASS = NSMatrix; }, 
+        {CLASS = FlexTextField; LANGUAGE = ObjC; SUPERCLASS = NSTextField; }, 
+        {CLASS = LocalisableButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }
     ); 
     IBVersion = 1; 
 }

@@ -13,12 +13,15 @@
             SUPERCLASS = NSObject; 
         }, 
         {
-            CLASS = ActionWithBool; 
+            CLASS = ActionWithString; 
             LANGUAGE = ObjC; 
-            OUTLETS = {radio1 = NSButtonCell; radio2 = NSButtonCell; }; 
+            OUTLETS = {leadTextField = FlexTextField; parameterTextField = NSTextField; }; 
             SUPERCLASS = Action; 
         }, 
-        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = FlexMatrix; LANGUAGE = ObjC; SUPERCLASS = NSMatrix; }, 
+        {CLASS = FlexTextField; LANGUAGE = ObjC; SUPERCLASS = NSTextField; }, 
+        {CLASS = LocalisableButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }
     ); 
     IBVersion = 1; 
 }
