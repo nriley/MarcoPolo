@@ -37,7 +37,6 @@
 		8D447DF90C3E65D000DAB17A /* ContextSelectionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D447DF70C3E65CF00DAB17A /* ContextSelectionButton.m */; };
 		8D481B0A0B6098DD0097CF9C /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D481B070B6098DD0097CF9C /* IOKit.framework */; };
 		8D497FE40CFFD3AE00C6816F /* ActionWithString.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8D497FE20CFFD3AE00C6816F /* ActionWithString.nib */; };
-		8D49803C0CFFD55F00C6816F /* ActionWithLimitedOptions.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8D49803A0CFFD55F00C6816F /* ActionWithLimitedOptions.nib */; };
 		8D4DBDC30BE1E3C00024DEA0 /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D4DBDC20BE1E3C00024DEA0 /* gear.png */; };
 		8D4E5CB30C48AE9F0054A67C /* ContextsPrefs.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 8D4E5CB20C48AE9F0054A67C /* ContextsPrefs.tiff */; };
 		8D514D3F0BE994A10013C1ED /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8D514D3E0BE994A10013C1ED /* Localizable.strings */; };
@@ -85,6 +84,7 @@
 		8DC410FB0C64665E00393759 /* AboutPanel.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8DC410FA0C64665E00393759 /* AboutPanel.nib */; };
 		8DC72FB30CDD6541005352E8 /* NSCoreSuite.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 8DC72FAC0CDD6541005352E8 /* NSCoreSuite.sdef */; };
 		8DCC52120C42106D00515041 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D1107310486CEB800E47090 /* Info.plist */; };
+		8DCDC18F0D0E41850026AD93 /* ActionWithLimitedOptions.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8DCDC18E0D0E41850026AD93 /* ActionWithLimitedOptions.nib */; };
 		8DD15A690C9CD5C7008EBFB3 /* mp-icon-inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 8DD15A680C9CD5C7008EBFB3 /* mp-icon-inactive.png */; };
 		8DDB68C20CFE866300300021 /* ActionWithBool.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D71CAED0C17BA7900E56526 /* ActionWithBool.m */; };
 		8DDB69000CFE89C900300021 /* ToggleWiFiAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D649BA30BE8033A00716059 /* ToggleWiFiAction.m */; };
@@ -187,7 +187,6 @@
 		8D447DF70C3E65CF00DAB17A /* ContextSelectionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContextSelectionButton.m; path = src/ContextSelectionButton.m; sourceTree = "<group>"; };
 		8D481B070B6098DD0097CF9C /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
 		8D497FE30CFFD3AE00C6816F /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/ActionWithString.nib; sourceTree = "<group>"; };
-		8D49803B0CFFD55F00C6816F /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/ActionWithLimitedOptions.nib; sourceTree = "<group>"; };
 		8D4DBDC20BE1E3C00024DEA0 /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gear.png; path = graphics/gear.png; sourceTree = "<group>"; };
 		8D4E5CB20C48AE9F0054A67C /* ContextsPrefs.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = ContextsPrefs.tiff; path = graphics/ContextsPrefs.tiff; sourceTree = "<group>"; };
 		8D514D120BE98CCF0013C1ED /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -270,6 +269,7 @@
 		8DCBF4900BE5622600A01414 /* FireWireEvidenceSource.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = FireWireEvidenceSource.m; path = src/FireWireEvidenceSource.m; sourceTree = "<group>"; };
 		8DCBF4FC0BE5B11F00A01414 /* PowerEvidenceSource.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PowerEvidenceSource.h; path = src/PowerEvidenceSource.h; sourceTree = "<group>"; };
 		8DCBF4FD0BE5B11F00A01414 /* PowerEvidenceSource.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = PowerEvidenceSource.m; path = src/PowerEvidenceSource.m; sourceTree = "<group>"; };
+		8DCDC18E0D0E41850026AD93 /* ActionWithLimitedOptions.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = ActionWithLimitedOptions.nib; path = Resources/ActionWithLimitedOptions.nib; sourceTree = "<group>"; };
 		8DD15A680C9CD5C7008EBFB3 /* mp-icon-inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "mp-icon-inactive.png"; path = "graphics/mp-icon-inactive.png"; sourceTree = "<group>"; };
 		8DD790AA0BC28A9F00705346 /* OpenAction.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = OpenAction.h; path = src/OpenAction.h; sourceTree = "<group>"; };
 		8DD790AB0BC28A9F00705346 /* OpenAction.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = OpenAction.m; path = src/OpenAction.m; sourceTree = "<group>"; };
@@ -402,8 +402,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8DCDC18E0D0E41850026AD93 /* ActionWithLimitedOptions.nib */,
 				8D5C79530D08FA7A001EC10E /* ActionWithBool.nib */,
-				8D49803A0CFFD55F00C6816F /* ActionWithLimitedOptions.nib */,
 				8D497FE20CFFD3AE00C6816F /* ActionWithString.nib */,
 				8DC72FAC0CDD6541005352E8 /* NSCoreSuite.sdef */,
 				8D341CBA0CDAF94B000B9A53 /* MarcoPolo.sdef */,
@@ -676,8 +676,8 @@
 				8DC72FB30CDD6541005352E8 /* NSCoreSuite.sdef in Resources */,
 				8D969EC10CDD70190077B9CF /* MarcoPolo.sdef in Resources */,
 				8D497FE40CFFD3AE00C6816F /* ActionWithString.nib in Resources */,
-				8D49803C0CFFD55F00C6816F /* ActionWithLimitedOptions.nib in Resources */,
 				8D5C79540D08FA7A001EC10E /* ActionWithBool.nib in Resources */,
+				8DCDC18F0D0E41850026AD93 /* ActionWithLimitedOptions.nib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -798,14 +798,6 @@
 				8D497FE30CFFD3AE00C6816F /* en */,
 			);
 			name = ActionWithString.nib;
-			sourceTree = "<group>";
-		};
-		8D49803A0CFFD55F00C6816F /* ActionWithLimitedOptions.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8D49803B0CFFD55F00C6816F /* en */,
-			);
-			name = ActionWithLimitedOptions.nib;
 			sourceTree = "<group>";
 		};
 		8D514D3E0BE994A10013C1ED /* Localizable.strings */ = {

@@ -57,3 +57,27 @@
 }
 
 @end
+
+#pragma mark -
+#pragma mark FlexTextField
+
+@implementation FlexTextField
+
+- (void)flexToFit
+{
+	// Work out what size we want
+	NSRect oldFrame = [self frame];
+	[self sizeToFit];
+	NSRect newFrame = [self frame];
+	[self setFrame:oldFrame];
+
+	float deltaWidth = newFrame.size.width - oldFrame.size.width;
+
+	// We don't allow shrinking (for now)
+	if (deltaWidth <= 0)
+		return;
+
+	[FlexControl increaseWidthOfWindowOf:self by:deltaWidth];
+}
+
+@end

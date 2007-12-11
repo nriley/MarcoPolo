@@ -14,3 +14,10 @@
 - (void)flexToFit;
 
 @end
+
+@interface FlexTextField : NSTextField {
+}
+
+- (void)flexToFit;
+
+@end
