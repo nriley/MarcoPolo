@@ -7,10 +7,11 @@
 
 #import <Cocoa/Cocoa.h>
 #import "Action.h"
+#import "FlexControls.h"
 
 
 @interface ActionWithString : Action {
-	IBOutlet NSTextField *leadTextField;
+	IBOutlet FlexTextField *leadTextField;
 	IBOutlet NSTextField *parameterTextField;
 }
 

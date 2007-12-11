@@ -25,6 +25,7 @@
 		8D232F800BD9D228006A3963 /* GeneralPrefs.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 8D232F7F0BD9D228006A3963 /* GeneralPrefs.tiff */; };
 		8D232FB50BD9D507006A3963 /* ActionsPrefs.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 8D232FB30BD9D507006A3963 /* ActionsPrefs.tiff */; };
 		8D232FB60BD9D507006A3963 /* RulesPrefs.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 8D232FB40BD9D507006A3963 /* RulesPrefs.tiff */; };
+		8D2470B50D0E4DC200AB4693 /* ActionWithString.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8D2470B40D0E4DC200AB4693 /* ActionWithString.nib */; };
 		8D27ECB00C4456A300AE1929 /* AudioOutputEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D27ECAE0C4456A300AE1929 /* AudioOutputEvidenceSource.m */; };
 		8D2BAAAD0C56E26200A50777 /* NetworkLinkEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2BAAAB0C56E26100A50777 /* NetworkLinkEvidenceSource.m */; };
 		8D341D220CDB0896000B9A53 /* MPApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D341D200CDB0896000B9A53 /* MPApplication.m */; };
@@ -36,7 +37,6 @@
 		8D3E2DD20AA4F3C000FB21C1 /* marcopolo.icns in Resources */ = {isa = PBXBuildFile; fileRef = 8D3E2DD10AA4F3C000FB21C1 /* marcopolo.icns */; };
 		8D447DF90C3E65D000DAB17A /* ContextSelectionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D447DF70C3E65CF00DAB17A /* ContextSelectionButton.m */; };
 		8D481B0A0B6098DD0097CF9C /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D481B070B6098DD0097CF9C /* IOKit.framework */; };
-		8D497FE40CFFD3AE00C6816F /* ActionWithString.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8D497FE20CFFD3AE00C6816F /* ActionWithString.nib */; };
 		8D4DBDC30BE1E3C00024DEA0 /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D4DBDC20BE1E3C00024DEA0 /* gear.png */; };
 		8D4E5CB30C48AE9F0054A67C /* ContextsPrefs.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 8D4E5CB20C48AE9F0054A67C /* ContextsPrefs.tiff */; };
 		8D514D3F0BE994A10013C1ED /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8D514D3E0BE994A10013C1ED /* Localizable.strings */; };
@@ -158,6 +158,7 @@
 		8D232F7F0BD9D228006A3963 /* GeneralPrefs.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = GeneralPrefs.tiff; path = graphics/GeneralPrefs.tiff; sourceTree = "<group>"; };
 		8D232FB30BD9D507006A3963 /* ActionsPrefs.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = ActionsPrefs.tiff; path = graphics/ActionsPrefs.tiff; sourceTree = "<group>"; };
 		8D232FB40BD9D507006A3963 /* RulesPrefs.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = RulesPrefs.tiff; path = graphics/RulesPrefs.tiff; sourceTree = "<group>"; };
+		8D2470B40D0E4DC200AB4693 /* ActionWithString.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = ActionWithString.nib; path = Resources/ActionWithString.nib; sourceTree = "<group>"; };
 		8D27ECAD0C4456A300AE1929 /* AudioOutputEvidenceSource.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = AudioOutputEvidenceSource.h; path = src/AudioOutputEvidenceSource.h; sourceTree = "<group>"; };
 		8D27ECAE0C4456A300AE1929 /* AudioOutputEvidenceSource.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = AudioOutputEvidenceSource.m; path = src/AudioOutputEvidenceSource.m; sourceTree = "<group>"; };
 		8D2BAAAA0C56E26100A50777 /* NetworkLinkEvidenceSource.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = NetworkLinkEvidenceSource.h; path = src/NetworkLinkEvidenceSource.h; sourceTree = "<group>"; };
@@ -186,7 +187,6 @@
 		8D447DF60C3E65CF00DAB17A /* ContextSelectionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContextSelectionButton.h; path = src/ContextSelectionButton.h; sourceTree = "<group>"; };
 		8D447DF70C3E65CF00DAB17A /* ContextSelectionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContextSelectionButton.m; path = src/ContextSelectionButton.m; sourceTree = "<group>"; };
 		8D481B070B6098DD0097CF9C /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
-		8D497FE30CFFD3AE00C6816F /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/ActionWithString.nib; sourceTree = "<group>"; };
 		8D4DBDC20BE1E3C00024DEA0 /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gear.png; path = graphics/gear.png; sourceTree = "<group>"; };
 		8D4E5CB20C48AE9F0054A67C /* ContextsPrefs.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = ContextsPrefs.tiff; path = graphics/ContextsPrefs.tiff; sourceTree = "<group>"; };
 		8D514D120BE98CCF0013C1ED /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -402,9 +402,9 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8D2470B40D0E4DC200AB4693 /* ActionWithString.nib */,
 				8DCDC18E0D0E41850026AD93 /* ActionWithLimitedOptions.nib */,
 				8D5C79530D08FA7A001EC10E /* ActionWithBool.nib */,
-				8D497FE20CFFD3AE00C6816F /* ActionWithString.nib */,
 				8DC72FAC0CDD6541005352E8 /* NSCoreSuite.sdef */,
 				8D341CBA0CDAF94B000B9A53 /* MarcoPolo.sdef */,
 				8DD15A680C9CD5C7008EBFB3 /* mp-icon-inactive.png */,
@@ -675,9 +675,9 @@
 				8DD15A690C9CD5C7008EBFB3 /* mp-icon-inactive.png in Resources */,
 				8DC72FB30CDD6541005352E8 /* NSCoreSuite.sdef in Resources */,
 				8D969EC10CDD70190077B9CF /* MarcoPolo.sdef in Resources */,
-				8D497FE40CFFD3AE00C6816F /* ActionWithString.nib in Resources */,
 				8D5C79540D08FA7A001EC10E /* ActionWithBool.nib in Resources */,
 				8DCDC18F0D0E41850026AD93 /* ActionWithLimitedOptions.nib in Resources */,
+				8D2470B50D0E4DC200AB4693 /* ActionWithString.nib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -790,14 +790,6 @@
 				29B97319FDCFA39411CA2CEA /* en */,
 			);
 			name = MainMenu.nib;
-			sourceTree = "<group>";
-		};
-		8D497FE20CFFD3AE00C6816F /* ActionWithString.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8D497FE30CFFD3AE00C6816F /* en */,
-			);
-			name = ActionWithString.nib;
 			sourceTree = "<group>";
 		};
 		8D514D3E0BE994A10013C1ED /* Localizable.strings */ = {
