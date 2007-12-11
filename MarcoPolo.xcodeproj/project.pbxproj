@@ -60,7 +60,6 @@
 		8D82F0A30AA81411009ADA44 /* PrefsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D82F0A20AA81411009ADA44 /* PrefsWindowController.m */; };
 		8D88FE2A0C534737007A14D6 /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D88FE290C534737007A14D6 /* pause.png */; };
 		8D8C6D250D001A6E00D13245 /* ActionWithFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8C6D230D001A6E00D13245 /* ActionWithFile.m */; };
-		8D8C6D330D001CE900D13245 /* ActionWithFile.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C6D310D001CE900D13245 /* ActionWithFile.nib */; };
 		8D8C6D570D00210D00D13245 /* OpenAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DD790AB0BC28A9F00705346 /* OpenAction.m */; };
 		8D8C6DC10D00304E00D13245 /* DesktopBackgroundAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DA2F4130CE8630200F92D4D /* DesktopBackgroundAction.m */; };
 		8D8C9BAB0BBB3ADB0074D5B3 /* Apple80211.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D8C9BA90BBB3ADB0074D5B3 /* Apple80211.framework */; };
@@ -226,7 +225,6 @@
 		8D8B65A10B855DA1003870A1 /* NOTES.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = NOTES.txt; sourceTree = "<group>"; };
 		8D8C6D220D001A6E00D13245 /* ActionWithFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ActionWithFile.h; path = src/ActionWithFile.h; sourceTree = "<group>"; };
 		8D8C6D230D001A6E00D13245 /* ActionWithFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ActionWithFile.m; path = src/ActionWithFile.m; sourceTree = "<group>"; };
-		8D8C6D320D001CE900D13245 /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/ActionWithFile.nib; sourceTree = "<group>"; };
 		8D8C9BA70BBB3AAC0074D5B3 /* Apple80211.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Apple80211.h; path = src/Apple80211.h; sourceTree = "<group>"; };
 		8D8C9BA90BBB3ADB0074D5B3 /* Apple80211.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Apple80211.framework; path = /System/Library/PrivateFrameworks/Apple80211.framework; sourceTree = "<absolute>"; };
 		8D8C9CA30BBB74E70074D5B3 /* EvidenceSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EvidenceSource.h; path = src/EvidenceSource.h; sourceTree = "<group>"; };
@@ -405,7 +403,6 @@
 			isa = PBXGroup;
 			children = (
 				8D5C79530D08FA7A001EC10E /* ActionWithBool.nib */,
-				8D8C6D310D001CE900D13245 /* ActionWithFile.nib */,
 				8D49803A0CFFD55F00C6816F /* ActionWithLimitedOptions.nib */,
 				8D497FE20CFFD3AE00C6816F /* ActionWithString.nib */,
 				8DC72FAC0CDD6541005352E8 /* NSCoreSuite.sdef */,
@@ -680,7 +677,6 @@
 				8D969EC10CDD70190077B9CF /* MarcoPolo.sdef in Resources */,
 				8D497FE40CFFD3AE00C6816F /* ActionWithString.nib in Resources */,
 				8D49803C0CFFD55F00C6816F /* ActionWithLimitedOptions.nib in Resources */,
-				8D8C6D330D001CE900D13245 /* ActionWithFile.nib in Resources */,
 				8D5C79540D08FA7A001EC10E /* ActionWithBool.nib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -834,14 +830,6 @@
 				8D66DBD80C548F100093D0D8 /* en */,
 			);
 			name = IPRule.nib;
-			sourceTree = "<group>";
-		};
-		8D8C6D310D001CE900D13245 /* ActionWithFile.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8D8C6D320D001CE900D13245 /* en */,
-			);
-			name = ActionWithFile.nib;
 			sourceTree = "<group>";
 		};
 		8DE429460C5091F90073499A /* TimeOfDayRule.nib */ = {
