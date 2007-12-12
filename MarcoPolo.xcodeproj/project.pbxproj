@@ -295,7 +295,7 @@
 		8DE62C620D0DF36800AC20A5 /* FlexControls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FlexControls.m; path = src/FlexControls.m; sourceTree = "<group>"; };
 		8DE6DDEB0CFFB0E7005BC54E /* ActionWithString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ActionWithString.h; path = src/ActionWithString.h; sourceTree = "<group>"; };
 		8DE6DDEC0CFFB0E7005BC54E /* ActionWithString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ActionWithString.m; path = src/ActionWithString.m; sourceTree = "<group>"; };
-		8DEF42780BAA05CD00F87273 /* MarcoPolo Help */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "MarcoPolo Help"; sourceTree = "<group>"; };
+		8DEF42780BAA05CD00F87273 /* MarcoPolo Help */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "MarcoPolo Help"; path = "Resources/MarcoPolo Help"; sourceTree = "<group>"; };
 		8DF5A4150BC2353D00CBEB4B /* Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Action.h; path = src/Action.h; sourceTree = "<group>"; };
 		8DF5A4160BC2353D00CBEB4B /* Action.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Action.m; path = src/Action.m; sourceTree = "<group>"; };
 		8DF5A45E0BC239B100CBEB4B /* DefaultPrinterAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DefaultPrinterAction.h; path = src/DefaultPrinterAction.h; sourceTree = "<group>"; };
@@ -720,7 +720,7 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/MarcoPolo help/index.html",
+				"$(SRCROOT)/Resources/MarcoPolo help/index.html",
 			);
 			outputPaths = (
 				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/MarcoPolo Help/MarcoPolo Help idx",
