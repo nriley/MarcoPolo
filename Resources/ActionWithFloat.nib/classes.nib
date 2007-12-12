@@ -21,7 +21,11 @@
         {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
         {CLASS = FlexMatrix; LANGUAGE = ObjC; SUPERCLASS = NSMatrix; }, 
         {CLASS = FlexTextField; LANGUAGE = ObjC; SUPERCLASS = NSTextField; }, 
-        {CLASS = LocalisableButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }
+        {CLASS = LocalisableButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
+        {CLASS = SliderCellWithValue; LANGUAGE = ObjC; SUPERCLASS = NSSliderCell; }, 
+        {CLASS = SliderWithValue; LANGUAGE = ObjC; SUPERCLASS = NSSlider; }, 
+        {CLASS = ToolTip; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = ToolTipTextField; LANGUAGE = ObjC; SUPERCLASS = NSTextField; }
     ); 
     IBVersion = 1; 
 }

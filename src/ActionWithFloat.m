@@ -15,9 +15,9 @@
 	if (!(self = [super initWithNibNamed:@"ActionWithFloat"]))
 		return nil;
 
-	// Default to 0-100 display
+	// Default to 0-100% display
 	[parameterSlider setMinValue:0];
-	[parameterSlider setMaxValue:100];
+	[parameterSlider setMaxValue:1.0];
 
 	return self;
 }
