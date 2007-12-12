@@ -1,8 +1,8 @@
 //
-//  ActionWithString.h
+//  ActionWithFloat.h
 //  MarcoPolo
 //
-//  Created by David Symonds on 30/11/07.
+//  Created by David Symonds on 12/12/07.
 //
 
 #import <Cocoa/Cocoa.h>
@@ -10,9 +10,9 @@
 #import "FlexControls.h"
 
 
-@interface ActionWithString : Action {
+@interface ActionWithFloat : Action {
 	IBOutlet FlexTextField *leadTextField;
-	IBOutlet NSTextField *parameterTextField;
+	IBOutlet NSSlider *parameterSlider;
 }
 
 - (id)init;

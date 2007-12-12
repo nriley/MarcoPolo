@@ -5,7 +5,10 @@
 //  Created by David Symonds on 3/04/07.
 //
 
+#import <Security/Authorization.h>
+#import <Security/AuthorizationTags.h>
 #import "Action.h"
+#import "Common.h"
 #import "DSLogger.h"
 
 
@@ -200,6 +203,70 @@
 	return list;
 }
 
+#pragma mark Authorisation helpers
+
+static AuthorizationRef authRef = 0;
+
+// Private
+- (BOOL)authForExec:(NSString *)path prompt:(NSString *)prompt
+{
+	if (!authRef) {
+		OSStatus err = AuthorizationCreate(NULL, NULL, 0, &authRef);
+		if (err != noErr) {
+			NSLog(@"AuthorizationCreate failed with error=%d", err);
+			return NO;
+		}
+	}
+
+	const char *rawPath = [path fileSystemRepresentation];
+	const char *rawPrompt = [prompt UTF8String];
+
+	AuthorizationItem authorization;
+	authorization.name = kAuthorizationRightExecute;
+	authorization.value = (void *) rawPath;
+	authorization.valueLength = strlen(rawPath);
+	authorization.flags = 0;
+
+	AuthorizationItem config;
+	config.name = kAuthorizationEnvironmentPrompt;
+	config.value = (void *) rawPrompt;
+	config.valueLength = strlen(rawPrompt);
+	config.flags = 0;
+	AuthorizationEnvironment env = {1, &config};
+
+	AuthorizationRights rights = {1, &authorization};
+	AuthorizationFlags flags = kAuthorizationFlagInteractionAllowed | kAuthorizationFlagExtendRights;
+
+	OSStatus err = AuthorizationCopyRights(authRef, &rights, &env, flags, NULL);
+	if (err != noErr) {
+		NSLog(@"AuthorizationCopyRights failed with error=%d", err);
+		return NO;
+	}
+
+	return YES;
+}
+
+- (BOOL)authExec:(NSString *)path args:(NSArray *)args authPrompt:(NSString *)prompt
+{
+	if (![self authForExec:path prompt:prompt])
+		return NO;
+
+	const char *rawPath = [path fileSystemRepresentation];
+	char **rawArgs = calloc([args count] + 1, sizeof(const char *));
+	int i;
+	for (i = 0; i < [args count]; ++i)
+		rawArgs[i] = (char *) [[args objectAtIndex:i] UTF8String];
+
+	OSStatus err = AuthorizationExecuteWithPrivileges(authRef, rawPath,
+							  kAuthorizationFlagDefaults, rawArgs, NULL);
+	if (err != noErr) {
+		NSLog(@"AuthorizationExecuteWithPrivileges failed with error=%d while running '%@'", err, path);
+		return NO;
+	}
+
+	return YES;
+}
+
 @end
 
 #pragma mark -
@@ -223,6 +290,7 @@
 #import "MuteAction.h"
 #import "NetworkLocationAction.h"
 #import "OpenAction.h"
+#import "OutputVolumeAction.h"
 #import "PowerManagerAction.h"
 #import "QuitApplicationAction.h"
 #import "ScreenSaverPasswordAction.h"
@@ -230,6 +298,7 @@
 #import "ScreenSaverTimeAction.h"
 //#import "ShellScriptAction.h"
 #import "SleepAction.h"
+#import "TimeZoneAction.h"
 #import "ToggleBluetoothAction.h"
 #import "ToggleWiFiAction.h"
 #import "UnmountAction.h"
@@ -242,7 +311,7 @@
 	if (!(self = [super init]))
 		return nil;
 
-	NSArray *classes = [NSArray arrayWithObjects:
+	NSMutableArray *classes = [NSMutableArray arrayWithObjects:
 		[DefaultPrinterAction class],
 		[DesktopBackgroundAction class],
 		[FirewallRuleAction class],
@@ -253,6 +322,7 @@
 		[MuteAction class],
 		[NetworkLocationAction class],
 		[OpenAction class],
+		[OutputVolumeAction class],
 		[PowerManagerAction class],
 		[QuitApplicationAction class],
 		[ScreenSaverPasswordAction class],
@@ -260,6 +330,7 @@
 		[ScreenSaverTimeAction class],
 //		[ShellScriptAction class],
 		[SleepAction class],
+		[TimeZoneAction class],
 		[ToggleBluetoothAction class],
 		[ToggleWiFiAction class],
 		[UnmountAction class],
@@ -277,6 +348,7 @@
 		NSLocalizedString(@"Mute", @"Action type");
 		NSLocalizedString(@"NetworkLocation", @"Action type");
 		NSLocalizedString(@"Open", @"Action type");
+		NSLocalizedString(@"OutputVolume", @"Action type");
 		NSLocalizedString(@"PowerManager", @"Action type");
 		NSLocalizedString(@"QuitApplication", @"Action type");
 		NSLocalizedString(@"ScreenSaverPassword", @"Action type");
@@ -284,11 +356,16 @@
 		NSLocalizedString(@"ScreenSaverTime", @"Action type");
 		NSLocalizedString(@"ShellScript", @"Action type");
 		NSLocalizedString(@"Sleep", @"Action type");
+		NSLocalizedString(@"TimeZone", @"Action type");
 		NSLocalizedString(@"ToggleBluetooth", @"Action type");
 		NSLocalizedString(@"ToggleWiFi", @"Action type");
 		NSLocalizedString(@"Unmount", @"Action type");
 		NSLocalizedString(@"VPN", @"Action type");
 	}
+
+	// FirewallRule action is currently broken on Leopard
+	if (isLeopardOrLater())
+		[classes removeObject:[FirewallRuleAction class]];
 
 	// Instantiate all the actions
 	NSMutableArray *list = [[NSMutableArray alloc] initWithCapacity:[classes count]];

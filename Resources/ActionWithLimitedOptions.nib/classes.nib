@@ -13,12 +13,18 @@
             SUPERCLASS = NSObject; 
         }, 
         {
-            CLASS = ActionWithString; 
+            CLASS = ActionWithLimitedOptions; 
             LANGUAGE = ObjC; 
-            OUTLETS = {leadTextField = NSTextField; parameterTextField = NSTextField; }; 
+            OUTLETS = {
+                actionParameterController = NSArrayController; 
+                suggestionLeadTextField = FlexTextField; 
+            }; 
             SUPERCLASS = Action; 
         }, 
-        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = FlexMatrix; LANGUAGE = ObjC; SUPERCLASS = NSMatrix; }, 
+        {CLASS = FlexTextField; LANGUAGE = ObjC; SUPERCLASS = NSTextField; }, 
+        {CLASS = LocalisableButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }
     ); 
     IBVersion = 1; 
 }

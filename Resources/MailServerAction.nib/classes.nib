@@ -13,15 +13,19 @@
             SUPERCLASS = NSObject; 
         }, 
         {
-            CLASS = ActionWithLimitedOptions; 
+            CLASS = ActionSettingMailServer; 
             LANGUAGE = ObjC; 
             OUTLETS = {
-                actionParameterController = NSArrayController; 
-                suggestionLeadTextField = NSTextField; 
+                accountController = NSArrayController; 
+                leadTextField = FlexTextField; 
+                serverController = NSArrayController; 
             }; 
             SUPERCLASS = Action; 
         }, 
-        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = FlexMatrix; LANGUAGE = ObjC; SUPERCLASS = NSMatrix; }, 
+        {CLASS = FlexTextField; LANGUAGE = ObjC; SUPERCLASS = NSTextField; }, 
+        {CLASS = LocalisableButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }
     ); 
     IBVersion = 1; 
 }

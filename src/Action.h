@@ -42,6 +42,8 @@
 - (BOOL)executeAppleScript:(NSString *)script;		// returns YES on success, NO on failure
 - (NSArray *)executeAppleScriptReturningListOfStrings:(NSString *)script;
 
+- (BOOL)authExec:(NSString *)path args:(NSArray *)args authPrompt:(NSString *)prompt;
+
 @end
 
 //////////////////////////////////////////////////////////////////////////////////////////

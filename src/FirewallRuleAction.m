@@ -89,22 +89,19 @@ static NSLock *sharedLock = nil;
 				 kCFPreferencesCurrentHost);
 	CFRelease(newDict);
 
-	// Call the FirewallTool utility to reload the firewall rules from the preferences
-	// TODO: Look for better ways todo this that don't require admin privileges.
-	NSString *script = @"do shell script \"/usr/libexec/FirewallTool\" with administrator privileges";
+	// Run FirewallTool to flush firewall changes
+	NSString *tool = @"/usr/libexec/FirewallTool";
+	NSString *prompt = NSLocalizedString(@"MarcoPolo needs to restart your firewall with the new configuration.\n\n",
+					     @"In FirewallRuleAction");
 
-	NSDictionary *errorDict;
-	NSAppleScript *appleScript = [[[NSAppleScript alloc] initWithSource:script] autorelease];
-	NSAppleEventDescriptor *returnDescriptor = [appleScript executeAndReturnError:&errorDict];
-
-	[sharedLock unlock];
-
-	if (!returnDescriptor) {
+	if (![self authExec:tool args:[NSArray array] authPrompt:prompt]) {
 		*errorString = NSLocalizedString(@"Couldn't restart firewall with new configuration!",
 						 @"In FirewallRuleAction");
+		[sharedLock unlock];
 		return NO;
 	}
 
+	[sharedLock unlock];
 	return YES;
 }
 
@@ -130,9 +127,9 @@ static NSLock *sharedLock = nil;
 		NSString *disableDesc = [NSString stringWithFormat:NSLocalizedString(@"Disable %@", @"In FirewallRuleAction"), name];
 
 		[opts addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-			enableOpt, @"option", enableDesc, @"description", nil]];
+			enableOpt, @"parameter", enableDesc, @"description", nil]];
 		[opts addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-			disableOpt, @"option", disableDesc, @"description", nil]];
+			disableOpt, @"parameter", disableDesc, @"description", nil]];
 	}
 
 	return opts;

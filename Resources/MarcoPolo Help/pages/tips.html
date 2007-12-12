@@ -24,13 +24,16 @@
 	<p>This page gives examples of useful ways that
 	MarcoPolo can be used, especially via actions.
 	</p>
+	<p>Where an AppleScript is given, it should be created and saved with
+	the <em>Script Editor</em>, and pointed to by an <em>Open</em> action in MarcoPolo.
+	</p>
 
 			
 	<div summary="How to cause Adium to connect and set your status" class="taskbox">
 		<p>
 		<strong>To cause Adium to connect and set your status:</strong>
-		<ol>
-		<li>Use <em>Script Editor</em> to create an AppleScript such as:
+		</p>
+		<p>Use the following AppleScript:
 <pre>
 tell application "Adium"
 	activate
@@ -38,13 +41,8 @@ tell application "Adium"
 	set my status type to available
 end tell
 </pre>
-		</li>
-		<li>Save it somewhere convenient.</li>
-		<li>Create an <em>Open</em> action in MarcoPolo, selecting the saved script as its parameter.</li>
-		</ol>
 		</p>
-		<p>
-		You may replace <em>available</em> with <em>away</em> to have
+		<p>You may replace <em>available</em> with <em>away</em> to have
 		Adium set your status as busy.
 		</p>
 	</div>
@@ -52,18 +50,30 @@ end tell
 	<div summary="How to launch iTunes and hide its window" class="taskbox">
 		<p>
 		<strong>To launch iTunes and hide its window:</strong>
-		<ol>
-		<li>Use <em>Script Editor</em> to create an AppleScript such as:
+		</p>
+		<p>Use the following AppleScript:
 <pre>
 tell application "iTunes"
 	launch
 	set visible of window 1 to false
 end tell
 </pre>
-		</li>
-		<li>Save it somewhere convenient.</li>
-		<li>Create an <em>Open</em> action in MarcoPolo, selecting the saved script as its parameter.</li>
-		</ol>
+		</p>
+	</div>
+
+	<div summary="How to unlock the keychain" class="taskbox">
+		<p>
+		<strong>To unlock the keychain:</strong>
+		</p>
+		<p>Use the following AppleScript:
+<pre>
+tell application "Keychain Scripting"
+	unlock
+end tell
+</pre>
+		</p>
+		<p>You may replace <em>unlock</em> with <em>lock</em> to reverse
+		the operation.
 		</p>
 	</div>
 

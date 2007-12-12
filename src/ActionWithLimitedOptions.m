@@ -35,6 +35,7 @@
 	[super writeToPanel:dict];
 
 	[suggestionLeadTextField setStringValue:[self suggestionLeadText]];
+	[suggestionLeadTextField flexToFit];
 
 	[actionParameterController removeObjects:[actionParameterController arrangedObjects]];
 	[actionParameterController addObjects:[self suggestions]];

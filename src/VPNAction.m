@@ -78,13 +78,13 @@
 	NSMutableArray *opts = [NSMutableArray arrayWithCapacity:4];
 
 	[opts addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-		@"-PPTP", @"option", @"Disable default PPTP VPN", @"description", nil]];
+		@"-PPTP", @"parameter", @"Disable default PPTP VPN", @"description", nil]];
 	[opts addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-		@"+PPTP", @"option", @"Enable default PPTP VPN", @"description", nil]];
+		@"+PPTP", @"parameter", @"Enable default PPTP VPN", @"description", nil]];
 	[opts addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-		@"-L2TP", @"option", @"Disable default L2TP VPN", @"description", nil]];
+		@"-L2TP", @"parameter", @"Disable default L2TP VPN", @"description", nil]];
 	[opts addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-		@"+L2TP", @"option", @"Enable default L2TP VPN", @"description", nil]];
+		@"+L2TP", @"parameter", @"Enable default L2TP VPN", @"description", nil]];
 
 	return opts;
 }

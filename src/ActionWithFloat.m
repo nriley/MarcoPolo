@@ -1,19 +1,23 @@
 //
-//  ActionWithString.m
+//  ActionWithFloat.m
 //  MarcoPolo
 //
-//  Created by David Symonds on 30/11/07.
+//  Created by David Symonds on 12/12/07.
 //
 
-#import "ActionWithString.h"
+#import "ActionWithFloat.h"
 
 
-@implementation ActionWithString
+@implementation ActionWithFloat
 
 - (id)init
 {
-	if (!(self = [super initWithNibNamed:@"ActionWithString"]))
+	if (!(self = [super initWithNibNamed:@"ActionWithFloat"]))
 		return nil;
+
+	// Default to 0-100 display
+	[parameterSlider setMinValue:0];
+	[parameterSlider setMaxValue:100];
 
 	return self;
 }
@@ -22,7 +26,9 @@
 {
 	NSMutableDictionary *dict = [super readFromPanel];
 
-	[dict setValue:[parameterTextField stringValue] forKey:@"parameter"];
+	NSNumber *val = [NSNumber numberWithFloat:[parameterSlider floatValue]];
+
+	[dict setValue:val forKey:@"parameter"];
 	if (![dict objectForKey:@"description"])
 		[dict setValue:[self descriptionOf:dict] forKey:@"description"];
 
@@ -36,11 +42,12 @@
 	[leadTextField setStringValue:[self leadText]];
 	[leadTextField flexToFit];
 
+	float initialValue;
 	if ([dict objectForKey:@"parameter"])
-		[parameterTextField setStringValue:[dict valueForKey:@"parameter"]];
+		initialValue = [[dict valueForKey:@"parameter"] floatValue];
 	else
-		[parameterTextField setStringValue:@""];
-	[parameterTextField selectText:self];
+		initialValue = ([parameterSlider minValue] + [parameterSlider maxValue]) / 2;
+	[parameterSlider setFloatValue:initialValue];
 }
 
 - (NSString *)leadText
