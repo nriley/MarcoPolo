@@ -1,14 +1,14 @@
 //
-//  SleepAction.m
+//  SleepTimeAction.m
 //  MarcoPolo
 //
 //  Created by James Newton on 23/11/07.
 //
 
-#import "SleepAction.h"
+#import "SleepTimeAction.h"
 
 
-@implementation SleepAction
+@implementation SleepTimeAction
 
 - (NSString *)descriptionOf:(NSDictionary *)actionDict
 {

@@ -297,7 +297,7 @@ static AuthorizationRef authRef = 0;
 #import "ScreenSaverStartAction.h"
 #import "ScreenSaverTimeAction.h"
 //#import "ShellScriptAction.h"
-#import "SleepAction.h"
+#import "SleepTimeAction.h"
 #import "TimeZoneAction.h"
 #import "ToggleBluetoothAction.h"
 #import "ToggleWiFiAction.h"
@@ -329,7 +329,7 @@ static AuthorizationRef authRef = 0;
 		[ScreenSaverStartAction class],
 		[ScreenSaverTimeAction class],
 //		[ShellScriptAction class],
-		[SleepAction class],
+		[SleepTimeAction class],
 		[TimeZoneAction class],
 		[ToggleBluetoothAction class],
 		[ToggleWiFiAction class],
@@ -355,7 +355,7 @@ static AuthorizationRef authRef = 0;
 		NSLocalizedString(@"ScreenSaverStart", @"Action type");
 		NSLocalizedString(@"ScreenSaverTime", @"Action type");
 		NSLocalizedString(@"ShellScript", @"Action type");
-		NSLocalizedString(@"Sleep", @"Action type");
+		NSLocalizedString(@"SleepTime", @"Action type");
 		NSLocalizedString(@"TimeZone", @"Action type");
 		NSLocalizedString(@"ToggleBluetooth", @"Action type");
 		NSLocalizedString(@"ToggleWiFi", @"Action type");

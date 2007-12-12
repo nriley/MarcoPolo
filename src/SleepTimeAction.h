@@ -1,5 +1,5 @@
 //
-//  SleepAction.h
+//  SleepTimeAction.h
 //  MarcoPolo
 //
 //  Created by James Newton on 23/11/07.
@@ -9,7 +9,7 @@
 #import "ActionWithLimitedOptions.h"
 
 
-@interface SleepAction : ActionWithLimitedOptions {
+@interface SleepTimeAction : ActionWithLimitedOptions {
 }
 
 - (NSString *)descriptionOf:(NSDictionary *)actionDict;
