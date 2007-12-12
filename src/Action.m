@@ -289,6 +289,7 @@ static AuthorizationRef authRef = 0;
 #import "MuteAction.h"
 #import "NetworkLocationAction.h"
 #import "OpenAction.h"
+#import "OutputVolumeAction.h"
 #import "QuitApplicationAction.h"
 #import "ScreenSaverPasswordAction.h"
 #import "ScreenSaverStartAction.h"
@@ -318,6 +319,7 @@ static AuthorizationRef authRef = 0;
 		[MuteAction class],
 		[NetworkLocationAction class],
 		[OpenAction class],
+		[OutputVolumeAction class],
 		[QuitApplicationAction class],
 		[ScreenSaverPasswordAction class],
 		[ScreenSaverStartAction class],
@@ -341,6 +343,7 @@ static AuthorizationRef authRef = 0;
 		NSLocalizedString(@"Mute", @"Action type");
 		NSLocalizedString(@"NetworkLocation", @"Action type");
 		NSLocalizedString(@"Open", @"Action type");
+		NSLocalizedString(@"OutputVolume", @"Action type");
 		NSLocalizedString(@"QuitApplication", @"Action type");
 		NSLocalizedString(@"ScreenSaverPassword", @"Action type");
 		NSLocalizedString(@"ScreenSaverStart", @"Action type");

@@ -1,0 +1,27 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {closeSheetWithCancel = id; closeSheetWithOK = id; }; 
+            CLASS = Action; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            CLASS = ActionSetController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {prefsWindowController = NSWindowController; }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            CLASS = ActionWithFloat; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {leadTextField = FlexTextField; parameterSlider = NSSlider; }; 
+            SUPERCLASS = Action; 
+        }, 
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = FlexMatrix; LANGUAGE = ObjC; SUPERCLASS = NSMatrix; }, 
+        {CLASS = FlexTextField; LANGUAGE = ObjC; SUPERCLASS = NSTextField; }, 
+        {CLASS = LocalisableButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }
+    ); 
+    IBVersion = 1; 
+}
