@@ -155,7 +155,7 @@ static NSMutableArray *pma_opts = nil;
 
 - (NSString *)suggestionLeadText
 {
-	return NSLocalizedString(@"Set the following power setting to:", @"");
+	return NSLocalizedString(@"Set the following power setting:", @"");
 }
 
 - (NSArray *)suggestions

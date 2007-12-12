@@ -73,7 +73,7 @@
 
 - (NSString *)suggestionLeadText
 {
-	return NSLocalizedString(@"Set the following sleep setting to:", @"");
+	return NSLocalizedString(@"Set the following sleep setting:", @"");
 }
 
 - (NSArray *)suggestions
