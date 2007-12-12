@@ -8,6 +8,7 @@
 #import <Security/Authorization.h>
 #import <Security/AuthorizationTags.h>
 #import "Action.h"
+#import "Common.h"
 #import "DSLogger.h"
 
 
@@ -308,7 +309,7 @@ static AuthorizationRef authRef = 0;
 	if (!(self = [super init]))
 		return nil;
 
-	NSArray *classes = [NSArray arrayWithObjects:
+	NSMutableArray *classes = [NSMutableArray arrayWithObjects:
 		[DefaultPrinterAction class],
 		[DesktopBackgroundAction class],
 		[FirewallRuleAction class],
@@ -355,6 +356,10 @@ static AuthorizationRef authRef = 0;
 		NSLocalizedString(@"Unmount", @"Action type");
 		NSLocalizedString(@"VPN", @"Action type");
 	}
+
+	// FirewallRule action is currently broken on Leopard
+	if (isLeopardOrLater())
+		[classes removeObject:[FirewallRuleAction class]];
 
 	// Instantiate all the actions
 	NSMutableArray *list = [[NSMutableArray alloc] initWithCapacity:[classes count]];
