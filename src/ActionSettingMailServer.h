@@ -6,22 +6,18 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "Action.h"
+#import "ActionWithTwoLimitedOptions.h"
 #import "FlexControls.h"
 
 
 #define kAllMailAccounts	@"*"
 
-@interface ActionSettingMailServer : Action {
-	IBOutlet FlexTextField *leadTextField;
-	IBOutlet NSArrayController *accountController, *serverController;
+@interface ActionSettingMailServer : ActionWithTwoLimitedOptions {
 }
-
-- (id)init;
 
 // Need to be implemented by descendant classes
 - (NSString *)leadText;
-- (NSArray *)accountOptions;	// optional; will default to all Mail's accounts
-- (NSArray *)serverOptions;
+- (NSArray *)firstSuggestions;	// optional; will default to all Mail's accounts
+- (NSArray *)secondSuggestions;	// should return array of dictionaries for possible servers
 
 @end

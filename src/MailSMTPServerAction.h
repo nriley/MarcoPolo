@@ -16,6 +16,6 @@
 - (BOOL)execute:(NSDictionary *)actionDict error:(NSString **)errorString;
 
 - (NSString *)leadText;
-- (NSArray *)serverOptions;
+- (NSArray *)secondSuggestions;
 
 @end

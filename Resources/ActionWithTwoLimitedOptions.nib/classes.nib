@@ -13,12 +13,12 @@
             SUPERCLASS = NSObject; 
         }, 
         {
-            CLASS = ActionSettingMailServer; 
+            CLASS = ActionWithTwoLimitedOptions; 
             LANGUAGE = ObjC; 
             OUTLETS = {
-                accountController = NSArrayController; 
+                firstParameterController = NSArrayController; 
                 leadTextField = FlexTextField; 
-                serverController = NSArrayController; 
+                secondParameterController = NSArrayController; 
             }; 
             SUPERCLASS = Action; 
         }, 
