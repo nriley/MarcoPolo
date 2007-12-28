@@ -12,22 +12,44 @@
 
 - (NSString *)descriptionOf:(NSDictionary *)actionDict
 {
-//	return [NSString stringWithFormat:NSLocalizedString(@"Setting default printer to '%@'.", @""),
-//		[actionDict valueForKey:@"parameter"]];
+	NSString *account = [[actionDict valueForKey:@"parameter"] objectAtIndex:0];
+	NSString *status = [[actionDict valueForKey:@"parameter"] objectAtIndex:1];
+
+	if ([account isEqualToString:kAllAdiumAccounts])
+		return [NSString stringWithFormat:NSLocalizedString(@"Setting status of all Adium accounts to '%@'.", @""),
+			status];
+	return [NSString stringWithFormat:NSLocalizedString(@"Setting status of Adium account '%@' to '%@'.", @""),
+		account, status];
 }
 
 - (BOOL)execute:(NSDictionary *)actionDict error:(NSString **)errorString
 {
-//	NSArray *args = [NSArray arrayWithObjects:@"-d", [actionDict valueForKey:@"parameter"], nil];
-//	NSTask *task = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/lpoptions" arguments:args];
-//	[task waitUntilExit];
-//
-//	if ([task terminationStatus] != 0) {
-//		*errorString = NSLocalizedString(@"Couldn't set default printer!", @"");
-//		return NO;
-//	}
-//
-//	return YES;
+	NSString *account = [[actionDict valueForKey:@"parameter"] objectAtIndex:0];
+	NSString *status = [[actionDict valueForKey:@"parameter"] objectAtIndex:1];
+
+	NSString *script;
+	// TODO: escape parameters?
+	if ([account isEqualToString:kAllAdiumAccounts]) {
+		script = [NSString stringWithFormat:
+			@"tell application \"Adium\"\n"
+			"  set stat to the first status whose title is \"%@\"\n"
+			"  set the status of every account to stat\n"
+			"end tell", status];
+	} else {
+		script = [NSString stringWithFormat:
+			@"tell application \"Adium\"\n"
+			"  set stat to the first status whose title is \"%@\"\n"
+			"  set acc to the first account whose title is \"%@\"\n"
+			"  set the status of acc to stat\n"
+			"end tell", status, account];
+	}
+
+	if (![self executeAppleScript:script]) {
+		*errorString = NSLocalizedString(@"Couldn't set Adium status!", @"In AdiumAction");
+		return NO;
+	}
+
+	return YES;
 }
 
 - (NSString *)leadText
