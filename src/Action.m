@@ -177,7 +177,42 @@
 	return (appleScriptResult_ ? YES : NO);
 }
 
+// Private
+- (NSArray *)decodeListOfStrings:(NSAppleEventDescriptor *)descriptor
+{
+	if ([descriptor descriptorType] != typeAEList)
+		return nil;
+
+	int count = [descriptor numberOfItems], i;
+	NSMutableArray *list = [NSMutableArray arrayWithCapacity:count];
+	for (i = 1; i <= count; ++i) {		// Careful -- AppleScript lists are 1-based
+		NSAppleEventDescriptor *elt = [descriptor descriptorAtIndex:i];
+		if (!elt) {
+			NSLog(@"Oops -- couldn't get descriptor at index %d", i);
+			continue;
+		}
+		NSString *val = [elt stringValue];
+		if (!val) {
+			NSLog(@"Oops -- couldn't turn descriptor at index %d into string", i);
+			continue;
+		}
+		[list addObject:val];
+	}
+
+	return list;
+}
+
 - (NSArray *)executeAppleScriptReturningListOfStrings:(NSString *)script
+{
+	if (![self executeAppleScript:script])
+		return nil;
+	if ([appleScriptResult_ descriptorType] != typeAEList)
+		return nil;
+
+	return [self decodeListOfStrings:appleScriptResult_];
+}
+
+- (NSArray *)executeAppleScriptReturningListOfListOfStrings:(NSString *)script
 {
 	if (![self executeAppleScript:script])
 		return nil;
@@ -192,12 +227,16 @@
 			NSLog(@"Oops -- couldn't get descriptor at index %d", i);
 			continue;
 		}
-		NSString *val = [elt stringValue];
-		if (!val) {
-			NSLog(@"Oops -- couldn't turn descriptor at index %d into string", i);
+		if ([elt descriptorType] != typeAEList) {
+			NSLog(@"Oops -- descriptor at index %d isn't a list", i);
 			continue;
 		}
-		[list addObject:val];
+		NSArray *innerList = [self decodeListOfStrings:elt];
+		if (!innerList) {
+			NSLog(@"Oops -- couldn't turn descriptor at index %d into list of strings", i);
+			continue;
+		}
+		[list addObject:innerList];
 	}
 
 	return list;
@@ -280,6 +319,7 @@ static AuthorizationRef authRef = 0;
 
 @end
 
+#import "AdiumAction.h"
 #import "DefaultPrinterAction.h"
 #import "DesktopBackgroundAction.h"
 #import "FirewallRuleAction.h"
@@ -310,6 +350,7 @@ static AuthorizationRef authRef = 0;
 		return nil;
 
 	NSMutableArray *classes = [NSMutableArray arrayWithObjects:
+		[AdiumAction class],
 		[DefaultPrinterAction class],
 		[DesktopBackgroundAction class],
 		[FirewallRuleAction class],
@@ -334,6 +375,7 @@ static AuthorizationRef authRef = 0;
 		nil];
 	if (NO) {
 		// Purely for the benefit of 'genstrings'
+		NSLocalizedString(@"Adium", @"Action type");
 		NSLocalizedString(@"DefaultPrinter", @"Action type");
 		NSLocalizedString(@"DesktopBackground", @"Action type");
 		NSLocalizedString(@"FirewallRule", @"Action type");

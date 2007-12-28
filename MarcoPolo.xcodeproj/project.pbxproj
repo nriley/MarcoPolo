@@ -100,6 +100,7 @@
 		8DDB69D70CFE9EF500300021 /* ScreenSaverStartAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D3C85130CDD8546009DBCD9 /* ScreenSaverStartAction.m */; };
 		8DDB69DB0CFE9EFA00300021 /* ScreenSaverPasswordAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D71CB770C17C01700E56526 /* ScreenSaverPasswordAction.m */; };
 		8DDB71140D2490AE00609298 /* ActionWithTwoLimitedOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DDB71120D2490AE00609298 /* ActionWithTwoLimitedOptions.m */; };
+		8DDB719B0D2498D200609298 /* AdiumAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DDB71020D248D3300609298 /* AdiumAction.m */; };
 		8DE13F0E0C460E1700AEC949 /* FireWireEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DCBF4900BE5622600A01414 /* FireWireEvidenceSource.m */; };
 		8DE428FC0C5084D00073499A /* TimeOfDayEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DE428FA0C5084D00073499A /* TimeOfDayEvidenceSource.m */; };
 		8DE429480C5091F90073499A /* TimeOfDayRule.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8DE429460C5091F90073499A /* TimeOfDayRule.nib */; };
@@ -820,6 +821,7 @@
 				8DB169C70D0FBD3300871B81 /* ActionWithFloat.m in Sources */,
 				8DB169E20D0FC4FB00871B81 /* OutputVolumeAction.m in Sources */,
 				8DDB71140D2490AE00609298 /* ActionWithTwoLimitedOptions.m in Sources */,
+				8DDB719B0D2498D200609298 /* AdiumAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
