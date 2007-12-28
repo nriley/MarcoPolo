@@ -30,7 +30,7 @@
 	[arr addObject:
 		[NSDictionary dictionaryWithObjectsAndKeys:
 			kAllMailAccounts, @"parameter",
-			NSLocalizedString(@"All accounts", @"In account list for Mail server actions"), @"description", nil]];
+			NSLocalizedString(@"All accounts", @"In account list for actions"), @"description", nil]];
 
 	NSEnumerator *en = [list objectEnumerator];
 	NSString *accName;
