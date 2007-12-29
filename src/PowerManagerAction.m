@@ -113,13 +113,6 @@ static NSMutableArray *pma_opts = nil;
 		return [NSString stringWithFormat:NSLocalizedString(@"Disabling: %@.", @""), name];
 }
 
-- (void)checkPerms
-{
-	if (![self executeAppleScript:@"do shell script \"/bin/ls -l /usr/bin/pmset | awk '{if (substr($1, 4, 1) == \\\"s\\\") exit 0; else exit 1;}'\""]) {
-		[self executeAppleScript:@"do shell script \"chmod +s /usr/bin/pmset\" with administrator privileges"];
-	}
-}
-
 - (BOOL)execute:(NSDictionary *)actionDict error:(NSString **)errorString
 {
 	NSString *setting = [actionDict valueForKey:@"parameter"];
@@ -140,13 +133,12 @@ static NSMutableArray *pma_opts = nil;
 		cmd = [NSString stringWithFormat:@"%@ %d", name, val];
 	}
 
-	[self checkPerms];
+	NSString *tool = @"/usr/bin/pmset";
+	NSArray *args = [cmd componentsSeparatedByString:@" "];
+	NSString *prompt = NSLocalizedString(@"MarcoPolo needs to change your power management settings.\n\n", @"");
 
-	NSString *script = [NSString stringWithFormat:
-		@"do shell script \"/usr/bin/pmset %@\"", cmd];
-	if (![self executeAppleScript:script]) {
-		*errorString = [NSString stringWithFormat:NSLocalizedString(@"Couldn't set '%@'!", @""),
-			name];
+	if (![self authExec:tool args:args authPrompt:prompt]) {
+		*errorString = NSLocalizedString(@"Couldn't change power manager setting!", @"");
 		return NO;
 	}
 

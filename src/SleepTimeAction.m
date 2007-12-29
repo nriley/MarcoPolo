@@ -51,8 +51,7 @@
 
 	NSString *tool = @"/usr/bin/pmset";
 	NSArray *args = [NSArray arrayWithObjects:cmd, t, nil];
-	NSString *prompt = NSLocalizedString(@"MarcoPolo needs to change your power management settings.\n\n",
-					     @"In SleepTimeAction");
+	NSString *prompt = NSLocalizedString(@"MarcoPolo needs to change your power management settings.\n\n", @"");
 
 	if (![self authExec:tool args:args authPrompt:prompt]) {
 		*errorString = NSLocalizedString(@"Couldn't change sleep time!", @"");
