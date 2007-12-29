@@ -64,10 +64,8 @@
 	NSString *script =
 		@"tell application \"Adium\"\n"
 		"  set accList to {}\n"
-		"  repeat with serv in every service\n"
-		"    repeat with acc in every account of serv\n"
-		"      copy {title of serv, title of acc} to end of accList\n"
-		"    end repeat\n"
+		"  repeat with acc in every account\n"
+		"    copy {title of service of acc, title of acc} to end of accList\n"
 		"  end repeat\n"
 		"  get accList\n"
 		"end tell";
