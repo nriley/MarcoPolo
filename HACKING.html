@@ -17,7 +17,7 @@
 </head>
 <body>
 <h1>MarcoPolo Hacking Guide</h1>
-<h2>30 November 2007</h2>
+<h2>29 December 2007</h2>
 
 <h3>Adding a new Evidence Source</h3>
 <ol>
@@ -110,13 +110,19 @@
 	<dd>The most general; provide your own nib</dd>
 	<dt><tt>ActionWithBool</tt></dt>
 	<dd>Two-state (on/off), selected using two radio buttons</dd>
+	<dt><tt>ActionWithFile</tt></dt>
+	<dd>Operates on/with a single file</dd>
+	<dt><tt>ActionWithFloat</tt></dt>
+	<dd>Numeric parameter (usually in [0, 1]), selected with a slider</dd>
 	<dt><tt>ActionWithLimitedOptions</tt></dt>
 	<dd>Limited options, selected in a combo box control</dd>
 	<dt><tt>ActionWithStrings</tt></dt>
 	<dd>Action with single string parameter</dd>
+	<dt><tt>ActionWithTwoLimitedOptions</tt></dt>
+	<dd>Two limited options, selected in two combo box controls</dd>
 </dl>
 </li>
-<li>Add mention of it in the three places in Action.m (from around line 216):
+<li>Add mention of it in the three places in Action.m (from around line 283):
 <pre>
 	#import "FooAction.h"
 	...

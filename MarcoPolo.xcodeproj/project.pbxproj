@@ -292,8 +292,6 @@
 		8DD790AB0BC28A9F00705346 /* OpenAction.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = OpenAction.m; path = src/OpenAction.m; sourceTree = "<group>"; };
 		8DD790C10BC28C4E00705346 /* MailSMTPServerAction.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = MailSMTPServerAction.h; path = src/MailSMTPServerAction.h; sourceTree = "<group>"; };
 		8DD790C20BC28C4E00705346 /* MailSMTPServerAction.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = MailSMTPServerAction.m; path = src/MailSMTPServerAction.m; sourceTree = "<group>"; };
-		8DDB71010D248D3300609298 /* AdiumAction.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = AdiumAction.h; path = src/AdiumAction.h; sourceTree = "<group>"; };
-		8DDB71020D248D3300609298 /* AdiumAction.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = AdiumAction.m; path = src/AdiumAction.m; sourceTree = "<group>"; };
 		8DDB71110D2490AE00609298 /* ActionWithTwoLimitedOptions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ActionWithTwoLimitedOptions.h; path = src/ActionWithTwoLimitedOptions.h; sourceTree = "<group>"; };
 		8DDB71120D2490AE00609298 /* ActionWithTwoLimitedOptions.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = ActionWithTwoLimitedOptions.m; path = src/ActionWithTwoLimitedOptions.m; sourceTree = "<group>"; };
 		8DE428F90C5084D00073499A /* TimeOfDayEvidenceSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimeOfDayEvidenceSource.h; path = src/TimeOfDayEvidenceSource.h; sourceTree = "<group>"; };
@@ -496,8 +494,6 @@
 		8D497F9C0CFFD26C00C6816F /* Concrete Actions */ = {
 			isa = PBXGroup;
 			children = (
-				8DDB71010D248D3300609298 /* AdiumAction.h */,
-				8DDB71020D248D3300609298 /* AdiumAction.m */,
 				8DCABF770D0268730044D0BC /* TimeZoneAction.h */,
 				8DCABF780D0268730044D0BC /* TimeZoneAction.m */,
 				8DF5A45E0BC239B100CBEB4B /* DefaultPrinterAction.h */,
