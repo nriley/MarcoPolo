@@ -31,37 +31,31 @@
 		return [NSString stringWithFormat:NSLocalizedString(@"Setting %@ sleep sleep time to %d minutes.", @""), settingText, t];
 }
 
-- (void)checkPerms
-{
-	if (![self executeAppleScript:@"do shell script \"/bin/ls -l /usr/bin/pmset | awk '{if (substr($1, 4, 1) == \\\"s\\\") exit 0; else exit 1;}'\""]) {
-		[self executeAppleScript:@"do shell script \"chmod +s /usr/bin/pmset\" with administrator privileges"];
-	}
-}
-
 - (BOOL)execute:(NSDictionary *)actionDict error:(NSString **)errorString
 {
 	NSString *setting = [[actionDict valueForKey:@"parameter"] objectAtIndex:0];
-	int t = [[[actionDict valueForKey:@"parameter"] objectAtIndex:1] intValue];
+	NSString *t = [[[actionDict valueForKey:@"parameter"] objectAtIndex:1] stringValue];
 	NSString *cmd;
 
 	if ([setting isEqualToString:@"comp"])
-		cmd = [NSString stringWithFormat:@"sleep %d", t];
+		cmd = @"sleep";
 	else if ([setting isEqualToString:@"disp"])
-		cmd = [NSString stringWithFormat:@"displaysleep %d", t];
+		cmd = @"displaysleep";
 	else if ([setting isEqualToString:@"disk"])
-		cmd = [NSString stringWithFormat:@"disksleep %d", t];
+		cmd = @"disksleep";
 	else {
 		*errorString = [NSString stringWithFormat:NSLocalizedString(@"Invalid option: %@", @""),
 			setting];
 		return NO;
 	}
 
-	[self checkPerms];
+	NSString *tool = @"/usr/bin/pmset";
+	NSArray *args = [NSArray arrayWithObjects:cmd, t, nil];
+	NSString *prompt = NSLocalizedString(@"MarcoPolo needs to change your power management settings.\n\n",
+					     @"In SleepTimeAction");
 
-	NSString *script = [NSString stringWithFormat:@"do shell script \"/usr/bin/pmset %@\"", cmd];
-	if (![self executeAppleScript:script]) {
-		*errorString = [NSString stringWithFormat:NSLocalizedString(@"Couldn't set '%@'!", @""),
-			setting];
+	if (![self authExec:tool args:args authPrompt:prompt]) {
+		*errorString = NSLocalizedString(@"Couldn't change sleep time!", @"");
 		return NO;
 	}
 
