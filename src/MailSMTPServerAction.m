@@ -12,8 +12,8 @@
 
 - (NSString *)descriptionOf:(NSDictionary *)actionDict
 {
-	NSString *account = [[actionDict valueForKey:@"parameter"] valueForKey:@"account"];
-	NSString *server = [[actionDict valueForKey:@"parameter"] valueForKey:@"server"];
+	NSString *account = [[actionDict valueForKey:@"parameter"] objectAtIndex:0];
+	NSString *server = [[actionDict valueForKey:@"parameter"] objectAtIndex:1];
 
 	if ([account isEqualToString:kAllMailAccounts])
 		return [NSString stringWithFormat:NSLocalizedString(@"Setting SMTP server for all Mail accounts to '%@'.", @""),
@@ -24,9 +24,8 @@
 
 - (BOOL)execute:(NSDictionary *)actionDict error:(NSString **)errorString;
 {
-	// TODO: support specific account specification
-	NSString *account = [[actionDict valueForKey:@"parameter"] valueForKey:@"account"];
-	NSString *server = [[actionDict valueForKey:@"parameter"] valueForKey:@"server"];
+	NSString *account = [[actionDict valueForKey:@"parameter"] objectAtIndex:0];
+	NSString *server = [[actionDict valueForKey:@"parameter"] objectAtIndex:1];
 
 	NSString *script;
 	// TODO: escape parameters?
@@ -58,7 +57,7 @@
 	return NSLocalizedString(@"Set Mail's SMTP server:", @"");
 }
 
-- (NSArray *)serverOptions
+- (NSArray *)secondSuggestions
 {
 	NSString *script =
 		@"tell application \"Mail\"\n"
@@ -68,7 +67,17 @@
 	NSArray *list = [self executeAppleScriptReturningListOfStrings:script];
 	if (!list)		// failure
 		return [NSArray array];
-	return list;
+
+	NSMutableArray *arr = [NSMutableArray arrayWithCapacity:[list count]];
+	NSEnumerator *en = [list objectEnumerator];
+	NSString *accName;
+	while ((accName = [en nextObject])) {
+		NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+			accName, @"description", accName, @"parameter", nil];
+		[arr addObject:dict];
+	}
+
+	return arr;
 }
 
 @end

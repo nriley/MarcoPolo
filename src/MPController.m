@@ -92,6 +92,7 @@
 	// Debugging
 	[appDefaults setValue:[NSNumber numberWithBool:NO] forKey:@"Debug OpenPrefsAtStartup"];
 	[appDefaults setValue:[NSNumber numberWithBool:NO] forKey:@"Debug USBParanoia"];
+	[appDefaults setValue:[NSNumber numberWithBool:NO] forKey:@"Debug LogMatchedRules"];
 
 	// Sparkle (TODO: make update time configurable?)
 	[appDefaults setValue:[NSNumber numberWithBool:YES] forKey:@"SUCheckAtStartup"];
@@ -547,6 +548,9 @@ finished_import:
 		if ([evidenceSources ruleMatches:rule])
 			[matching_rules addObject:rule];
 	}
+
+	if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"Debug LogMatchedRules"] boolValue])
+		NSLog(@"Matched rules: %@", matching_rules);
 
 	return matching_rules;
 }

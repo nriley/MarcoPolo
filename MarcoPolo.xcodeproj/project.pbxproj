@@ -68,7 +68,7 @@
 		8D8C9CE70BBB7BE00074D5B3 /* BluetoothEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8C9CE50BBB7BE00074D5B3 /* BluetoothEvidenceSource.m */; };
 		8D8C9E350BBB89320074D5B3 /* DB.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8C9E330BBB89320074D5B3 /* DB.m */; };
 		8D8D2B000CB9C91500A3EFAE /* ContextFilteredController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8D2AFE0CB9C91500A3EFAE /* ContextFilteredController.m */; };
-		8D8E05070D0E5ACA003106ED /* MailServerAction.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8D8E05060D0E5ACA003106ED /* MailServerAction.nib */; };
+		8D8E05070D0E5ACA003106ED /* ActionWithTwoLimitedOptions.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8D8E05060D0E5ACA003106ED /* ActionWithTwoLimitedOptions.nib */; };
 		8D8E050D0D0E5C22003106ED /* ActionSettingMailServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8E050B0D0E5C22003106ED /* ActionSettingMailServer.m */; };
 		8D90E51F0B71C4C9007D39FD /* MPController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D90E51E0B71C4C9007D39FD /* MPController.m */; };
 		8D91F17D0C47148200D9FC0F /* USBEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D35A34D0BBBA0CB006ACBB0 /* USBEvidenceSource.m */; };
@@ -101,6 +101,7 @@
 		8DDB69D30CFE9EED00300021 /* MuteAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC4E7F90C178917007E7E41 /* MuteAction.m */; };
 		8DDB69D70CFE9EF500300021 /* ScreenSaverStartAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D3C85130CDD8546009DBCD9 /* ScreenSaverStartAction.m */; };
 		8DDB69DB0CFE9EFA00300021 /* ScreenSaverPasswordAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D71CB770C17C01700E56526 /* ScreenSaverPasswordAction.m */; };
+		8DDB71140D2490AE00609298 /* ActionWithTwoLimitedOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DDB71120D2490AE00609298 /* ActionWithTwoLimitedOptions.m */; };
 		8DE13F0E0C460E1700AEC949 /* FireWireEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DCBF4900BE5622600A01414 /* FireWireEvidenceSource.m */; };
 		8DE428FC0C5084D00073499A /* TimeOfDayEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DE428FA0C5084D00073499A /* TimeOfDayEvidenceSource.m */; };
 		8DE429480C5091F90073499A /* TimeOfDayRule.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8DE429460C5091F90073499A /* TimeOfDayRule.nib */; };
@@ -248,7 +249,7 @@
 		8D8C9EBB0BBB8DAC0074D5B3 /* IPEvidenceSource.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = IPEvidenceSource.m; path = src/IPEvidenceSource.m; sourceTree = "<group>"; };
 		8D8D2AFD0CB9C91500A3EFAE /* ContextFilteredController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContextFilteredController.h; path = src/ContextFilteredController.h; sourceTree = "<group>"; };
 		8D8D2AFE0CB9C91500A3EFAE /* ContextFilteredController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContextFilteredController.m; path = src/ContextFilteredController.m; sourceTree = "<group>"; };
-		8D8E05060D0E5ACA003106ED /* MailServerAction.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = MailServerAction.nib; path = Resources/MailServerAction.nib; sourceTree = "<group>"; };
+		8D8E05060D0E5ACA003106ED /* ActionWithTwoLimitedOptions.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = ActionWithTwoLimitedOptions.nib; path = Resources/ActionWithTwoLimitedOptions.nib; sourceTree = "<group>"; };
 		8D8E050A0D0E5C22003106ED /* ActionSettingMailServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ActionSettingMailServer.h; path = src/ActionSettingMailServer.h; sourceTree = "<group>"; };
 		8D8E050B0D0E5C22003106ED /* ActionSettingMailServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ActionSettingMailServer.m; path = src/ActionSettingMailServer.m; sourceTree = "<group>"; };
 		8D90E51D0B71C4C9007D39FD /* MPController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPController.h; path = src/MPController.h; sourceTree = "<group>"; };
@@ -297,6 +298,8 @@
 		8DD790AB0BC28A9F00705346 /* OpenAction.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = OpenAction.m; path = src/OpenAction.m; sourceTree = "<group>"; };
 		8DD790C10BC28C4E00705346 /* MailSMTPServerAction.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = MailSMTPServerAction.h; path = src/MailSMTPServerAction.h; sourceTree = "<group>"; };
 		8DD790C20BC28C4E00705346 /* MailSMTPServerAction.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = MailSMTPServerAction.m; path = src/MailSMTPServerAction.m; sourceTree = "<group>"; };
+		8DDB71110D2490AE00609298 /* ActionWithTwoLimitedOptions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ActionWithTwoLimitedOptions.h; path = src/ActionWithTwoLimitedOptions.h; sourceTree = "<group>"; };
+		8DDB71120D2490AE00609298 /* ActionWithTwoLimitedOptions.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = ActionWithTwoLimitedOptions.m; path = src/ActionWithTwoLimitedOptions.m; sourceTree = "<group>"; };
 		8DE428F90C5084D00073499A /* TimeOfDayEvidenceSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimeOfDayEvidenceSource.h; path = src/TimeOfDayEvidenceSource.h; sourceTree = "<group>"; };
 		8DE428FA0C5084D00073499A /* TimeOfDayEvidenceSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TimeOfDayEvidenceSource.m; path = src/TimeOfDayEvidenceSource.m; sourceTree = "<group>"; };
 		8DE429470C5091F90073499A /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/TimeOfDayRule.nib; sourceTree = "<group>"; };
@@ -425,7 +428,7 @@
 			isa = PBXGroup;
 			children = (
 				8DB169C10D0FBC2200871B81 /* ActionWithFloat.nib */,
-				8D8E05060D0E5ACA003106ED /* MailServerAction.nib */,
+				8D8E05060D0E5ACA003106ED /* ActionWithTwoLimitedOptions.nib */,
 				8D2470B40D0E4DC200AB4693 /* ActionWithString.nib */,
 				8DCDC18E0D0E41850026AD93 /* ActionWithLimitedOptions.nib */,
 				8D5C79530D08FA7A001EC10E /* ActionWithBool.nib */,
@@ -624,6 +627,8 @@
 				8D9A21B40CFCE91D005BD5A9 /* ActionWithLimitedOptions.m */,
 				8DE6DDEB0CFFB0E7005BC54E /* ActionWithString.h */,
 				8DE6DDEC0CFFB0E7005BC54E /* ActionWithString.m */,
+				8DDB71110D2490AE00609298 /* ActionWithTwoLimitedOptions.h */,
+				8DDB71120D2490AE00609298 /* ActionWithTwoLimitedOptions.m */,
 				8D8E050A0D0E5C22003106ED /* ActionSettingMailServer.h */,
 				8D8E050B0D0E5C22003106ED /* ActionSettingMailServer.m */,
 			);
@@ -714,7 +719,7 @@
 				8D5C79540D08FA7A001EC10E /* ActionWithBool.nib in Resources */,
 				8DCDC18F0D0E41850026AD93 /* ActionWithLimitedOptions.nib in Resources */,
 				8D2470B50D0E4DC200AB4693 /* ActionWithString.nib in Resources */,
-				8D8E05070D0E5ACA003106ED /* MailServerAction.nib in Resources */,
+				8D8E05070D0E5ACA003106ED /* ActionWithTwoLimitedOptions.nib in Resources */,
 				8DB169C20D0FBC2200871B81 /* ActionWithFloat.nib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -822,6 +827,7 @@
 				8D8E050D0D0E5C22003106ED /* ActionSettingMailServer.m in Sources */,
 				8DB169C70D0FBD3300871B81 /* ActionWithFloat.m in Sources */,
 				8DB169E20D0FC4FB00871B81 /* OutputVolumeAction.m in Sources */,
+				8DDB71140D2490AE00609298 /* ActionWithTwoLimitedOptions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

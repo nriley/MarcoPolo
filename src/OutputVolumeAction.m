@@ -18,13 +18,13 @@
 - (NSString *)descriptionOf:(NSDictionary *)actionDict
 {
 	return [NSString stringWithFormat:NSLocalizedString(@"Setting output volume to %.0f%%.", @""),
-		[[actionDict valueForKey:@"parameter"] floatValue]];
+		[[actionDict valueForKey:@"parameter"] floatValue] * 100];
 }
 
 - (BOOL)execute:(NSDictionary *)actionDict error:(NSString **)errorString
 {
 	NSString *script = [NSString stringWithFormat:
-		@"set volume output volume %.1f", [[actionDict valueForKey:@"parameter"] floatValue]];
+		@"set volume output volume %.1f", [[actionDict valueForKey:@"parameter"] floatValue] * 100];
 
 	if (![self executeAppleScript:script]) {
 		*errorString = NSLocalizedString(@"Couldn't set output volume!", @"In OutputVolumeAction");
