@@ -65,11 +65,11 @@
 		NSString *description;
 
 		if (opts[i] == 0)
-			description = NSLocalizedString(@"never", @"Screen saver idle time");
+			description = NSLocalizedString(@"never", @"A time or timeout");
 		else if (opts[i] == 1)
-			description = NSLocalizedString(@"1 minute", @"Screen saver idle time");
+			description = NSLocalizedString(@"1 minute", @"A time or timeout");
 		else
-			description = [NSString stringWithFormat:NSLocalizedString(@"%d minutes", @"Screen saver idle time"), opts[i]];
+			description = [NSString stringWithFormat:NSLocalizedString(@"%d minutes", @"A time or timeout"), opts[i]];
 
 		[arr addObject:[NSDictionary dictionaryWithObjectsAndKeys:
 			option, @"parameter",

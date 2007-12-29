@@ -12,26 +12,23 @@
 
 - (NSString *)descriptionOf:(NSDictionary *)actionDict
 {
-	NSString *setting = [actionDict valueForKey:@"parameter"];
-	NSArray *split = [setting componentsSeparatedByString:@" "];
-	int t = [[split objectAtIndex:1] intValue];
+	NSString *setting = [[actionDict valueForKey:@"parameter"] objectAtIndex:0];
+	int t = [[[actionDict valueForKey:@"parameter"] objectAtIndex:1] intValue];
 
-	NSString *action = @"unknown";
-	if ([[split objectAtIndex:0] isEqualToString:@"comp"])
-		action = @"computer";
-	else if ([[split objectAtIndex:0] isEqualToString:@"disp"])
-		action = @"display";
-	else if ([[split objectAtIndex:0] isEqualToString:@"disk"])
-		action = @"disk";
+	NSString *settingText = @"?";
+	if ([setting isEqualToString:@"comp"])
+		settingText = NSLocalizedString(@"Computer", @"Sleep setting");
+	else if ([setting isEqualToString:@"disp"])
+		settingText = NSLocalizedString(@"Display", @"Sleep setting");
+	else if ([setting isEqualToString:@"disk"])
+		settingText = NSLocalizedString(@"Disk", @"Sleep setting");
 
 	if (t == 0)
-		return [NSString stringWithFormat:
-			NSLocalizedString(@"Disabling %@ sleep.", @""), action];
+		return [NSString stringWithFormat:NSLocalizedString(@"Disabling %@ sleep.", @""), settingText];
 	else if (t == 1)
-		return [NSString stringWithFormat:
-			NSLocalizedString(@"Setting %@ sleep time to 1 minute.", @""), action];
+		return [NSString stringWithFormat:NSLocalizedString(@"Setting %@ sleep time to 1 minute.", @""), settingText];
 	else
-		return [NSString stringWithFormat:NSLocalizedString(@"Setting %@ sleep time to %d minutes.", @""), action, t];
+		return [NSString stringWithFormat:NSLocalizedString(@"Setting %@ sleep sleep time to %d minutes.", @""), settingText, t];
 }
 
 - (void)checkPerms
@@ -43,16 +40,16 @@
 
 - (BOOL)execute:(NSDictionary *)actionDict error:(NSString **)errorString
 {
-	NSString *setting = [actionDict valueForKey:@"parameter"];
-	NSString *cmd = nil;
-	NSArray *split = [setting componentsSeparatedByString:@" "];
+	NSString *setting = [[actionDict valueForKey:@"parameter"] objectAtIndex:0];
+	int t = [[[actionDict valueForKey:@"parameter"] objectAtIndex:1] intValue];
+	NSString *cmd;
 
-	if ([[split objectAtIndex:0] isEqualToString:@"comp"])
-		cmd = [NSString stringWithFormat:@"sleep %@", [split objectAtIndex:1]];
-	else if ([[split objectAtIndex:0] isEqualToString:@"disp"])
-		cmd = [NSString stringWithFormat:@"displaysleep %@", [split objectAtIndex:1]];
-	else if ([[split objectAtIndex:0] isEqualToString:@"disk"])
-		cmd = [NSString stringWithFormat:@"disksleep %@", [split objectAtIndex:1]];
+	if ([setting isEqualToString:@"comp"])
+		cmd = [NSString stringWithFormat:@"sleep %d", t];
+	else if ([setting isEqualToString:@"disp"])
+		cmd = [NSString stringWithFormat:@"displaysleep %d", t];
+	else if ([setting isEqualToString:@"disk"])
+		cmd = [NSString stringWithFormat:@"disksleep %d", t];
 	else {
 		*errorString = [NSString stringWithFormat:NSLocalizedString(@"Invalid option: %@", @""),
 			setting];
@@ -71,38 +68,46 @@
 	return YES;
 }
 
-- (NSString *)suggestionLeadText
+- (NSString *)leadText
 {
 	return NSLocalizedString(@"Set the following sleep setting:", @"");
 }
 
-- (NSArray *)suggestions
+- (NSArray *)firstSuggestions
 {
-	NSArray* opts = [NSArray arrayWithObjects:@"3", @"5", @"15", @"30", @"60", @"120", @"0", nil];
-	NSArray* short_names = [NSArray arrayWithObjects:@"comp", @"disp", @"disk", nil];
-	NSArray* names = [NSArray arrayWithObjects:@"Computer sleep", @"Display sleep", @"Disk sleep", nil];
-	NSMutableArray *arr = [NSMutableArray 
-                              arrayWithCapacity:[opts count] * [names count]];
+	return [NSArray arrayWithObjects:
+		[NSDictionary dictionaryWithObjectsAndKeys:
+			@"comp", @"parameter",
+			NSLocalizedString(@"Computer", @"Sleep setting"), @"description", nil],
+		[NSDictionary dictionaryWithObjectsAndKeys:
+			@"disp", @"parameter",
+			NSLocalizedString(@"Display", @"Sleep setting"), @"description", nil],
+		[NSDictionary dictionaryWithObjectsAndKeys:
+			@"disk", @"parameter",
+			NSLocalizedString(@"Disk", @"Sleep setting"), @"description", nil],
+		nil];
+}
 
-	int i, j;
-	for (i = 0; i < [names count]; ++i) {
-		for (j = 0; j < [opts count]; ++j) {
-			NSString *option = [NSString stringWithFormat:@"%@ %@",
-				[short_names objectAtIndex:i],
-				[opts objectAtIndex:j]];
-			NSString *description;
+- (NSArray *)secondSuggestions
+{
+	int times[] = {3, 5, 15, 30, 60, 120, 0};
+	int num_times = sizeof(times) / sizeof(times[0]);
+	NSMutableArray *arr = [NSMutableArray arrayWithCapacity:num_times];
 
-			if ([[opts objectAtIndex:j] isEqualToString:@"0"])
-				description = [NSString stringWithFormat:NSLocalizedString(@"%@ never", @""), [names objectAtIndex:i]];
-			else if ([[opts objectAtIndex:j] isEqualToString:@"1"])
-				description = [NSString stringWithFormat:NSLocalizedString(@"%@ 1 minute", @""), [names objectAtIndex:i]];
-			else
-				description = [NSString stringWithFormat:NSLocalizedString(@"%@ %@ minutes", @""), [names objectAtIndex:i], [opts objectAtIndex:j]];
-
-			[arr addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-				option, @"parameter",
-				description, @"description", nil]];
-		}
+	int i;
+	for (i = 0; i < num_times; ++i) {
+		NSNumber *param = [NSNumber numberWithInt:times[i]];
+		NSString *desc;
+		if (times[i] == 0)
+			desc = NSLocalizedString(@"never", @"A time or timeout");
+		else if (times[i] == 1)
+			desc = NSLocalizedString(@"1 minute", @"A time or timeout");
+		else
+			desc = [NSString stringWithFormat:
+				NSLocalizedString(@"%d minutes", @"A time or timeout"), times[i]];
+		[arr addObject:
+			[NSDictionary dictionaryWithObjectsAndKeys:
+				param, @"parameter", desc, @"description", nil]];
 	}
 
 	return arr;

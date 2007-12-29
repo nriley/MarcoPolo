@@ -6,16 +6,17 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "ActionWithLimitedOptions.h"
+#import "ActionWithTwoLimitedOptions.h"
 
 
-@interface SleepTimeAction : ActionWithLimitedOptions {
+@interface SleepTimeAction : ActionWithTwoLimitedOptions {
 }
 
 - (NSString *)descriptionOf:(NSDictionary *)actionDict;
 - (BOOL)execute:(NSDictionary *)actionDict error:(NSString **)errorString;
 
-- (NSString *)suggestionLeadText;
-- (NSArray *)suggestions;
+- (NSString *)leadText;
+- (NSArray *)firstSuggestions;		// thing to change sleep time (computer/disk/display)
+- (NSArray *)secondSuggestions;		// time to set
 
 @end
