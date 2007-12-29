@@ -13,7 +13,7 @@
 - (NSString *)descriptionOf:(NSDictionary *)actionDict
 {
 	NSString *account = [[actionDict valueForKey:@"parameter"] objectAtIndex:0];
-	NSString *status = [[actionDict valueForKey:@"parameter"] objectAtIndex:1];
+	NSString *status = [[[actionDict valueForKey:@"parameter"] objectAtIndex:1] lastObject];
 
 	if ([account isEqualToString:kAllAdiumAccounts])
 		return [NSString stringWithFormat:NSLocalizedString(@"Setting status of all Adium accounts to '%@'.", @""),
@@ -25,23 +25,24 @@
 - (BOOL)execute:(NSDictionary *)actionDict error:(NSString **)errorString
 {
 	NSString *account = [[actionDict valueForKey:@"parameter"] objectAtIndex:0];
-	NSString *status = [[actionDict valueForKey:@"parameter"] objectAtIndex:1];
+	NSArray *status = [[actionDict valueForKey:@"parameter"] objectAtIndex:1];
+	NSString *statusType = [status objectAtIndex:0], *statusTitle = [status objectAtIndex:1];
 
 	NSString *script;
 	// TODO: escape parameters?
 	if ([account isEqualToString:kAllAdiumAccounts]) {
 		script = [NSString stringWithFormat:
 			@"tell application \"Adium\"\n"
-			"  set stat to the first status whose title is \"%@\"\n"
+			"  set stat to the first status whose title is \"%@\" and type is %@\n"
 			"  set the status of every account to stat\n"
-			"end tell", status];
+			"end tell", statusTitle, statusType];
 	} else {
 		script = [NSString stringWithFormat:
 			@"tell application \"Adium\"\n"
-			"  set stat to the first status whose title is \"%@\"\n"
+			"  set stat to the first status whose title is \"%@\" and type is %@\n"
 			"  set acc to the first account whose title is \"%@\"\n"
 			"  set the status of acc to stat\n"
-			"end tell", status, account];
+			"end tell", statusTitle, statusType, account];
 	}
 
 	if (![self executeAppleScript:script]) {
@@ -120,7 +121,7 @@
 		NSString *type = [status objectAtIndex:0], *title = [status objectAtIndex:1];
 		NSString *desc = [NSString stringWithFormat:@"%@ (%@)", title, type];
 		NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-			desc, @"description", title, @"parameter", nil];
+			desc, @"description", status, @"parameter", nil];
 		[arr addObject:dict];
 	}
 
