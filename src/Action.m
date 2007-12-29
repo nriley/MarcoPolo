@@ -291,11 +291,13 @@ static AuthorizationRef authRef = 0;
 #import "NetworkLocationAction.h"
 #import "OpenAction.h"
 #import "OutputVolumeAction.h"
+#import "PowerManagerAction.h"
 #import "QuitApplicationAction.h"
 #import "ScreenSaverPasswordAction.h"
 #import "ScreenSaverStartAction.h"
 #import "ScreenSaverTimeAction.h"
 //#import "ShellScriptAction.h"
+#import "SleepTimeAction.h"
 #import "TimeZoneAction.h"
 #import "ToggleBluetoothAction.h"
 #import "ToggleWiFiAction.h"
@@ -321,11 +323,13 @@ static AuthorizationRef authRef = 0;
 		[NetworkLocationAction class],
 		[OpenAction class],
 		[OutputVolumeAction class],
+		[PowerManagerAction class],
 		[QuitApplicationAction class],
 		[ScreenSaverPasswordAction class],
 		[ScreenSaverStartAction class],
 		[ScreenSaverTimeAction class],
 //		[ShellScriptAction class],
+		[SleepTimeAction class],
 		[TimeZoneAction class],
 		[ToggleBluetoothAction class],
 		[ToggleWiFiAction class],
@@ -345,11 +349,13 @@ static AuthorizationRef authRef = 0;
 		NSLocalizedString(@"NetworkLocation", @"Action type");
 		NSLocalizedString(@"Open", @"Action type");
 		NSLocalizedString(@"OutputVolume", @"Action type");
+		NSLocalizedString(@"PowerManager", @"Action type");
 		NSLocalizedString(@"QuitApplication", @"Action type");
 		NSLocalizedString(@"ScreenSaverPassword", @"Action type");
 		NSLocalizedString(@"ScreenSaverStart", @"Action type");
 		NSLocalizedString(@"ScreenSaverTime", @"Action type");
 		NSLocalizedString(@"ShellScript", @"Action type");
+		NSLocalizedString(@"SleepTime", @"Action type");
 		NSLocalizedString(@"TimeZone", @"Action type");
 		NSLocalizedString(@"ToggleBluetooth", @"Action type");
 		NSLocalizedString(@"ToggleWiFi", @"Action type");

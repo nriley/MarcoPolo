@@ -41,6 +41,8 @@
 		8D4E5CB30C48AE9F0054A67C /* ContextsPrefs.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 8D4E5CB20C48AE9F0054A67C /* ContextsPrefs.tiff */; };
 		8D514D3F0BE994A10013C1ED /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8D514D3E0BE994A10013C1ED /* Localizable.strings */; };
 		8D57B1440C4457AB00EC620D /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D57B1430C4457AB00EC620D /* CoreAudio.framework */; };
+		8D5984500D037C9D0012D116 /* PowerManagerAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D59844C0D037C9D0012D116 /* PowerManagerAction.m */; };
+		8D5984520D037C9D0012D116 /* SleepTimeAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D59844E0D037C9D0012D116 /* SleepTimeAction.m */; };
 		8D5C792E0D08F7E0001EC10E /* LocalisableButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5C792C0D08F7E0001EC10E /* LocalisableButton.m */; };
 		8D5C79540D08FA7A001EC10E /* ActionWithBool.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8D5C79530D08FA7A001EC10E /* ActionWithBool.nib */; };
 		8D643C680C4EF197006D8ECC /* GenericLoopingEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D643C660C4EF197006D8ECC /* GenericLoopingEvidenceSource.m */; };
@@ -200,6 +202,10 @@
 		8D5684B20C38711D00881E32 /* MonitorEvidenceSource.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = MonitorEvidenceSource.h; path = src/MonitorEvidenceSource.h; sourceTree = "<group>"; };
 		8D5684B30C38711D00881E32 /* MonitorEvidenceSource.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = MonitorEvidenceSource.m; path = src/MonitorEvidenceSource.m; sourceTree = "<group>"; };
 		8D57B1430C4457AB00EC620D /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
+		8D59844B0D037C9D0012D116 /* PowerManagerAction.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PowerManagerAction.h; path = src/PowerManagerAction.h; sourceTree = "<group>"; };
+		8D59844C0D037C9D0012D116 /* PowerManagerAction.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = PowerManagerAction.m; path = src/PowerManagerAction.m; sourceTree = "<group>"; };
+		8D59844D0D037C9D0012D116 /* SleepTimeAction.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = SleepTimeAction.h; path = src/SleepTimeAction.h; sourceTree = "<group>"; };
+		8D59844E0D037C9D0012D116 /* SleepTimeAction.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = SleepTimeAction.m; path = src/SleepTimeAction.m; sourceTree = "<group>"; };
 		8D5C792B0D08F7E0001EC10E /* LocalisableButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocalisableButton.h; path = src/LocalisableButton.h; sourceTree = "<group>"; };
 		8D5C792C0D08F7E0001EC10E /* LocalisableButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocalisableButton.m; path = src/LocalisableButton.m; sourceTree = "<group>"; };
 		8D5C79530D08FA7A001EC10E /* ActionWithBool.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = ActionWithBool.nib; path = Resources/ActionWithBool.nib; sourceTree = "<group>"; };
@@ -494,6 +500,10 @@
 		8D497F9C0CFFD26C00C6816F /* Concrete Actions */ = {
 			isa = PBXGroup;
 			children = (
+				8D59844B0D037C9D0012D116 /* PowerManagerAction.h */,
+				8D59844C0D037C9D0012D116 /* PowerManagerAction.m */,
+				8D59844D0D037C9D0012D116 /* SleepTimeAction.h */,
+				8D59844E0D037C9D0012D116 /* SleepTimeAction.m */,
 				8DCABF770D0268730044D0BC /* TimeZoneAction.h */,
 				8DCABF780D0268730044D0BC /* TimeZoneAction.m */,
 				8DF5A45E0BC239B100CBEB4B /* DefaultPrinterAction.h */,
@@ -809,6 +819,8 @@
 				8D8C6D250D001A6E00D13245 /* ActionWithFile.m in Sources */,
 				8D8C6D570D00210D00D13245 /* OpenAction.m in Sources */,
 				8D8C6DC10D00304E00D13245 /* DesktopBackgroundAction.m in Sources */,
+				8D5984500D037C9D0012D116 /* PowerManagerAction.m in Sources */,
+				8D5984520D037C9D0012D116 /* SleepTimeAction.m in Sources */,
 				8DCABF7A0D0268730044D0BC /* TimeZoneAction.m in Sources */,
 				8D5C792E0D08F7E0001EC10E /* LocalisableButton.m in Sources */,
 				8DE62C640D0DF36800AC20A5 /* FlexControls.m in Sources */,
