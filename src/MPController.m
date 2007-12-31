@@ -228,11 +228,21 @@
 	NSLog(@"Quickstart: Imported %d contexts from MarcoPolo 2.x", [oldContexts count]);
 	contextsImported = YES;
 
-	// TODO: import all the other useful bits, including:
-	//	* DefaultContext
-	//	* Enable*EvidenceSource
-	//	* MinimumConfidenceRequired
-	//	* UpdateInterval
+	// Import simple (but not "advanced") settings, wherever they might make sense
+	NSEnumerator *en = [[NSArray arrayWithObjects:
+		@"DefaultContext", @"EnableAudioOutputEvidenceSource", @"EnableBluetoothEvidenceSource",
+		@"EnableFireWireEvidenceSource", @"EnableIPEvidenceSource", @"EnableLightEvidenceSource",
+		@"EnableMonitorEvidenceSource", @"EnablePowerEvidenceSource", @"EnableRunningApplicationEvidenceSource",
+		@"EnableTimeOfDayEvidenceSource", @"EnableUSBEvidenceSource", @"EnableWiFiEvidenceSource",
+		@"EnablePersistentContext", @"MinimumConfidenceRequired", @"UseDefaultContext", nil] objectEnumerator];
+	NSString *setting;
+	while ((setting = [en nextObject])) {
+		CFPropertyListRef value = CFPreferencesCopyAppValue((CFStringRef) setting, CFSTR("au.id.symonds.MarcoPolo2"));
+		if (value) {
+			[[NSUserDefaults standardUserDefaults] setObject:(NSObject *) value forKey:setting];
+			CFRelease(value);
+		}
+	}
 
 	// See if there are old rules and actions to import
 	NSArray *oldRules = (NSArray *) CFPreferencesCopyAppValue(CFSTR("Rules"), CFSTR("au.id.symonds.MarcoPolo2"));
@@ -249,7 +259,7 @@
 
 	// Import and update actions (arrayify)
 	NSMutableArray *newActions = [NSMutableArray array];
-	NSEnumerator *en = [oldActions objectEnumerator];
+	en = [oldActions objectEnumerator];
 	NSDictionary *dict;
 	while ((dict = [en nextObject])) {
 		NSMutableDictionary *action = [NSMutableDictionary dictionaryWithDictionary:dict];
