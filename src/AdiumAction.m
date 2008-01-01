@@ -94,6 +94,32 @@
 	return arr;	
 }
 
+int compareStatus(id dict1, id dict2, void *context)
+{
+	NSArray *status1 = [dict1 valueForKey:@"parameter"], *status2 = [dict2 valueForKey:@"parameter"];
+	NSString *type1 = [status1 objectAtIndex:0], *type2 = [status2 objectAtIndex:0];
+	//NSString *type1 = [status1 objectAtIndex:0], *type2 = [status2 objectAtIndex:0];
+
+	// First, sort statuses to group them like Adium does:
+	//	- available
+	//	- invisible
+	//	- away
+	//	- offline
+	NSArray *typeRank = [NSArray arrayWithObjects:@"available", @"invisible", @"away", @"offline", nil];
+	int rank1 = [typeRank indexOfObject:type1], rank2 = [typeRank indexOfObject:type2];
+
+	if ((rank1 == NSNotFound) || (rank2 == NSNotFound))
+		return NSOrderedSame;
+	else if (rank1 < rank2)
+		return NSOrderedAscending;
+	else if (rank1 > rank2)
+		return NSOrderedDescending;
+
+	// TODO: sort further somehow?
+
+	return NSOrderedSame;
+}
+
 - (NSArray *)secondSuggestions
 {
 	// Get all statuses, including type (available, away, etc.) and title
@@ -123,10 +149,7 @@
 		[arr addObject:dict];
 	}
 
-	// TODO: perhaps sort these to group them like Adium does:
-	//	- available
-	//	- away/invisible
-	//	- offline
+	[arr sortUsingFunction:compareStatus context:nil];
 
 	return arr;	
 }
