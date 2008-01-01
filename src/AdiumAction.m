@@ -112,6 +112,15 @@ int compareStatus(id dict1, id dict2, void *context)
 	else if (rank1 > rank2)
 		return NSOrderedDescending;
 
+	NSString *title1 = [status1 objectAtIndex:1], *title2 = [status2 objectAtIndex:1];
+
+	// Push the magic iTunes statuses down
+	NSString *iTunesStatus = [[NSString stringWithUTF8String:"\342\231\253"] stringByAppendingString:@" iTunes"];
+	if ([title1 isEqualToString:iTunesStatus])
+		return NSOrderedDescending;
+	else if ([title2 isEqualToString:iTunesStatus])
+		return NSOrderedAscending;
+
 	// TODO: sort further somehow?
 
 	return NSOrderedSame;
