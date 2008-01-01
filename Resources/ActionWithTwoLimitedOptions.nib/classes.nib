@@ -19,6 +19,7 @@
                 firstParameterController = NSArrayController; 
                 leadTextField = FlexTextField; 
                 secondParameterController = NSArrayController; 
+                secondPopUpButton = NSPopUpButton; 
             }; 
             SUPERCLASS = Action; 
         }, 

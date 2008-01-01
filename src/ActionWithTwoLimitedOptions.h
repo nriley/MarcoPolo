@@ -13,6 +13,7 @@
 @interface ActionWithTwoLimitedOptions : Action {
 	IBOutlet FlexTextField *leadTextField;
 	IBOutlet NSArrayController *firstParameterController, *secondParameterController;
+	IBOutlet NSPopUpButton *secondPopUpButton;
 }
 
 - (id)init;

@@ -15,6 +15,11 @@
 	if (!(self = [super initWithNibNamed:@"ActionWithTwoLimitedOptions"]))
 		return nil;
 
+	[[NSNotificationCenter defaultCenter] addObserver:self
+						 selector:@selector(popUpButtonActivated:)
+						     name:NSPopUpButtonWillPopUpNotification
+						   object:secondPopUpButton];
+
 	return self;
 }
 
@@ -104,6 +109,25 @@
 {
 	[self doesNotRecognizeSelector:_cmd];
 	return nil;
+}
+
+#pragma mark -
+
+- (void)popUpButtonActivated:(NSNotification *)notification
+{
+	// If the dictionary corresponding to a menu item is empty (i.e. no key-value pairs),
+	// then we will replace it will a separator item.
+	NSPopUpButton *button = [notification object];
+	NSMenu *menu = [button menu];
+	int i;
+	for (i = 0; i < [menu numberOfItems]; ++i) {
+		NSDictionary *dict = [[secondParameterController arrangedObjects] objectAtIndex:i];
+		if ([dict count] == 0) {
+			// This menu item should be a separator
+			[menu removeItemAtIndex:i];
+			[menu insertItem:[NSMenuItem separatorItem] atIndex:i];
+		}
+	}
 }
 
 @end

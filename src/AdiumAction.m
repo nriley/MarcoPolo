@@ -151,6 +151,17 @@ int compareStatus(id dict1, id dict2, void *context)
 
 	[arr sortUsingFunction:compareStatus context:nil];
 
+	// Add separator markers between status types
+	int i;
+	for (i = 0; i < ([arr count] - 1); ++i) {
+		NSDictionary *curr = [arr objectAtIndex:i], *next = [arr objectAtIndex:i + 1];
+		NSString *currStatus = [[curr valueForKey:@"parameter"] objectAtIndex:0];
+		if ([[[next valueForKey:@"parameter"] objectAtIndex:0] isEqualToString:currStatus])
+			continue;	// both have the same status
+		[arr insertObject:[NSDictionary dictionary] atIndex:i + 1];
+		++i;
+	}
+
 	return arr;	
 }
 
