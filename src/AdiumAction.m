@@ -13,7 +13,7 @@
 - (NSString *)descriptionOf:(NSDictionary *)actionDict
 {
 	NSString *account = [[actionDict valueForKey:@"parameter"] objectAtIndex:0];
-	NSString *status = [[[actionDict valueForKey:@"parameter"] objectAtIndex:1] lastObject];
+	NSString *status = [[[actionDict valueForKey:@"parameter"] objectAtIndex:1] objectAtIndex:1];
 
 	if ([account isEqualToString:kAllAdiumAccounts])
 		return [NSString stringWithFormat:NSLocalizedString(@"Setting status of all Adium accounts to '%@'.", @""),
@@ -26,23 +26,21 @@
 {
 	NSString *account = [[actionDict valueForKey:@"parameter"] objectAtIndex:0];
 	NSArray *status = [[actionDict valueForKey:@"parameter"] objectAtIndex:1];
-	NSString *statusType = [status objectAtIndex:0], *statusTitle = [status objectAtIndex:1];
+	NSString *statusID = [status objectAtIndex:2];
 
 	NSString *script;
 	// TODO: escape parameters?
 	if ([account isEqualToString:kAllAdiumAccounts]) {
 		script = [NSString stringWithFormat:
 			@"tell application \"Adium\"\n"
-			"  set stat to the first status whose title is \"%@\" and type is %@\n"
-			"  set the status of every account to stat\n"
-			"end tell", statusTitle, statusType];
+			"  set the status of every account to status id %@\n"
+			"end tell", statusID];
 	} else {
 		script = [NSString stringWithFormat:
 			@"tell application \"Adium\"\n"
-			"  set stat to the first status whose title is \"%@\" and type is %@\n"
 			"  set acc to the first account whose title is \"%@\"\n"
-			"  set the status of acc to stat\n"
-			"end tell", statusTitle, statusType, account];
+			"  set the status of acc to status id %@\n"
+			"end tell", account, statusID];
 	}
 
 	if (![self executeAppleScript:script]) {
@@ -98,7 +96,6 @@ int compareStatus(id dict1, id dict2, void *context)
 {
 	NSArray *status1 = [dict1 valueForKey:@"parameter"], *status2 = [dict2 valueForKey:@"parameter"];
 	NSString *type1 = [status1 objectAtIndex:0], *type2 = [status2 objectAtIndex:0];
-	//NSString *type1 = [status1 objectAtIndex:0], *type2 = [status2 objectAtIndex:0];
 
 	// First, sort statuses to group them like Adium does:
 	//	- available
@@ -122,12 +119,12 @@ int compareStatus(id dict1, id dict2, void *context)
 
 - (NSArray *)secondSuggestions
 {
-	// Get all statuses, including type (available, away, etc.) and title
+	// Get all statuses, including type (available, away, etc.), title and ID
 	NSString *script =
 		@"tell application \"Adium\"\n"
 		"  set statusList to {}\n"
 		"  repeat with stat in every status\n"
-		"    copy {type of stat as text, title of stat} to end of statusList\n"
+		"    copy {type of stat as text, title of stat, id of stat} to end of statusList\n"
 		"  end repeat\n"
 		"  get statusList\n"
 		"end tell";
@@ -140,7 +137,7 @@ int compareStatus(id dict1, id dict2, void *context)
 	NSEnumerator *en = [list objectEnumerator];
 	NSArray *status;
 	while ((status = [en nextObject])) {
-		// status is something like ["away", "Lunch"]
+		// status is something like ["away", "Lunch", "27"]
 		// TODO: do a nicer description? Use colours?
 		NSString *type = [status objectAtIndex:0], *title = [status objectAtIndex:1];
 		NSString *desc = [NSString stringWithFormat:@"%@ (%@)", title, type];
