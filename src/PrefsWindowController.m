@@ -1,3 +1,5 @@
+#include "Growl/GrowlApplicationBridge.h"
+
 #import "AboutPanel.h"
 #import "Action.h"
 #import "DSLogger.h"
@@ -683,6 +685,58 @@
 	// Select and reveal edited action
 	[actionsTableView scrollRowToVisible:index];
 	[actionsController setSelectionIndex:index];
+}
+
+- (IBAction)testAction:(id)sender
+{
+	// Find relevant action
+	NSDictionary *actionDict = [[actionsController selectedObjects] lastObject];
+	if (!actionDict)
+		return;
+
+	[NSThread detachNewThreadSelector:@selector(testActionInThread:)
+				 toTarget:self
+			       withObject:actionDict];
+}
+
+// (Private) in a new thread, execute Action immediately (pass as NSDictionary), growling upon failure
+// (adapted from MPController.m)
+- (void)testActionInThread:(id)arg
+{
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+
+	NSDictionary *actionDict = (NSDictionary *) arg;
+	Action *action = [actionSet actionWithName:[actionDict valueForKey:@"type"]];
+	if (!action) {
+		[pool release];
+		return;
+	}
+
+	// Do growl
+	NSString *growlTitle = NSLocalizedString(@"Performing Action", @"Growl message title");
+	NSString *growlMessage = [action descriptionOf:actionDict];
+	[GrowlApplicationBridge notifyWithTitle:growlTitle
+				    description:growlMessage
+			       notificationName:growlTitle
+				       iconData:nil
+				       priority:0
+				       isSticky:NO
+				   clickContext:nil];
+
+	// Perform action execution
+	NSString *errorString;
+	if (![action execute:actionDict error:&errorString]) {
+		growlTitle = NSLocalizedString(@"Failure", @"Growl message title");
+		[GrowlApplicationBridge notifyWithTitle:growlTitle
+					    description:errorString
+				       notificationName:growlTitle
+					       iconData:nil
+					       priority:1
+					       isSticky:NO
+					   clickContext:nil];
+	}
+
+	[pool release];
 }
 
 - (IBAction)removeTrigger:(id)sender

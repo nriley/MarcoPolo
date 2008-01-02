@@ -69,6 +69,7 @@
 
 - (void)addAction:(id)sender;
 - (IBAction)editAction:(id)sender;
+- (IBAction)testAction:(id)sender;
 
 - (IBAction)removeTrigger:(id)sender;
 
