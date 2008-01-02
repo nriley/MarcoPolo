@@ -133,7 +133,7 @@ int compareStatus(id dict1, id dict2, void *context)
 		@"tell application \"Adium\"\n"
 		"  set statusList to {}\n"
 		"  repeat with stat in every status\n"
-		"    copy {type of stat as text, title of stat, id of stat} to end of statusList\n"
+		"    copy {status type of stat as text, title of stat, id of stat} to end of statusList\n"
 		"  end repeat\n"
 		"  get statusList\n"
 		"end tell";
