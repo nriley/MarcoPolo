@@ -78,6 +78,7 @@
 		8D9A22580CFD07AE005BD5A9 /* NetworkLocationAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D6762150C3B8D8D000B63EC /* NetworkLocationAction.m */; };
 		8D9AE3790BE0D11800D4D4E4 /* plus-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D9AE3780BE0D11800D4D4E4 /* plus-arrow.png */; };
 		8D9AE3A60BE0DA7E00D4D4E4 /* PopButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D9AE3A40BE0DA7E00D4D4E4 /* PopButton.m */; };
+		8D9F8E7C0D2B0E1600D626F5 /* AdiumAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D9F8E7A0D2B0E1600D626F5 /* AdiumAction.m */; };
 		8DB169C20D0FBC2200871B81 /* ActionWithFloat.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8DB169C10D0FBC2200871B81 /* ActionWithFloat.nib */; };
 		8DB169C70D0FBD3300871B81 /* ActionWithFloat.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DB169C50D0FBD3300871B81 /* ActionWithFloat.m */; };
 		8DB169E20D0FC4FB00871B81 /* OutputVolumeAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DB169E00D0FC4FB00871B81 /* OutputVolumeAction.m */; };
@@ -102,7 +103,6 @@
 		8DDB69D70CFE9EF500300021 /* ScreenSaverStartAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D3C85130CDD8546009DBCD9 /* ScreenSaverStartAction.m */; };
 		8DDB69DB0CFE9EFA00300021 /* ScreenSaverPasswordAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D71CB770C17C01700E56526 /* ScreenSaverPasswordAction.m */; };
 		8DDB71140D2490AE00609298 /* ActionWithTwoLimitedOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DDB71120D2490AE00609298 /* ActionWithTwoLimitedOptions.m */; };
-		8DDB719B0D2498D200609298 /* AdiumAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DDB71020D248D3300609298 /* AdiumAction.m */; };
 		8DE13F0E0C460E1700AEC949 /* FireWireEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DCBF4900BE5622600A01414 /* FireWireEvidenceSource.m */; };
 		8DE428FC0C5084D00073499A /* TimeOfDayEvidenceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DE428FA0C5084D00073499A /* TimeOfDayEvidenceSource.m */; };
 		8DE429480C5091F90073499A /* TimeOfDayRule.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8DE429460C5091F90073499A /* TimeOfDayRule.nib */; };
@@ -154,7 +154,7 @@
 		8D01634C0C029913004AD8DB /* DNDArrayController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = DNDArrayController.h; path = src/DNDArrayController.h; sourceTree = "<group>"; };
 		8D01634D0C029913004AD8DB /* DNDArrayController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = DNDArrayController.m; path = src/DNDArrayController.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		8D1107320486CEB800E47090 /* MarcoPolo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarcoPolo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D1107320486CEB800E47090 /* MarcoPolo.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = MarcoPolo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D1493F40C824B6D00D29FE8 /* BonjourEvidenceSource.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = BonjourEvidenceSource.h; path = src/BonjourEvidenceSource.h; sourceTree = "<group>"; };
 		8D1493F50C824B6D00D29FE8 /* BonjourEvidenceSource.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = BonjourEvidenceSource.m; path = src/BonjourEvidenceSource.m; sourceTree = "<group>"; };
 		8D14E1190BF3DADE00FDD12C /* HACKING.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = HACKING.html; sourceTree = "<group>"; };
@@ -262,6 +262,8 @@
 		8D9AE3780BE0D11800D4D4E4 /* plus-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "plus-arrow.png"; path = "graphics/plus-arrow.png"; sourceTree = "<group>"; };
 		8D9AE3A30BE0DA7E00D4D4E4 /* PopButton.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PopButton.h; path = src/PopButton.h; sourceTree = "<group>"; };
 		8D9AE3A40BE0DA7E00D4D4E4 /* PopButton.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = PopButton.m; path = src/PopButton.m; sourceTree = "<group>"; };
+		8D9F8E790D2B0E1600D626F5 /* AdiumAction.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = AdiumAction.h; path = src/AdiumAction.h; sourceTree = "<group>"; };
+		8D9F8E7A0D2B0E1600D626F5 /* AdiumAction.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = AdiumAction.m; path = src/AdiumAction.m; sourceTree = "<group>"; };
 		8DA2F4120CE8630200F92D4D /* DesktopBackgroundAction.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = DesktopBackgroundAction.h; path = src/DesktopBackgroundAction.h; sourceTree = "<group>"; };
 		8DA2F4130CE8630200F92D4D /* DesktopBackgroundAction.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = DesktopBackgroundAction.m; path = src/DesktopBackgroundAction.m; sourceTree = "<group>"; };
 		8DAEC7A60C62A7F00020BD5E /* LOCALISATION.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = LOCALISATION.html; sourceTree = "<group>"; wrapsLines = 1; };
@@ -501,6 +503,8 @@
 		8D497F9C0CFFD26C00C6816F /* Concrete Actions */ = {
 			isa = PBXGroup;
 			children = (
+				8D9F8E790D2B0E1600D626F5 /* AdiumAction.h */,
+				8D9F8E7A0D2B0E1600D626F5 /* AdiumAction.m */,
 				8D59844B0D037C9D0012D116 /* PowerManagerAction.h */,
 				8D59844C0D037C9D0012D116 /* PowerManagerAction.m */,
 				8D59844D0D037C9D0012D116 /* SleepTimeAction.h */,
@@ -829,7 +833,7 @@
 				8DB169C70D0FBD3300871B81 /* ActionWithFloat.m in Sources */,
 				8DB169E20D0FC4FB00871B81 /* OutputVolumeAction.m in Sources */,
 				8DDB71140D2490AE00609298 /* ActionWithTwoLimitedOptions.m in Sources */,
-				8DDB719B0D2498D200609298 /* AdiumAction.m in Sources */,
+				8D9F8E7C0D2B0E1600D626F5 /* AdiumAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
