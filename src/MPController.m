@@ -253,7 +253,7 @@
 	[oldActions autorelease];
 
 	// Import rules as-is
-	[[NSUserDefaults standardUserDefaults] setObject:oldRules forKey:@"Rules"];
+	[[NSUserDefaults standardUserDefaults] setValue:oldRules forKey:@"Rules"];
 	NSLog(@"Quickstart: Imported %d rules from MarcoPolo 2.x", [oldRules count]);
 	rulesImported = YES;
 
