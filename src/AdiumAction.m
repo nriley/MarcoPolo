@@ -12,25 +12,26 @@
 
 - (NSString *)descriptionOf:(NSDictionary *)actionDict
 {
-	NSString *account = [[actionDict valueForKey:@"parameter"] objectAtIndex:0];
+	NSArray *account = [[actionDict valueForKey:@"parameter"] objectAtIndex:0];
+	NSString *accountID = [account objectAtIndex:0], *accountTitle = [account objectAtIndex:1];
 	NSString *status = [[[actionDict valueForKey:@"parameter"] objectAtIndex:1] objectAtIndex:1];
 
-	if ([account isEqualToString:kAllAdiumAccounts])
+	if ([accountID isEqualToString:kAllAdiumAccounts])
 		return [NSString stringWithFormat:NSLocalizedString(@"Setting status of all Adium accounts to '%@'.", @""),
 			status];
-	return [NSString stringWithFormat:NSLocalizedString(@"Setting status of Adium account '%@' to '%@'.", @""),
-		account, status];
+	else
+		return [NSString stringWithFormat:NSLocalizedString(@"Setting status of Adium account '%@' to '%@'.", @""),
+			accountTitle, status];
 }
 
 - (BOOL)execute:(NSDictionary *)actionDict error:(NSString **)errorString
 {
-	NSString *account = [[actionDict valueForKey:@"parameter"] objectAtIndex:0];
+	NSString *accountID = [[[actionDict valueForKey:@"parameter"] objectAtIndex:0] objectAtIndex:0];
 	NSArray *status = [[actionDict valueForKey:@"parameter"] objectAtIndex:1];
 	NSString *statusID = [status objectAtIndex:2];
 
 	NSString *script;
-	// TODO: escape parameters?
-	if ([account isEqualToString:kAllAdiumAccounts]) {
+	if ([accountID isEqualToString:kAllAdiumAccounts]) {
 		script = [NSString stringWithFormat:
 			@"tell application \"Adium\"\n"
 			"  set the status of every account to status id %@\n"
@@ -38,9 +39,8 @@
 	} else {
 		script = [NSString stringWithFormat:
 			@"tell application \"Adium\"\n"
-			"  set acc to the first account whose title is \"%@\"\n"
-			"  set the status of acc to status id %@\n"
-			"end tell", account, statusID];
+			"  set the status of account id %@ to status id %@\n"
+			"end tell", accountID, statusID];
 	}
 
 	if (![self executeAppleScript:script]) {
@@ -63,7 +63,7 @@
 		@"tell application \"Adium\"\n"
 		"  set accList to {}\n"
 		"  repeat with acc in every account\n"
-		"    copy {title of service of acc, title of acc} to end of accList\n"
+		"    copy {title of service of acc, title of acc, id of acc} to end of accList\n"
 		"  end repeat\n"
 		"  get accList\n"
 		"end tell";
@@ -75,17 +75,19 @@
 	NSMutableArray *arr = [NSMutableArray arrayWithCapacity:[list count] + 1];
 	[arr addObject:
 		[NSDictionary dictionaryWithObjectsAndKeys:
-			kAllAdiumAccounts, @"parameter",
+			[NSArray arrayWithObjects:kAllAdiumAccounts, @"", nil], @"parameter",
 			NSLocalizedString(@"All accounts", @"In account list for actions"), @"description", nil]];
 
 	NSEnumerator *en = [list objectEnumerator];
 	NSArray *acc;
 	while ((acc = [en nextObject])) {
-		// acc is something like ["GTalk", "dsymonds@gmail.com"]
+		// acc is something like ["GTalk", "dsymonds@gmail.com", "1"]
 		NSString *service = [acc objectAtIndex:0], *account = [acc objectAtIndex:1];
+		NSString *accountID = [acc objectAtIndex:2];
+		NSArray *param = [NSArray arrayWithObjects:accountID, account, nil];
 		NSString *desc = [NSString stringWithFormat:@"%@ (%@)", account, service];
 		NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-			desc, @"description", account, @"parameter", nil];
+			desc, @"description", param, @"parameter", nil];
 		[arr addObject:dict];
 	}
 
