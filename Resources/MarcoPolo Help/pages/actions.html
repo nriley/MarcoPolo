@@ -28,38 +28,60 @@
 		<ul>
 		<li>A <i>type</i>,</li>
 		<li>A <i>parameter</i> for the type of action,</li>
-		<li>A <i>context</i> that it should be triggered for,</li>
-		<li><i>When</i> it should be triggered (upon Arrival or Departure),</li>
+		<li>A set of <i>triggers</i> that will cause the action to run (see below),</li>
 		<li>A <i>delay</i> between changing context and triggering the action,</li>
 		<li>Whether it is <i>enabled</i>, and</li>
 		<li>A <i>description</i> for human readability.</li>
 		</ul>
 
-		<p>Most actions will be Arrival actions; that is, they will be
-		triggered when MarcoPolo switches <em>to</em> that context.
-		The alternative is a Departure action, which is triggered when
-		MarcoPolo switches <em>away</em> from that action's context.
-		In this case, the <i>delay</i> parameter will be the length of
-		time from the action being triggered until the context is
-		switched.
+		<p>Types of triggers are:</p>
+		<ul>
+		<li><i>Arrival</i> at a context,</li>
+		<li><i>Departure</i> from a context,</li>
+		<li>Computer's <i>Wake</i> from sleep,</li>
+		<li>Computer's <i>Sleep</i>, and</li>
+		<li>MarcoPolo's <i>Startup</i>.</li>
+		</ul>
+		<p>In most cases, the <i>delay</i> parameter will be the length
+		of time from the trigger to when the action is executed.
+		Departure triggers work in reverse: the <i>delay</i> parameter
+		is the length of time preceeding the context change when the
+		action will be run.
 		</p>
 
 		<!-- =================================================== -->
 		<hr />
+
+		<h2><em>Adium</em> actions</h2>
+		<p>Actions of type <em>Adium</em> can change
+		the IM status if you use <a href="http://www.adiumx.com/">Adium</a>
+		(requires version 1.2 or later).
+		</p>
 
 		<h2><em>DefaultPrinter</em> actions</h2>
 		<p>Actions of type <em>DefaultPrinter</em> change your
 		computer's default printer.
 		</p>
 
+		<h2><em>DesktopBackground</em> actions</h2>
+		<p>Actions of type <em>DesktopBackground</em> will change
+		your desktop background picture.
+		</p>
+
 		<h2><em>FirewallRule</em> actions</h2>
 		<p>Actions of type <em>FirewallRule</em> can enable or disable
-		the network firewall for various services.
+		the network firewall for various services. This action is
+		currently not functional under Mac OS X 10.5 (Leopard).
 		</p>
 
 		<h2><em>iChat</em> actions</h2>
 		<p>Actions of type <em>iChat</em> change your iChat status
 		message.
+		</p>
+
+		<h2><em>MailIMAPServer</em> actions</h2>
+		<p>Actions of type <em>MailIMAPServer</em> change the default
+		IMAP server of your <tt>Mail.app</tt> accounts.
 		</p>
 
 		<h2><em>MailSMTPServer</em> actions</h2>
@@ -91,9 +113,29 @@
 		equivalent to double-clicking on that file in Finder.
 		</p>
 
+		<h2><em>OutputVolume</em> actions</h2>
+		<p>Actions of type <em>OutputVolume</em> can change the volume
+		level of your system audio output.
+		</p>
+
+		<h2><em>PowerManager</em> actions</h2>
+		<p>Actions of type <em>PowerManager</em> allow configuration
+		of your computer's power management settings.
+		</p>
+
+		<h2><em>QuitApplication</em> actions</h2>
+		<p>Actions of type <em>QuitApplication</em> cause a named
+		application to quit.
+		</p>
+
 		<h2><em>ScreenSaverPassword</em> actions</h2>
 		<p>Actions of type <em>ScreenSaverPassword</em> either enable
 		or disable your screen saver's password.
+		</p>
+
+		<h2><em>ScreenSaverStart</em> actions</h2>
+		<p>Actions of type <em>ScreenSaverStart</em> either start or
+		stop your screen saver.
 		</p>
 
 		<h2><em>ScreenSaverTime</em> actions</h2>
@@ -108,10 +150,25 @@
 		separator in the parameter. (e.g. <tt>/path/to/script.sh|argument1|argument2</tt>)
 		</p>
 
+		<h2><em>SleepTime</em> actions</h2>
+		<p>Actions of type <em>SleepTime</em> can modify the idle time
+		before sleeping some things (computer, disk and display).
+		</p>
+
+		<h2><em>TimeZone</em> actions</h2>
+		<p>Actions of type <em>TimeZone</em> will change your
+		computer's time zone.
+		</p>
+
 		<h2><em>ToggleBluetooth</em> and <em>ToggleWiFi</em> actions</h2>
 		<p>Actions of type <em>ToggleBluetooth</em> or
 		<em>ToggleWiFi</em> allow you to control the power state of
 		your computer's built-in Bluetooth and WiFi controllers.
+		</p>
+
+		<h2><em>Unmount</em> actions</h2>
+		<p>Actions of type <em>Unmount</em> attempt to unmount a named
+		volume.
 		</p>
 
 		<h2><em>VPN</em> actions</h2>
