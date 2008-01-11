@@ -177,6 +177,7 @@
 	while ((ctxt = [en nextObject])) {
 		NSString *when = [NSString stringWithFormat:@"Arrival@%@", [ctxt uuid]];
 		NSDictionary *actionDict = [NSDictionary dictionaryWithObjectsAndKeys:
+			@"NetworkLocation", @"type",
 			[ctxt name], @"parameter",
 			NSLocalizedString(@"Set Network Location", @""), @"description",
 			[NSNumber numberWithFloat:0], @"delay",
