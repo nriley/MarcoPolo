@@ -588,8 +588,11 @@ finished_import:
 	Action *action = [actionSet actionWithName:[arg valueForKey:@"type"]];
 
 	NSString *errorString;
-	if (![action execute:arg error:&errorString])
+	if (![action execute:arg error:&errorString]) {
+		if (!errorString)
+			errorString = [NSString stringWithFormat:@"Badly behaved action: %@", [action name]];
 		[self doGrowl:NSLocalizedString(@"Failure", @"Growl message title") withMessage:errorString];
+	}
 
 	[pool release];
 }
