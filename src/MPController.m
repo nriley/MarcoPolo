@@ -264,6 +264,7 @@
 	NSDictionary *dict;
 	while ((dict = [en nextObject])) {
 		NSMutableDictionary *action = [NSMutableDictionary dictionaryWithDictionary:dict];
+		NSString *type = [action valueForKey:@"type"];
 		NSString *uuid = [action valueForKey:@"context"];
 		NSString *when = [action valueForKey:@"when"];
 		if ([when isEqualToString:@"Arrival"] || [when isEqualToString:@"Departure"]) {
@@ -278,6 +279,12 @@
 			++num_failed_actions;
 			continue;
 		}
+
+		if ([type isEqualToString:@"MailSMTPServer"]) {
+			NSString *oldParameter = [action valueForKey:@"parameter"];
+			[action setValue:[NSArray arrayWithObjects:@"*", oldParameter, nil] forKey:@"parameter"];
+		}
+
 		[action removeObjectForKey:@"context"];
 		[action removeObjectForKey:@"when"];
 		[newActions addObject:action];
