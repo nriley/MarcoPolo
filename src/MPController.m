@@ -53,6 +53,8 @@
 
 #define STATUS_BAR_LINGER	10	// seconds before disappearing from menu bar
 
+#define kMarcoPoloContextChangedNotification  @"MarcoPoloContextChanged"
+
 
 
 + (void)initialize
@@ -799,6 +801,15 @@ int compareDelay(id actionDict1, id actionDict2, void *context)
 	[self setValue:ctxt_path forKey:@"currentContextName"];
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ShowGuess"])
 		[self setStatusTitle:ctxt_path];
+
+	// Post distributed notification
+	NSDictionary *noteDict = [NSDictionary dictionaryWithObjectsAndKeys:
+				  [NSNumber numberWithInt:1], @"version",
+				  ctxt, @"context", nil];
+	[[NSDistributedNotificationCenter defaultCenter] postNotificationName:kMarcoPoloContextChangedNotification
+								       object:@"au.id.symonds.MarcoPolo3"
+								     userInfo:noteDict
+								      options:0];
 
 	// Update force context menu
 	NSMenu *menu = [forceContextMenuItem submenu];

@@ -1,0 +1,51 @@
+<html>
+<head>
+	<title>MarcoPolo External API</title>
+	<style type="text/css">
+		table {
+			border: 1px solid black;
+			margin: 1em;
+		}
+		th {
+			font-size: smaller;
+		}
+		th, td {
+			border: 1px solid black;
+			text-align: center;
+		}
+		dt {
+			font-style: italic;
+		}
+	</style>
+</head>
+<body>
+<h1>MarcoPolo External API</h1>
+<h2>15 February 2008</h2>
+
+<h3>Overview: Version 1</h3>
+<p>MarcoPolo has a simple API for external programs to interact with it via NSDistributedNotificationCenter.
+</p>
+
+<h3>Sent notifications</h3>
+<p>These are the notifications that are <em>posted by MarcoPolo</em>.</p>
+<dl>
+<dt>MarcoPoloContextChanged</dt>
+<dd>Posted when MarcoPolo changes context. Its userInfo dictionary looks like:
+<pre>
+{
+	version => 1,
+	context => {
+		name => "Home",
+		uuid => "78D2990E-CA45-2387-CE0A-1422BBA8AC8E",
+		parent => "44729938-FACE-09A9-117A-88ACFB23E8DC"
+	}
+}
+</pre>
+</dd>
+</dl>
+
+<h3>Received notifications</h3>
+<p>TODO</p>
+
+</body>
+</html>

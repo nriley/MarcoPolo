@@ -79,6 +79,7 @@
 		8D9AE3790BE0D11800D4D4E4 /* plus-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D9AE3780BE0D11800D4D4E4 /* plus-arrow.png */; };
 		8D9AE3A60BE0DA7E00D4D4E4 /* PopButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D9AE3A40BE0DA7E00D4D4E4 /* PopButton.m */; };
 		8D9F8E7C0D2B0E1600D626F5 /* AdiumAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D9F8E7A0D2B0E1600D626F5 /* AdiumAction.m */; };
+		8DAD69550D66B4810010966A /* API.html in Resources */ = {isa = PBXBuildFile; fileRef = 8DAD69540D66B4810010966A /* API.html */; };
 		8DB169C20D0FBC2200871B81 /* ActionWithFloat.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8DB169C10D0FBC2200871B81 /* ActionWithFloat.nib */; };
 		8DB169C70D0FBD3300871B81 /* ActionWithFloat.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DB169C50D0FBD3300871B81 /* ActionWithFloat.m */; };
 		8DB169E20D0FC4FB00871B81 /* OutputVolumeAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DB169E00D0FC4FB00871B81 /* OutputVolumeAction.m */; };
@@ -266,6 +267,7 @@
 		8D9F8E7A0D2B0E1600D626F5 /* AdiumAction.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = AdiumAction.m; path = src/AdiumAction.m; sourceTree = "<group>"; };
 		8DA2F4120CE8630200F92D4D /* DesktopBackgroundAction.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = DesktopBackgroundAction.h; path = src/DesktopBackgroundAction.h; sourceTree = "<group>"; };
 		8DA2F4130CE8630200F92D4D /* DesktopBackgroundAction.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = DesktopBackgroundAction.m; path = src/DesktopBackgroundAction.m; sourceTree = "<group>"; };
+		8DAD69540D66B4810010966A /* API.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = API.html; sourceTree = "<group>"; };
 		8DAEC7A60C62A7F00020BD5E /* LOCALISATION.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = LOCALISATION.html; sourceTree = "<group>"; wrapsLines = 1; };
 		8DB169C10D0FBC2200871B81 /* ActionWithFloat.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = ActionWithFloat.nib; path = Resources/ActionWithFloat.nib; sourceTree = "<group>"; };
 		8DB169C40D0FBD3300871B81 /* ActionWithFloat.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ActionWithFloat.h; path = src/ActionWithFloat.h; sourceTree = "<group>"; };
@@ -563,6 +565,7 @@
 				8D8B65A10B855DA1003870A1 /* NOTES.txt */,
 				8D14E1190BF3DADE00FDD12C /* HACKING.html */,
 				8DAEC7A60C62A7F00020BD5E /* LOCALISATION.html */,
+				8DAD69540D66B4810010966A /* API.html */,
 			);
 			name = Docs;
 			sourceTree = "<group>";
@@ -726,6 +729,7 @@
 				8D2470B50D0E4DC200AB4693 /* ActionWithString.nib in Resources */,
 				8D8E05070D0E5ACA003106ED /* ActionWithTwoLimitedOptions.nib in Resources */,
 				8DB169C20D0FBC2200871B81 /* ActionWithFloat.nib in Resources */,
+				8DAD69550D66B4810010966A /* API.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
