@@ -805,7 +805,7 @@ int compareDelay(id actionDict1, id actionDict2, void *context)
 	// Post distributed notification
 	NSDictionary *noteDict = [NSDictionary dictionaryWithObjectsAndKeys:
 				  [NSNumber numberWithInt:1], @"version",
-				  ctxt, @"context", nil];
+				  [ctxt dictionary], @"context", nil];
 	[[NSDistributedNotificationCenter defaultCenter] postNotificationName:kMarcoPoloContextChangedNotification
 								       object:@"au.id.symonds.MarcoPolo3"
 								     userInfo:noteDict
