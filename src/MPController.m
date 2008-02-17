@@ -53,7 +53,12 @@
 
 #define STATUS_BAR_LINGER	10	// seconds before disappearing from menu bar
 
-#define kMarcoPoloContextChangedNotification  @"MarcoPoloContextChanged"
+#define MARCOPOLO_API_VERSION	1
+#define kMarcoPoloCurrentContextNotification		@"MarcoPoloCurrentContext"
+#define kMarcoPoloAllContextsNotification		@"MarcoPoloAllContexts"
+
+#define kMarcoPoloQueryAllContextsNotification		@"MarcoPoloQueryAllContexts"
+#define kMarcoPoloQueryCurrentContextNotification	@"MarcoPoloQueryCurrentContext"
 
 
 
@@ -406,6 +411,16 @@ finished_import:
 						       userInfo:nil
 							repeats:NO];
 
+	// External API observers
+	[[NSDistributedNotificationCenter defaultCenter] addObserver:self
+							    selector:@selector(queryNotificationReceived:)
+								name:kMarcoPoloQueryAllContextsNotification
+							      object:nil];
+	[[NSDistributedNotificationCenter defaultCenter] addObserver:self
+							    selector:@selector(queryNotificationReceived:)
+								name:kMarcoPoloQueryCurrentContextNotification
+							      object:nil];
+
 	[NSApp unhide];
 }
 
@@ -517,6 +532,13 @@ finished_import:
 	}
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ShowGuess"])
 		[self setStatusTitle:[[ContextTree sharedInstance] pathFromRootTo:currentContextUUID]];
+
+	// Trigger distributed notification (indirectly)
+	[[NSDistributedNotificationCenter defaultCenter] postNotificationName:kMarcoPoloQueryAllContextsNotification
+								       object:@"au.id.symonds.MarcoPolo3"
+								     userInfo:nil
+								      options:0];
+	// XXX: should we also broadcast the current context at this point, too?
 
 	// update other stuff?
 }
@@ -802,11 +824,11 @@ int compareDelay(id actionDict1, id actionDict2, void *context)
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ShowGuess"])
 		[self setStatusTitle:ctxt_path];
 
-	// Post distributed notification
+	// Post distributed notification (indirectly)
 	NSDictionary *noteDict = [NSDictionary dictionaryWithObjectsAndKeys:
-				  [NSNumber numberWithInt:1], @"version",
+				  [NSNumber numberWithInt:MARCOPOLO_API_VERSION], @"version",
 				  [ctxt dictionary], @"context", nil];
-	[[NSDistributedNotificationCenter defaultCenter] postNotificationName:kMarcoPoloContextChangedNotification
+	[[NSDistributedNotificationCenter defaultCenter] postNotificationName:kMarcoPoloCurrentContextNotification
 								       object:@"au.id.symonds.MarcoPolo3"
 								     userInfo:noteDict
 								      options:0];
@@ -1113,6 +1135,46 @@ int compareDelay(id actionDict1, id actionDict2, void *context)
 
 	// Check that the running evidence sources match the defaults
 	[evidenceSources startOrStopAll];
+}
+
+#pragma mark Distributed notifications (external API)
+
+- (void)queryNotificationReceived:(NSNotification *)notification
+{
+#ifdef DEBUG_MODE
+	NSLog(@"Received a '%@' query.", [notification name]);
+#endif
+
+	if ([[notification name] isEqualToString:kMarcoPoloQueryAllContextsNotification]) {
+		NSArray *rawContexts = [contextTree orderedTraversal];
+		NSMutableArray *contextList = [NSMutableArray arrayWithCapacity:[rawContexts count]];
+		NSEnumerator *en = [rawContexts objectEnumerator];
+		Context *ctxt;
+		while ((ctxt = [en nextObject]))
+			[contextList addObject:[ctxt dictionary]];
+		NSDictionary *noteDict = [NSDictionary dictionaryWithObjectsAndKeys:
+					  [NSNumber numberWithInt:MARCOPOLO_API_VERSION], @"version",
+					  contextList, @"contexts", nil];
+		[[NSDistributedNotificationCenter defaultCenter] postNotificationName:kMarcoPoloAllContextsNotification
+									       object:@"au.id.symonds.MarcoPolo3"
+									     userInfo:noteDict
+									      options:0];
+		return;
+	}
+
+	if ([[notification name] isEqualToString:kMarcoPoloQueryCurrentContextNotification]) {
+		Context *ctxt = [contextTree contextByUUID:currentContextUUID];
+		NSDictionary *noteDict = [NSDictionary dictionaryWithObjectsAndKeys:
+					  [NSNumber numberWithInt:MARCOPOLO_API_VERSION], @"version",
+					  [ctxt dictionary], @"context", nil];
+		[[NSDistributedNotificationCenter defaultCenter] postNotificationName:kMarcoPoloCurrentContextNotification
+									       object:@"au.id.symonds.MarcoPolo3"
+									     userInfo:noteDict
+									      options:0];
+		return;
+	}
+
+	NSLog(@"WARNING: Unknown query notification '%@'.", [notification name]);
 }
 
 @end

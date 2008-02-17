@@ -20,7 +20,7 @@
 </head>
 <body>
 <h1>MarcoPolo External API</h1>
-<h2>15 February 2008</h2>
+<h2>16 February 2008</h2>
 
 <h3>Overview: Version 1</h3>
 <p>MarcoPolo has a simple API for external programs to interact with it via NSDistributedNotificationCenter.
@@ -29,8 +29,29 @@
 <h3>Sent notifications</h3>
 <p>These are the notifications that are <em>posted by MarcoPolo</em>.</p>
 <dl>
-<dt>MarcoPoloContextChanged</dt>
-<dd>Posted when MarcoPolo changes context. Its userInfo dictionary looks like:
+<dt>MarcoPoloAllContexts</dt>
+<dd>Posted when MarcoPolo context details change, and some other cases. Its userInfo dictionary looks like:
+<pre>
+{
+	version => 1,
+	contexts => (
+		{
+			name => "Desk",
+			uuid => "44729938-FACE-09A9-117A-88ACFB23E8DC"
+			parent => "78D2990E-CA45-2387-CE0A-1422BBA8AC8E",
+		},
+		{
+			name => "Work",
+			uuid => "78D2990E-CA45-2387-CE0A-1422BBA8AC8E",
+			parent => ""
+		}
+	)
+}
+</pre>
+</dd>
+<dt>MarcoPoloCurrentContext</dt>
+<dd>Posted when MarcoPolo changes context, and some other cases. It indicates what the current context is.
+Its userInfo dictionary looks like:
 <pre>
 {
 	version => 1,
@@ -45,7 +66,14 @@
 </dl>
 
 <h3>Received notifications</h3>
-<p>TODO</p>
+<p>These are the notifications that are <em>observered by MarcoPolo</em>,
+and usually cause MarcoPolo to post one of the above sent notifications.</p>
+<dl>
+<dt>MarcoPoloQueryAllContexts</dt>
+<dd>Triggers MarcoPolo to post a <em>MarcoPoloAllContexts</em> notification.</dd>
+<dt>MarcoPoloQueryCurrentContext</dt>
+<dd>Triggers MarcoPolo to post a <em>MarcoPoloCurrentContext</em> notification.</dd>
+</dl>
 
 </body>
 </html>
