@@ -52,6 +52,7 @@
 @implementation MPController
 
 #define STATUS_BAR_LINGER	10	// seconds before disappearing from menu bar
+#define STATUS_BAR_MARGIN	8	// total margin (left + right) either side of icon
 
 #define MARCOPOLO_API_VERSION	1
 #define kMarcoPoloCurrentContextNotification		@"MarcoPoloCurrentContext"
@@ -430,6 +431,7 @@ finished_import:
 		return;
 	if (!title) {
 		[sbItem setTitle:nil];
+		[sbItem setLength:([sbImageActive size].width + STATUS_BAR_MARGIN)];
 		return;
 	}
 
@@ -438,6 +440,7 @@ finished_import:
 	NSDictionary *attrs = [NSDictionary dictionaryWithObject:font
 							  forKey:NSFontAttributeName];
 	NSAttributedString *as = [[NSAttributedString alloc] initWithString:title attributes:attrs];
+	[sbItem setLength:NSVariableStatusItemLength];
 	[sbItem setAttributedTitle:[as autorelease]];
 }
 
@@ -449,7 +452,7 @@ finished_import:
 		[sbItem release];
 	}
 
-	sbItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
+	sbItem = [[NSStatusBar systemStatusBar] statusItemWithLength:([sbImageActive size].width + STATUS_BAR_MARGIN)];
 	[sbItem retain];
 	[sbItem setHighlightMode:YES];
 	[sbItem setImage:(guessIsConfident ? sbImageActive : sbImageInactive)];
