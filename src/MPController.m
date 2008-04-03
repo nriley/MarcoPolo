@@ -474,6 +474,12 @@ finished_import:
 {
 	float pri = 0;
 
+	// Safety. This *really* shouldn't happen.
+	if (!title)
+		title = @"(No Title)";
+	if (!message)
+		title = @"(No Message)";
+
 	if ([title isEqualToString:@"Failure"])
 		pri = 1;
 
