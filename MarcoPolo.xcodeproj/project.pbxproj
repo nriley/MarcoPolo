@@ -91,7 +91,6 @@
 		8DBF72CF0CFD4CA900F2A18B /* ScreenSaverTimeAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DE4EE450C4B2A6F00A5B559 /* ScreenSaverTimeAction.m */; };
 		8DBF72DD0CFD4EF300F2A18B /* VPNAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D643DDB0C4F1F0D006D8ECC /* VPNAction.m */; };
 		8DC410FB0C64665E00393759 /* AboutPanel.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8DC410FA0C64665E00393759 /* AboutPanel.nib */; };
-		8DC72FB30CDD6541005352E8 /* NSCoreSuite.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 8DC72FAC0CDD6541005352E8 /* NSCoreSuite.sdef */; };
 		8DCABF7A0D0268730044D0BC /* TimeZoneAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DCABF780D0268730044D0BC /* TimeZoneAction.m */; };
 		8DCC52120C42106D00515041 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D1107310486CEB800E47090 /* Info.plist */; };
 		8DCDC18F0D0E41850026AD93 /* ActionWithLimitedOptions.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8DCDC18E0D0E41850026AD93 /* ActionWithLimitedOptions.nib */; };
@@ -174,7 +173,7 @@
 		8D27ECAE0C4456A300AE1929 /* AudioOutputEvidenceSource.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = AudioOutputEvidenceSource.m; path = src/AudioOutputEvidenceSource.m; sourceTree = "<group>"; };
 		8D2BAAAA0C56E26100A50777 /* NetworkLinkEvidenceSource.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = NetworkLinkEvidenceSource.h; path = src/NetworkLinkEvidenceSource.h; sourceTree = "<group>"; };
 		8D2BAAAB0C56E26100A50777 /* NetworkLinkEvidenceSource.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = NetworkLinkEvidenceSource.m; path = src/NetworkLinkEvidenceSource.m; sourceTree = "<group>"; };
-		8D341CBA0CDAF94B000B9A53 /* MarcoPolo.sdef */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.sdef; name = MarcoPolo.sdef; path = Resources/MarcoPolo.sdef; sourceTree = "<group>"; };
+		8D341CBA0CDAF94B000B9A53 /* MarcoPolo.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.sdef; name = MarcoPolo.sdef; path = Resources/MarcoPolo.sdef; sourceTree = "<group>"; };
 		8D341CD00C0459D0008A7B4F /* RunningApplicationEvidenceSource.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = RunningApplicationEvidenceSource.h; path = src/RunningApplicationEvidenceSource.h; sourceTree = "<group>"; };
 		8D341CD10C0459D0008A7B4F /* RunningApplicationEvidenceSource.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = RunningApplicationEvidenceSource.m; path = src/RunningApplicationEvidenceSource.m; sourceTree = "<group>"; };
 		8D341D1F0CDB0896000B9A53 /* MPApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPApplication.h; path = src/MPApplication.h; sourceTree = "<group>"; };
@@ -286,7 +285,6 @@
 		8DC410FA0C64665E00393759 /* AboutPanel.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = AboutPanel.nib; path = Resources/AboutPanel.nib; sourceTree = "<group>"; };
 		8DC4E7F80C178917007E7E41 /* MuteAction.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = MuteAction.h; path = src/MuteAction.h; sourceTree = "<group>"; };
 		8DC4E7F90C178917007E7E41 /* MuteAction.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = MuteAction.m; path = src/MuteAction.m; sourceTree = "<group>"; };
-		8DC72FAC0CDD6541005352E8 /* NSCoreSuite.sdef */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.sdef; name = NSCoreSuite.sdef; path = Resources/NSCoreSuite.sdef; sourceTree = "<group>"; };
 		8DCABF770D0268730044D0BC /* TimeZoneAction.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TimeZoneAction.h; path = src/TimeZoneAction.h; sourceTree = "<group>"; };
 		8DCABF780D0268730044D0BC /* TimeZoneAction.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = TimeZoneAction.m; path = src/TimeZoneAction.m; sourceTree = "<group>"; };
 		8DCB43550C4DBABD00E71D28 /* FirewallRuleAction.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = FirewallRuleAction.h; path = src/FirewallRuleAction.h; sourceTree = "<group>"; };
@@ -437,7 +435,6 @@
 				8D2470B40D0E4DC200AB4693 /* ActionWithString.nib */,
 				8DCDC18E0D0E41850026AD93 /* ActionWithLimitedOptions.nib */,
 				8D5C79530D08FA7A001EC10E /* ActionWithBool.nib */,
-				8DC72FAC0CDD6541005352E8 /* NSCoreSuite.sdef */,
 				8D341CBA0CDAF94B000B9A53 /* MarcoPolo.sdef */,
 				8DD15A680C9CD5C7008EBFB3 /* mp-icon-inactive.png */,
 				8DC410FA0C64665E00393759 /* AboutPanel.nib */,
@@ -725,7 +722,6 @@
 				8D3B008E0C620E4A00B9B910 /* Credits.html in Resources */,
 				8DC410FB0C64665E00393759 /* AboutPanel.nib in Resources */,
 				8DD15A690C9CD5C7008EBFB3 /* mp-icon-inactive.png in Resources */,
-				8DC72FB30CDD6541005352E8 /* NSCoreSuite.sdef in Resources */,
 				8D969EC10CDD70190077B9CF /* MarcoPolo.sdef in Resources */,
 				8D5C79540D08FA7A001EC10E /* ActionWithBool.nib in Resources */,
 				8DCDC18F0D0E41850026AD93 /* ActionWithLimitedOptions.nib in Resources */,

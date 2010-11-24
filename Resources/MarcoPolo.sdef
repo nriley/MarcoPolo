@@ -2,16 +2,23 @@
 <!DOCTYPE dictionary SYSTEM "file://localhost/System/Library/DTDs/sdef.dtd">
 <dictionary title="MarcoPolo Terminology">
 	<suite name="MarcoPolo Suite" code="MaPo" description="MarcoPolo information.">
-		<class name="application" code="capp">
-			<cocoa class="MPApplication" />
-			<property name="current_context" code="ccxt" type="context" access="r">
-				<cocoa key="currentContext" />
+		<class name="application" code="capp" description="The MarcoPolo application.">
+			<cocoa class="MPApplication"/>
+			<element description="Available MarcoPolo contexts." type="context" access="r">
+				<accessor style="id"/>
+			</element>
+			<property name="current context" code="CCtx" description="The currently selected context." type="context" access="r">
+				<cocoa key="currentContext"/>
 			</property>
 		</class>
-		<class name="context" code="Ccxt" description="MarcoPolo context">
-			<cocoa class="Context" />
-			<property name="name" code="name" type="text" access="r" />
-			<property name="uuid" code="uuid" type="text" access="r" />
+		<class name="context" code="Ctxt" description="MarcoPolo context">
+			<cocoa class="Context"/>
+			<property name="name" code="pnam" description="The context’s name." type="text" access="r">
+				<cocoa key="name"/>
+			</property>
+			<property name="id" code="ID  " description="The context’s UUID." type="text" access="r">
+				<cocoa key="uuid"/>
+			</property>
 		</class>
 	</suite>
 </dictionary>

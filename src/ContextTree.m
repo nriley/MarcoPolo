@@ -111,6 +111,13 @@
 	return indexPath;
 }
 
+- (NSScriptObjectSpecifier *)objectSpecifier;
+{
+    NSScriptClassDescription *appDescription = (NSScriptClassDescription *)[NSApp classDescription];
+    return [[[NSUniqueIDSpecifier alloc]
+             initWithContainerClassDescription:appDescription containerSpecifier:[NSApp objectSpecifier] key:@"contexts" uniqueID:uuid] autorelease];
+}
+
 @end
 
 #pragma mark -
